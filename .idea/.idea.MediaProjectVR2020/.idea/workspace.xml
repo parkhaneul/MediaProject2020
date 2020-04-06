@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6cb29b49-35cd-46a4-80d5-c8f6df56f6c7" name="Default Changelist" comment="" />
@@ -20,8 +20,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/ControllerManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/CharacterAction.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/InputController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/CharacterAction.cs" />
       </list>
     </option>
   </component>
@@ -71,6 +71,7 @@
       <option name="presentableId" value="Default" />
       <updated>1586095494268</updated>
       <workItem from="1586095497881" duration="12885000" />
+      <workItem from="1586167590747" duration="41000" />
     </task>
     <servers />
   </component>
@@ -84,7 +85,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

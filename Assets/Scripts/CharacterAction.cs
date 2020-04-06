@@ -14,8 +14,6 @@ public class CharacterAction : MonoBehaviour
     public void turn(Point point)
     {
         var lookAtVector = this.transform.position + new Vector3(point.x, point.y, point.z) * speed;
-        
-        //Debug.Log(lookAtVector);
         this.gameObject.transform.LookAt(lookAtVector);
     }
 
