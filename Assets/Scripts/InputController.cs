@@ -44,6 +44,7 @@ public class InputController
     private int _uid;
     public event EventHandler<KeyEventArgs<Point>> moveEvent;
     public event EventHandler<KeyEventArgs<Boolean>> actionEvent;
+    public event EventHandler<KeyEventArgs<Boolean>> noInputEvent;
     
     private Repeater _key = new Repeater("Horizontal","","Vertical");
     private Repeater _action = new Repeater("Fire1");
@@ -72,6 +73,11 @@ public class InputController
             {
                 actionEvent(this, new KeyEventArgs<bool>(_uid,a));
             }
+        }
+
+        if (k == null && a == false)
+        {
+            noInputEvent(this,new KeyEventArgs<bool>(_uid,false));
         }
     }
 }
