@@ -24,15 +24,21 @@ public class CharacterAction : MonoBehaviour
 {
     public Animator animator;
     public float moveSpeed;
-    private bool canMove;
+    
+    private PlayerState _state;
+    private bool _canMove;
 
     public void move(Point point)
     {
-        if (canMove)
+        if(_canMove)
         {
             run();
             turn(point);
             this.gameObject.transform.position += this.gameObject.transform.forward * moveSpeed;
+        }
+        else
+        {
+            return;
         }
     }
 
@@ -44,17 +50,25 @@ public class CharacterAction : MonoBehaviour
 
     public void run()
     {
-        changeAnimation(PlayerState.Running);
+        if (_state != PlayerState.Running)
+        {
+            changeAnimation(PlayerState.Running);
+        }
     }
     public void action(bool action)
     {
-        changeAnimation(PlayerState.Smash);
+        if (_state != PlayerState.Smash)
+        {
+            changeAnimation(PlayerState.Smash);
+        }
     }
 
     public void stop()
     {
-        if(animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.5f)
+        if (_state != PlayerState.Idle)
+        {
             changeAnimation(PlayerState.Idle);
+        }
     }
 
     private void changeAnimation(PlayerState animation)
@@ -62,7 +76,7 @@ public class CharacterAction : MonoBehaviour
         switch (animation)
         {
             case PlayerState.Idle :
-                canMove = true;
+                _canMove = true;
                 animator.SetBool(PlayerStateStiring.isMove,false);
                 animator.SetBool(PlayerStateStiring.isSmash, false);
                 break;
@@ -76,9 +90,11 @@ public class CharacterAction : MonoBehaviour
                 animator.SetBool(PlayerStateStiring.isMove,false);
                 break;
             case PlayerState.Smash:
-                canMove = false;
+                _canMove = false;
                 animator.SetBool(PlayerStateStiring.isSmash,true);
                 break;
         }
+
+        _state = animation;
     }
 }
