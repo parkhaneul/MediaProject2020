@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class ControllerManager : MonoBehaviour
@@ -34,6 +35,7 @@ public class ControllerManager : MonoBehaviour
         {
             controller.moveEvent += onMoveEvent;
             controller.actionEvent += onActionEvent;
+            controller.noInputEvent += onNoInputEvent;
         }
     }
 
@@ -43,6 +45,7 @@ public class ControllerManager : MonoBehaviour
         {
             controller.moveEvent -= onMoveEvent;
             controller.actionEvent -= onActionEvent;
+            controller.noInputEvent -= onNoInputEvent;
         }
         controllers = null;
     }
@@ -51,7 +54,6 @@ public class ControllerManager : MonoBehaviour
     {
         var unit = GameObject.Instantiate(testUnit);
         unit.SetActive(true);
-        
         unitList.Add(uid,unit);
     }
 
@@ -66,6 +68,20 @@ public class ControllerManager : MonoBehaviour
     void addController(InputController ic)
     {
         controllers.Add(ic);
+    }
+
+    public void onNoInputEvent(object sender, KeyEventArgs<Boolean> e)
+    {
+        if (unitList.ContainsKey(e.uid) == false)
+        {
+            Debug.Log(e.uid + " unit lost");
+        }
+        else
+        {
+            GameObject unit;
+            unitList.TryGetValue(e.uid,out unit);
+            unit.GetComponent<CharacterAction>().stop();
+        }
     }
 
     public void onMoveEvent(object sender, KeyEventArgs<Point> e)
@@ -84,6 +100,15 @@ public class ControllerManager : MonoBehaviour
 
     public void onActionEvent(object sender, KeyEventArgs<Boolean> e)
     {
-        Debug.Log(e.uid + " action : " + e.value);
+        if (unitList.ContainsKey(e.uid) == false)
+        {
+            Debug.Log(e.uid + " unit lost");
+        }
+        else
+        {
+            GameObject unit;
+            unitList.TryGetValue(e.uid,out unit);
+            unit.GetComponent<CharacterAction>().action(e.value);
+        }
     }
 }
