@@ -25,7 +25,6 @@ public class Interactable : MonoBehaviour
         effectManager.BlinkEffect(gameObject);
         effectManager.ShakeEffect(gameObject);
 
-        Debug.Log(gameObject.name + " : Damaged");
         if(--durability <= 0)
         {
             OnDestroy();
@@ -34,12 +33,30 @@ public class Interactable : MonoBehaviour
 
     public virtual void OnDestroy() 
     {
-        Debug.Log(gameObject.name + " : Destroyed");
+        //Debug.Log(gameObject.name + " : Destroyed");
     }
 
     protected virtual void OnSpawnItem()
     {
-        Debug.Log(gameObject.name + " : SpawnItem");
+        //Debug.Log(gameObject.name + " : SpawnItem");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        CharacterAction characterAction = other.GetComponent<CharacterAction>();
+        if (characterAction != null)
+        {
+            characterAction.interactables.Add(this);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        CharacterAction characterAction = other.GetComponent<CharacterAction>();
+        if (characterAction != null)
+        {
+            characterAction.interactables.Remove(this);
+        }
     }
 
     private Item GetRandomItemToSpawn()
@@ -48,4 +65,5 @@ public class Interactable : MonoBehaviour
             return dropItems[Random.Range(0, dropItems.Count)];
         return null;
     }
+
 }
