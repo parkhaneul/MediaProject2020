@@ -84,7 +84,6 @@ public class EffectManager : MonoBehaviour //ToDo : If it possible, make this st
 
     private IEnumerator ShakeGameObject(GameObject target, float time, float speed, float amount)
     {
-        Debug.Log("Shake");
         Vector3 originalPos = target.transform.position;
         float startTime =Time.time;
         while(Time.time - startTime < time)
