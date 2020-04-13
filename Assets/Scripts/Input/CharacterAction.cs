@@ -22,11 +22,17 @@ public class PlayerStateStiring
 
 public class CharacterAction : MonoBehaviour
 {
+    public List<Interactable> interactables;
     public Animator animator;
     public float moveSpeed;
     
     private PlayerState _state;
     private bool _canMove;
+
+    public CharacterAction()
+    {
+        interactables = new List<Interactable>();
+    }
 
     public void move(Point point)
     {
@@ -60,6 +66,10 @@ public class CharacterAction : MonoBehaviour
         if (_state != PlayerState.Smash)
         {
             changeAnimation(PlayerState.Smash);
+            foreach(var interactable in interactables)
+            {
+                interactable.OnDamage();
+            }
         }
     }
 
