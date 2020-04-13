@@ -80,7 +80,7 @@ public class ControllerManager : MonoBehaviour
         {
             GameObject unit;
             unitList.TryGetValue(e.uid,out unit);
-            unit.GetComponent<CharacterAction>().stop();
+            //unit.GetComponent<CharacterAction>().stop();
         }
     }
 

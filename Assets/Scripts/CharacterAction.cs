@@ -26,20 +26,12 @@ public class CharacterAction : MonoBehaviour
     public float moveSpeed;
     
     private PlayerState _state;
-    private bool _canMove;
-
+    
     public void move(Point point)
     {
-        if(_canMove)
-        {
-            run();
-            turn(point);
-            this.gameObject.transform.position += this.gameObject.transform.forward * moveSpeed;
-        }
-        else
-        {
-            return;
-        }
+        run();
+        turn(point);
+        this.gameObject.transform.position += this.gameObject.transform.forward * moveSpeed;
     }
 
     public void turn(Point point)
@@ -50,25 +42,11 @@ public class CharacterAction : MonoBehaviour
 
     public void run()
     {
-        if (_state != PlayerState.Running)
-        {
-            changeAnimation(PlayerState.Running);
-        }
+        changeAnimation(PlayerState.Running);
     }
     public void action(bool action)
     {
-        if (_state != PlayerState.Smash)
-        {
-            changeAnimation(PlayerState.Smash);
-        }
-    }
-
-    public void stop()
-    {
-        if (_state != PlayerState.Idle)
-        {
-            changeAnimation(PlayerState.Idle);
-        }
+        changeAnimation(PlayerState.Smash);
     }
 
     private void changeAnimation(PlayerState animation)
@@ -76,22 +54,17 @@ public class CharacterAction : MonoBehaviour
         switch (animation)
         {
             case PlayerState.Idle :
-                _canMove = true;
-                animator.SetBool(PlayerStateStiring.isMove,false);
-                animator.SetBool(PlayerStateStiring.isSmash, false);
                 break;
             case PlayerState.Running :
-                animator.SetBool(PlayerStateStiring.isMove,true);
+                animator.SetTrigger(PlayerStateStiring.isMove);
                 break;
             case PlayerState.Carry:
-                animator.SetBool(PlayerStateStiring.isCarry,true);
+                animator.SetTrigger(PlayerStateStiring.isCarry);
                 break;
             case PlayerState.UnCarry:
-                animator.SetBool(PlayerStateStiring.isMove,false);
                 break;
             case PlayerState.Smash:
-                _canMove = false;
-                animator.SetBool(PlayerStateStiring.isSmash,true);
+                animator.SetTrigger(PlayerStateStiring.isSmash);
                 break;
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class KeyEventArgs<T> : EventArgs
@@ -46,8 +47,8 @@ public class InputController
     public event EventHandler<KeyEventArgs<Boolean>> actionEvent;
     public event EventHandler<KeyEventArgs<Boolean>> noInputEvent;
     
-    private Repeater _key = new Repeater("Horizontal","","Vertical");
-    private Repeater _action = new Repeater("Fire1");
+    private Repeater _key = new Repeater(0.05f,0.025f,"Horizontal","","Vertical");
+    private Repeater _action = new Repeater(0.2f,0.1f,"Fire1");
     
     public InputController(int uid)
     {
@@ -77,64 +78,87 @@ public class InputController
 
         if (k == null && a == false)
         {
-            noInputEvent(this,new KeyEventArgs<bool>(_uid,false));
+            //noInputEvent(this,new KeyEventArgs<bool>(_uid,false));
         }
     }
 }
 
 public class Repeater
 {
-    private const float threshold = 0.1f;
-    private const float rate = 0.05f;
-    private float _next;
-    private bool _hold;
+    private float threshold;
+    private float rate;
+    private float[] _next;
+    private bool[] _hold;
     private string[] _axisArray;
     
-    public Repeater(params string[] axisNames)
+    public Repeater(float threshold = 0.2f, float rate = 0.1f, params string[] axisNames)
     {
+        this.threshold = threshold;
+        this.rate = rate;
         _axisArray = axisNames;
+        
+        _next = new float[_axisArray.Length];
+        _hold = new bool[_axisArray.Length];
     }
 
     public bool getBoolean()
     {
-        bool returnValue = false;
-        if (_axisArray.Length == 1)
-        {
-            float value = Input.GetAxisRaw(_axisArray.First());
-            returnValue = value > 0;
-        }
-        return returnValue;
+        float[] returnValue = tikTimeCheck(0);
+        
+        return returnValue[0] > 0;
     }
 
     public Point getPoint()
     {
-        float xValue = Input.GetAxisRaw(_axisArray[0]);
-        float zValue = Input.GetAxisRaw(_axisArray[2]);
+        float[] returnValue = tikTimeCheck(0, 1, 2);
+        float xValue = returnValue[0];
+        float zValue = returnValue[2];
 
-        if (xValue == 0 && zValue == 0)
-            return null;
-        
-        return new Point(xValue,0,zValue);
+        if(xValue != 0 || zValue != 0)
+            return new Point(xValue,0,zValue);
+
+        return null;
     }
 
-    public float getValue(float value)
+    /// <summary>
+    /// 입력 Value는 Index임
+    /// Index에 따라서 _next, _hold를 별도로 관리하기 위함임.
+    /// </summary>
+    /// <param name="values">_axisIndex</param>
+    /// <returns></returns>
+    public float[] tikTimeCheck(params int[] values)
     {
-        float returnValue = 0;
-        
-        if (value != 0)
-        {
-            if (Time.time > _next)
-            {
-                returnValue = value;
+        if(values.Length != _axisArray.Length)
+            Logger.LogError("Repeater Value Error");
 
-                _next = Time.time + (_hold ? rate : threshold);
-                _hold = true;
-            }
-        }
-        else
+        float[] returnValue = new float[_axisArray.Length]; 
+        
+        foreach (var value in values)
         {
-            _hold = false;
-            _next = 0;
+            try
+            {
+                var getValue = Input.GetAxisRaw(_axisArray[value]);
+
+                if (getValue != 0)
+                {
+                    if (Time.time > _next[value])
+                    {
+                        returnValue[value] = getValue;
+                        _next[value] = Time.time + (_hold[value] ? rate : threshold);
+                        _hold[value] = true;
+                    }
+                }
+                else
+                {
+                    returnValue[value] = 0;
+                    _hold[value] = false;
+                    _next[value] = 0;
+                }
+            }
+            catch (ArgumentException e)
+            {
+                //무시
+            }
         }
 
         return returnValue;
