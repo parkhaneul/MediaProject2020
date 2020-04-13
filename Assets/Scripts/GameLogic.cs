@@ -30,20 +30,22 @@ public abstract class BasicLogic : GameLogic
 
 public class TimeLogic : BasicLogic
 {
-    private float LimitTime; //제한 시간
-    private float currentTime; //제한 시간 중 남은 시간
+    private float _limitTime; //제한 시간
+    private float _currentTime; //제한 시간 중 남은 시간
+
+    private const float _zeroTime = 0f;
     
     public TimeLogic(float time)
     {
-        LimitTime = time;
-        currentTime = time;
+        _limitTime = time;
+        _currentTime = time;
     }
 
     public void countDownTik()
     {
-        currentTime -= Time.deltaTime;
+        _currentTime -= Time.deltaTime;
 
-        if (currentTime < 0f)
+        if (_currentTime < _zeroTime)
         {
             Logger.LogError("TimeOver");
             stop();
@@ -57,8 +59,8 @@ public class TimeLogic : BasicLogic
 
     public void addTime(float time)
     {
-        currentTime += time;
-        if (currentTime > LimitTime)
-            currentTime = LimitTime;
+        _currentTime += time;
+        if (_currentTime > _limitTime)
+            _currentTime = _limitTime;
     }
 }
