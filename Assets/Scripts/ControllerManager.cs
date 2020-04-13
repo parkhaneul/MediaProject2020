@@ -74,7 +74,7 @@ public class ControllerManager : MonoBehaviour
     {
         if (unitList.ContainsKey(e.uid) == false)
         {
-            Debug.Log(e.uid + " unit lost");
+            Logger.Log(e.uid + " unit lost");
         }
         else
         {
@@ -88,7 +88,7 @@ public class ControllerManager : MonoBehaviour
     {
         if (unitList.ContainsKey(e.uid) == false)
         {
-            Debug.Log(e.uid + " unit lost");
+            Logger.Log(e.uid + " unit lost");
         }
         else
         {
@@ -102,7 +102,7 @@ public class ControllerManager : MonoBehaviour
     {
         if (unitList.ContainsKey(e.uid) == false)
         {
-            Debug.Log(e.uid + " unit lost");
+            Logger.Log(e.uid + " unit lost");
         }
         else
         {

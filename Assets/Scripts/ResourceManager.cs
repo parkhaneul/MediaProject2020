@@ -48,7 +48,7 @@ public class ResourceManager
 
         if (values.Length == 0)
         {
-            Logger.LogWarning("ResourceManager Error",);
+            Logger.LogWarning("ResourceManager Error");
             return false;
         }
 

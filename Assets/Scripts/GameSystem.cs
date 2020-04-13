@@ -102,7 +102,7 @@ public class TimeLogic : BasicLogic
 
         if (currentTime < 0f)
         {
-            Debug.Log("TimeOver");
+            Logger.LogError("TimeOver");
             stop();
         }
     }
