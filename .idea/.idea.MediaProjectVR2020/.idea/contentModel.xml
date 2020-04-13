@@ -11,6 +11,8 @@
           <e p="ControllerManager.cs" t="Include" />
           <e p="GameSystem.cs" t="Include" />
           <e p="InputController.cs" t="Include" />
+          <e p="Logger.cs" t="Include" />
+          <e p="ResourceManager.cs" t="Include" />
         </e>
       </e>
       <e p="MediaProjectVR2020.sln" t="IncludeFlat" />

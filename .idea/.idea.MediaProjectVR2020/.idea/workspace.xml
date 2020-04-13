@@ -16,6 +16,8 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CharacterAction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ControllerManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Logger.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ResourceManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -25,6 +27,8 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/ControllerManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/CharacterAction.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ResourceManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Logger.cs" />
       </list>
     </option>
   </component>
@@ -79,6 +83,7 @@
       <workItem from="1586313504413" duration="8863000" />
       <workItem from="1586598088637" duration="942000" />
       <workItem from="1586694774257" duration="2333000" />
+      <workItem from="1586741840935" duration="2686000" />
     </task>
     <servers />
   </component>
