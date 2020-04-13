@@ -12,12 +12,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerStateMachineScript.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameLogic.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/InputController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CharacterAction.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameSystem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ControllerManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerStateMachineObservables.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Logger.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ResourceManager.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -28,10 +28,11 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Logger.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ResourceManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/InputController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/ControllerManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/CharacterAction.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerStateMachineScript.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerStateMachineObservables.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/CharacterAction.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ControllerManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/InputController.cs" />
       </list>
     </option>
   </component>

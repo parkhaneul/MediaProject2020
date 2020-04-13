@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
+using UniRx;
 using UnityEngine;
 
 public enum PlayerState
@@ -13,7 +14,7 @@ public enum PlayerState
     Smash,
 }
 
-public class PlayerStateStiring
+public class PlayerStateString
 {
     public const string isMove = "IsMove";
     public const string isCarry = "IsCarry";
@@ -24,9 +25,33 @@ public class CharacterAction : MonoBehaviour
 {
     public Animator animator;
     public float moveSpeed;
-    
-    private PlayerState _state;
-    
+
+    private PlayerStateMachineObservables _playerStateMachineObservables;
+
+    public void Start()
+    {
+        _playerStateMachineObservables = animator.GetBehaviour<PlayerStateMachineObservables>();
+
+        _playerStateMachineObservables
+            .OnStateEnterObservable
+            .Throttle(TimeSpan.FromSeconds(1))
+            .Where(x => x.IsName("Base Layer.Smash"))
+            .Subscribe(_ =>
+            {
+                animator.SetBool(PlayerStateString.isSmash, false);
+            })
+            .AddTo(this);
+
+        _playerStateMachineObservables
+            .OnStateEnterObservable
+            .Where(x => x.IsName("Base Layer.Running"))
+            .Subscribe(_ =>
+            {
+                animator.SetBool(PlayerStateString.isMove,false);
+            })
+            .AddTo(this);
+    }
+
     public void move(Point point)
     {
         run();
@@ -42,32 +67,11 @@ public class CharacterAction : MonoBehaviour
 
     public void run()
     {
-        changeAnimation(PlayerState.Running);
-    }
-    public void action(bool action)
-    {
-        changeAnimation(PlayerState.Smash);
+        animator.SetBool(PlayerStateString.isMove,true);
     }
 
-    private void changeAnimation(PlayerState animation)
+    public void action(bool value)
     {
-        switch (animation)
-        {
-            case PlayerState.Idle :
-                break;
-            case PlayerState.Running :
-                animator.SetTrigger(PlayerStateStiring.isMove);
-                break;
-            case PlayerState.Carry:
-                animator.SetTrigger(PlayerStateStiring.isCarry);
-                break;
-            case PlayerState.UnCarry:
-                break;
-            case PlayerState.Smash:
-                animator.SetTrigger(PlayerStateStiring.isSmash);
-                break;
-        }
-
-        _state = animation;
+        animator.SetBool(PlayerStateString.isSmash,true);
     }
 }

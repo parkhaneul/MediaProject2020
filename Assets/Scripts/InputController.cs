@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 public class KeyEventArgs<T> : EventArgs
@@ -40,6 +39,42 @@ public class Point
     }
 }
 
+public class InputObservableController
+{
+    private int _uid;
+    public event EventHandler<KeyEventArgs<Point>> moveEvent;
+    public event EventHandler<KeyEventArgs<Boolean>> actionEvent;
+    
+    public InputObservableController(int uid,GameObject parent)
+    {
+        this._uid = uid;
+
+        var _input = parent.UpdateAsObservable()
+            .Where(_ => Input.anyKey);
+
+        Observable.Timer(TimeSpan.Zero, TimeSpan.FromMilliseconds(200))
+            .SkipUntil(_input)
+            .TakeWhile(_ => Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+            .Repeat()
+            .Select(_ => new Point(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")))
+            .Subscribe(_ => moveEvent(this, new KeyEventArgs<Point>(_uid, _)))
+            .AddTo(parent);
+        
+        
+        Observable.Timer(TimeSpan.Zero,TimeSpan.FromMilliseconds(500))
+            .SkipUntil(_input)
+            .TakeWhile(_ => Input.GetAxisRaw("Fire1") != 0)
+            .Repeat()
+            .Select(_ => Input.GetAxisRaw("Fire1") > 0)
+            .Subscribe(_ =>
+            {
+                actionEvent(this, new KeyEventArgs<bool>(_uid, _));
+            })
+            .AddTo(parent);
+    }
+}
+
+/*
 public class InputController
 {
     private int _uid;
@@ -163,4 +198,4 @@ public class Repeater
 
         return returnValue;
     }
-}
+}*/
