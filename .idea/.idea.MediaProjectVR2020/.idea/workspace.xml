@@ -30,9 +30,9 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerStateMachineScript.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerStateMachineObservables.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/CharacterAction.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ControllerManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/InputController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/CharacterAction.cs" />
       </list>
     </option>
   </component>
@@ -88,6 +88,7 @@
       <workItem from="1586598088637" duration="942000" />
       <workItem from="1586694774257" duration="2333000" />
       <workItem from="1586741840935" duration="2998000" />
+      <workItem from="1586946573438" duration="4293000" />
     </task>
     <servers />
   </component>

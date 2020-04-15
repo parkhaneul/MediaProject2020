@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UniRx;
 using UnityEngine;
 
 public class ControllerManager : MonoBehaviour
@@ -69,8 +70,6 @@ public class ControllerManager : MonoBehaviour
             GameObject unit;
             unitList.TryGetValue(e.uid,out unit);
             unit.GetComponent<CharacterAction>().move(e.value);
-            
-            Logger.Log("move");
         }
     }
 
@@ -85,8 +84,6 @@ public class ControllerManager : MonoBehaviour
             GameObject unit;
             unitList.TryGetValue(e.uid,out unit);
             unit.GetComponent<CharacterAction>().action(e.value);
-            
-            Logger.Log("action");
         }
     }
 }

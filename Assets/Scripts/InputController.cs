@@ -52,7 +52,7 @@ public class InputObservableController
         var _input = parent.UpdateAsObservable()
             .Where(_ => Input.anyKey);
 
-        Observable.Timer(TimeSpan.Zero, TimeSpan.FromMilliseconds(200))
+        Observable.Timer(TimeSpan.Zero, TimeSpan.FromMilliseconds(25))
             .SkipUntil(_input)
             .TakeWhile(_ => Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
             .Repeat()

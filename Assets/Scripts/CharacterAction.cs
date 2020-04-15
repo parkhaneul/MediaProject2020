@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 public enum PlayerState
@@ -26,6 +27,8 @@ public class CharacterAction : MonoBehaviour
     public Animator animator;
     public float moveSpeed;
 
+    private PlayerState _state;
+    
     private PlayerStateMachineObservables _playerStateMachineObservables;
 
     public void Start()
@@ -42,9 +45,12 @@ public class CharacterAction : MonoBehaviour
             })
             .AddTo(this);
 
-        _playerStateMachineObservables
-            .OnStateEnterObservable
-            .Where(x => x.IsName("Base Layer.Running"))
+        Observable.EveryUpdate()
+            .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
+            .Where(_ => animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Running"))
+            .Where(_ => Input.anyKey == false)
+            .TakeUntil(_playerStateMachineObservables.OnStateExitObservable)
+            .Repeat()
             .Subscribe(_ =>
             {
                 animator.SetBool(PlayerStateString.isMove,false);
@@ -67,6 +73,7 @@ public class CharacterAction : MonoBehaviour
 
     public void run()
     {
+        _state = PlayerState.Running;
         animator.SetBool(PlayerStateString.isMove,true);
     }
 
