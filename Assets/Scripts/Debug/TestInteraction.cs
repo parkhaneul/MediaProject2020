@@ -16,7 +16,7 @@ public class TestInteraction : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.A))
         {
-            target.OnDamage();
+            target.OnInteract();
         }   
     }
 }
