@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void OnItemGet()
     {
-        
+        Debug.Log("Get Item : " + gameObject.name);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if(other.gameObject.name == CharacterAction.CONST_CharacterBound)
+        {
+            CharacterAction characterAction = other.transform.parent.GetComponent<CharacterAction>();
+            if (characterAction != null)
+            {
+                OnItemGet();
+            }
+        }
     }
 }
