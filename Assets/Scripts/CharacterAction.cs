@@ -35,13 +35,15 @@ public class CharacterAction : MonoBehaviour
     {
         _playerStateMachineObservables = animator.GetBehaviour<PlayerStateMachineObservables>();
 
-        _playerStateMachineObservables
-            .OnStateEnterObservable
-            .Throttle(TimeSpan.FromSeconds(1))
-            .Where(x => x.IsName("Base Layer.Smash"))
+        Observable.EveryUpdate()
+            .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
+            .Where(_ => animator.GetBool(PlayerStateString.isSmash))
+            .TakeUntil(_playerStateMachineObservables.OnStateExitObservable)
+            .Repeat()
+            .Throttle(TimeSpan.FromMilliseconds(600))
             .Subscribe(_ =>
             {
-                animator.SetBool(PlayerStateString.isSmash, false);
+                animator.SetBool(PlayerStateString.isSmash,false);
             })
             .AddTo(this);
 
@@ -79,6 +81,7 @@ public class CharacterAction : MonoBehaviour
 
     public void action(bool value)
     {
-        animator.SetBool(PlayerStateString.isSmash,true);
+        if(animator.GetBool(PlayerStateString.isSmash) == false)
+            animator.SetBool(PlayerStateString.isSmash,true);
     }
 }
