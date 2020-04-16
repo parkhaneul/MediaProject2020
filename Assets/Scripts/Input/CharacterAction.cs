@@ -24,7 +24,7 @@ public class PlayerStateString
 
 public class CharacterAction : MonoBehaviour
 {
-    public List<Interactable> interactables;
+    public HashSet<Interactable> interactables;
     public Animator animator;
     public float moveSpeed;
 
@@ -61,7 +61,7 @@ public class CharacterAction : MonoBehaviour
 
     public CharacterAction()
     {
-        interactables = new List<Interactable>();
+        interactables = new HashSet<Interactable>();
     }
 
     public void move(Point point)
