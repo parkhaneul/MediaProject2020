@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public void OnItemGet()
+    public override void OnItemGet()
     {
         Debug.Log("Get Item : " + gameObject.name);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
