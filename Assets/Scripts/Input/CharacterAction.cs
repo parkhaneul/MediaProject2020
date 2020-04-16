@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http.Headers;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 public enum PlayerState
@@ -13,7 +15,7 @@ public enum PlayerState
     Smash,
 }
 
-public class PlayerStateStiring
+public class PlayerStateString
 {
     public const string isMove = "IsMove";
     public const string isCarry = "IsCarry";
@@ -25,9 +27,37 @@ public class CharacterAction : MonoBehaviour
     public List<Interactable> interactables;
     public Animator animator;
     public float moveSpeed;
-    
+
     private PlayerState _state;
-    private bool _canMove;
+    
+    private PlayerStateMachineObservables _playerStateMachineObservables;
+
+    public void Start()
+    {
+        _playerStateMachineObservables = animator.GetBehaviour<PlayerStateMachineObservables>();
+
+        _playerStateMachineObservables
+            .OnStateEnterObservable
+            .Throttle(TimeSpan.FromSeconds(1))
+            .Where(x => x.IsName("Base Layer.Smash"))
+            .Subscribe(_ =>
+            {
+                animator.SetBool(PlayerStateString.isSmash, false);
+            })
+            .AddTo(this);
+
+        Observable.EveryUpdate()
+            .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
+            .Where(_ => animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Running"))
+            .Where(_ => Input.anyKey == false)
+            .TakeUntil(_playerStateMachineObservables.OnStateExitObservable)
+            .Repeat()
+            .Subscribe(_ =>
+            {
+                animator.SetBool(PlayerStateString.isMove,false);
+            })
+            .AddTo(this);
+    }
 
     public CharacterAction()
     {
@@ -36,16 +66,9 @@ public class CharacterAction : MonoBehaviour
 
     public void move(Point point)
     {
-        if(_canMove)
-        {
-            run();
-            turn(point);
-            this.gameObject.transform.position += this.gameObject.transform.forward * moveSpeed;
-        }
-        else
-        {
-            return;
-        }
+        run();
+        turn(point);
+        this.gameObject.transform.position += this.gameObject.transform.forward * moveSpeed;
     }
 
     public void turn(Point point)
@@ -56,55 +79,16 @@ public class CharacterAction : MonoBehaviour
 
     public void run()
     {
-        if (_state != PlayerState.Running)
-        {
-            changeAnimation(PlayerState.Running);
-        }
-    }
-    public void action(bool action)
-    {
-        if (_state != PlayerState.Smash)
-        {
-            changeAnimation(PlayerState.Smash);
-            foreach(var interactable in interactables)
-            {
-                interactable.OnDamage();
-            }
-        }
+        _state = PlayerState.Running;
+        animator.SetBool(PlayerStateString.isMove,true);
     }
 
-    public void stop()
+    public void action(bool value)
     {
-        if (_state != PlayerState.Idle)
+        foreach(var interactable in interactables)
         {
-            changeAnimation(PlayerState.Idle);
+            interactable.OnDamage();
         }
-    }
-
-    private void changeAnimation(PlayerState animation)
-    {
-        switch (animation)
-        {
-            case PlayerState.Idle :
-                _canMove = true;
-                animator.SetBool(PlayerStateStiring.isMove,false);
-                animator.SetBool(PlayerStateStiring.isSmash, false);
-                break;
-            case PlayerState.Running :
-                animator.SetBool(PlayerStateStiring.isMove,true);
-                break;
-            case PlayerState.Carry:
-                animator.SetBool(PlayerStateStiring.isCarry,true);
-                break;
-            case PlayerState.UnCarry:
-                animator.SetBool(PlayerStateStiring.isMove,false);
-                break;
-            case PlayerState.Smash:
-                _canMove = false;
-                animator.SetBool(PlayerStateStiring.isSmash,true);
-                break;
-        }
-
-        _state = animation;
+        animator.SetBool(PlayerStateString.isSmash,true);
     }
 }

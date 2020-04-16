@@ -2,29 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UniRx;
 using UnityEngine;
 
 public class ControllerManager : MonoBehaviour
 {
     public GameObject testUnit;
     public Dictionary<int, GameObject> unitList;
-    private List<InputController> controllers;
-
-    public void Update()
-    {
-        if (controllers == null)
-            return;
-
-        foreach (var controller in controllers)
-        {
-            controller.keyInput();
-        }
-    }
-
+    
+    private List<InputObservableController> controllers;
+    
     void OnEnable()
     {
         if(controllers == null)
-            controllers = new List<InputController>();
+            controllers = new List<InputObservableController>();
 
         if(unitList == null)
             unitList = new Dictionary<int, GameObject>();
@@ -35,7 +26,6 @@ public class ControllerManager : MonoBehaviour
         {
             controller.moveEvent += onMoveEvent;
             controller.actionEvent += onActionEvent;
-            controller.noInputEvent += onNoInputEvent;
         }
     }
 
@@ -45,7 +35,6 @@ public class ControllerManager : MonoBehaviour
         {
             controller.moveEvent -= onMoveEvent;
             controller.actionEvent -= onActionEvent;
-            controller.noInputEvent -= onNoInputEvent;
         }
         controllers = null;
     }
@@ -60,35 +49,21 @@ public class ControllerManager : MonoBehaviour
     void newController()
     {
         var uid = 1234;
-        var ic = new InputController(uid);
+        var ic = new InputObservableController(uid,this.gameObject);
         newTestUnit(uid);
         addController(ic);
     }
 
-    void addController(InputController ic)
+    void addController(InputObservableController ic)
     {
         controllers.Add(ic);
-    }
-
-    public void onNoInputEvent(object sender, KeyEventArgs<Boolean> e)
-    {
-        if (unitList.ContainsKey(e.uid) == false)
-        {
-            Debug.Log(e.uid + " unit lost");
-        }
-        else
-        {
-            GameObject unit;
-            unitList.TryGetValue(e.uid,out unit);
-            unit.GetComponent<CharacterAction>().stop();
-        }
     }
 
     public void onMoveEvent(object sender, KeyEventArgs<Point> e)
     {
         if (unitList.ContainsKey(e.uid) == false)
         {
-            Debug.Log(e.uid + " unit lost");
+            Logger.Log(e.uid + " unit lost");
         }
         else
         {
@@ -102,7 +77,7 @@ public class ControllerManager : MonoBehaviour
     {
         if (unitList.ContainsKey(e.uid) == false)
         {
-            Debug.Log(e.uid + " unit lost");
+            Logger.Log(e.uid + " unit lost");
         }
         else
         {
