@@ -21,9 +21,10 @@ public class GameSystem : MonoBehaviour
 
     public List<BasicLogic> logics = new List<BasicLogic>();
 
-    public void Awake()
+    public void Start()
     {
         logics.Add(new TimeLogic(LimitTime));
+        logics.Add(new MissionLogic());
         
         activeAll();
     }

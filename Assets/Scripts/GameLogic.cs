@@ -39,6 +39,8 @@ public class TimeLogic : BasicLogic
     {
         _limitTime = time;
         _currentTime = time;
+        
+        Logger.LogWarning("Time Logic Running : " + time + " seconds");
     }
 
     public void countDownTik()
@@ -62,5 +64,40 @@ public class TimeLogic : BasicLogic
         _currentTime += time;
         if (_currentTime > _limitTime)
             _currentTime = _limitTime;
+    }
+}
+
+public class MissionLogic : BasicLogic
+{
+    public MissionLogic()
+    {
+        Logger.LogWarning("Mission Logic Running");
+    }
+    
+    public override void run()
+    {
+    }
+}
+
+public class User
+{
+    public int uid;
+
+    public string xAxisInput;
+    public string yAxisInput;
+    public string ActionInput;
+}
+
+public class GameConnectionLogic : BasicLogic
+{
+    private List<User> users;
+    
+    public GameConnectionLogic()
+    {
+        if (users == null)
+            users = new List<User>();
+    }
+    public override void run()
+    {
     }
 }

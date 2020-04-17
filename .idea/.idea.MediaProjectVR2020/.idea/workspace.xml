@@ -27,12 +27,13 @@
         <option value="$PROJECT_DIR$/Assets/AnimatorEventScript.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Logger.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ResourceManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerStateMachineScript.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerStateMachineObservables.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/CharacterAction.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ControllerManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/InputController.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/CharacterAction.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameLogic.cs" />
       </list>
     </option>
   </component>
@@ -89,7 +90,8 @@
       <workItem from="1586694774257" duration="2333000" />
       <workItem from="1586741840935" duration="2998000" />
       <workItem from="1586946573438" duration="4293000" />
-      <workItem from="1587000433925" duration="1494000" />
+      <workItem from="1587000433925" duration="2211000" />
+      <workItem from="1587098876721" duration="2615000" />
     </task>
     <servers />
   </component>

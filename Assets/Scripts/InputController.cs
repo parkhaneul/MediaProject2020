@@ -54,18 +54,18 @@ public class InputObservableController
 
         Observable.Timer(TimeSpan.Zero, TimeSpan.FromMilliseconds(25))
             .SkipUntil(_input)
-            .TakeWhile(_ => Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+            .TakeWhile(_ => Input.GetAxisRaw("Player1_x") != 0 || Input.GetAxisRaw("Player1_y") != 0)
             .Repeat()
-            .Select(_ => new Point(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")))
+            .Select(_ => new Point(Input.GetAxisRaw("Player1_x"), 0, Input.GetAxisRaw("Player1_y")))
             .Subscribe(_ => moveEvent(this, new KeyEventArgs<Point>(_uid, _)))
             .AddTo(parent);
         
         
         Observable.Timer(TimeSpan.Zero,TimeSpan.FromMilliseconds(500))
             .SkipUntil(_input)
-            .TakeWhile(_ => Input.GetAxisRaw("Fire1") != 0)
+            .TakeWhile(_ => Input.GetAxisRaw("Player1_Action") != 0)
             .Repeat()
-            .Select(_ => Input.GetAxisRaw("Fire1") > 0)
+            .Select(_ => Input.GetAxisRaw("Player1_Action") > 0)
             .Subscribe(_ =>
             {
                 actionEvent(this, new KeyEventArgs<bool>(_uid, _));

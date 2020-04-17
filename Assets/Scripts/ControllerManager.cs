@@ -20,13 +20,7 @@ public class ControllerManager : MonoBehaviour
         if(unitList == null)
             unitList = new Dictionary<int, GameObject>();
         
-        newController();
-        
-        foreach (var controller in controllers)
-        {
-            controller.moveEvent += onMoveEvent;
-            controller.actionEvent += onActionEvent;
-        }
+        //newController();
     }
 
     private void OnDisable()
@@ -46,10 +40,13 @@ public class ControllerManager : MonoBehaviour
         unitList.Add(uid,unit);
     }
 
-    void newController()
+    public void newController(int uid)
     {
-        var uid = 1234;
         var ic = new InputObservableController(uid,this.gameObject);
+
+        ic.moveEvent += onMoveEvent;
+        ic.actionEvent += onActionEvent;
+        
         newTestUnit(uid);
         addController(ic);
     }
