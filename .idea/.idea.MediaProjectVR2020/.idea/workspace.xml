@@ -32,7 +32,9 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interaction/Building.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Effect/EffectManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Input/ControllerManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Input/InputController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interaction/Tool.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/Concat.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Inventory.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -51,8 +53,9 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/ControllerManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/CharacterScript.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/Item.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Inventory.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Input/InputController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
       </list>
     </option>
   </component>
@@ -112,7 +115,7 @@
       <workItem from="1587000433925" duration="2211000" />
       <workItem from="1587098876721" duration="2615000" />
       <workItem from="1587101773402" duration="5353000" />
-      <workItem from="1587108939340" duration="3424000" />
+      <workItem from="1587108939340" duration="14163000" />
     </task>
     <servers />
   </component>

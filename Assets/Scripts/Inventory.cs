@@ -15,6 +15,8 @@ public class Inventory : MonoBehaviour
         if (_inventory == null)
             _inventory = new List<Item>();
 
+        
+        //Inventory Test
         Observable.EveryUpdate()
             .Where(_ => _inventory.Count != 0)
             .Subscribe(_ =>
