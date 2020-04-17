@@ -70,7 +70,6 @@ public class CharacterAction : MonoBehaviour
             .ThrottleFirst(TimeSpan.FromMilliseconds(300))
             .Subscribe(_ =>
             {
-                Logger.Log("1234");
                 foreach(var interactable in interactables)
                 {
                     interactable.OnInteract();

@@ -324,6 +324,7 @@
             <e p="Item.cs" t="Include" />
             <e p="Tool.cs" t="Include" />
           </e>
+          <e p="Inventory.cs" t="Include" />
         </e>
       </e>
       <e p="MediaProjectVR2020.sln" t="IncludeFlat" />
