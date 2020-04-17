@@ -20,7 +20,7 @@ public class ControllerManager : MonoBehaviour
         if(unitList == null)
             unitList = new Dictionary<int, GameObject>();
         
-        //newController();
+        newController(1234);
     }
 
     private void OnDisable()

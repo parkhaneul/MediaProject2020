@@ -61,6 +61,22 @@ public class CharacterAction : MonoBehaviour
                 animator.SetBool(PlayerStateString.isMove,false);
             })
             .AddTo(this);
+
+        Observable.EveryUpdate()
+            .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
+            .Where(_ => animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Smash"))
+            .TakeUntil(_playerStateMachineObservables.OnStateExitObservable)
+            .Repeat()
+            .ThrottleFirst(TimeSpan.FromMilliseconds(300))
+            .Subscribe(_ =>
+            {
+                Logger.Log("1234");
+                foreach(var interactable in interactables)
+                {
+                    interactable.OnInteract();
+                }
+            })
+            .AddTo(this);
     }
 
     public CharacterAction()
@@ -91,10 +107,6 @@ public class CharacterAction : MonoBehaviour
     {
         if(animator.GetBool(PlayerStateString.isSmash) == false)
         {
-            foreach(var interactable in interactables)
-            {
-                interactable.OnInteract();
-            }
             animator.SetBool(PlayerStateString.isSmash,true);
         }
     }

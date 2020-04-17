@@ -6,6 +6,14 @@
     <e p="C:\Users\park haneul\Documents\GitHub\MediaProjectVR2020" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Art" t="Include">
+          <e p="Tile.shader" t="Include" />
+          <e p="Toon Shader" t="Include">
+            <e p="ShadowReceiver.shader" t="Include" />
+            <e p="Toon.shader" t="Include" />
+            <e p="ToonComplete.shader" t="Include" />
+          </e>
+        </e>
         <e p="Plugins" t="Include">
           <e p="UniRx" t="Include">
             <e p="Examples" t="Include">
@@ -287,14 +295,35 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
-          <e p="CharacterAction.cs" t="Include" />
-          <e p="ControllerManager.cs" t="Include" />
-          <e p="GameLogic.cs" t="Include" />
-          <e p="GameSystem.cs" t="Include" />
-          <e p="InputController.cs" t="Include" />
-          <e p="Logger.cs" t="Include" />
-          <e p="PlayerStateMachineObservables.cs" t="Include" />
-          <e p="ResourceManager.cs" t="Include" />
+          <e p="Debug" t="Include">
+            <e p="TestInteraction.cs" t="Include" />
+          </e>
+          <e p="Effect" t="Include">
+            <e p="EffectManager.cs" t="Include" />
+          </e>
+          <e p="Etc" t="Include">
+            <e p="Logger.cs" t="Include" />
+            <e p="ResourceManager.cs" t="Include" />
+          </e>
+          <e p="GameSystem" t="Include">
+            <e p="GameLogic.cs" t="Include" />
+            <e p="GameSystem.cs" t="Include" />
+          </e>
+          <e p="Grid" t="Include">
+            <e p="Grid.cs" t="Include" />
+          </e>
+          <e p="Input" t="Include">
+            <e p="CharacterAction.cs" t="Include" />
+            <e p="ControllerManager.cs" t="Include" />
+            <e p="InputController.cs" t="Include" />
+            <e p="PlayerStateMachineObservables.cs" t="Include" />
+          </e>
+          <e p="Interaction" t="Include">
+            <e p="Building.cs" t="Include" />
+            <e p="Interactable.cs" t="Include" />
+            <e p="Item.cs" t="Include" />
+            <e p="Tool.cs" t="Include" />
+          </e>
         </e>
       </e>
       <e p="MediaProjectVR2020.sln" t="IncludeFlat" />
