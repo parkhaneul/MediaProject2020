@@ -371,7 +371,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!64 &1147879565
 MeshCollider:
@@ -475,7 +475,7 @@ PrefabInstance:
     - target: {fileID: 680579244825399002, guid: 6d2b7f2502fea43f1a2024b1321afb95,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 680579244825399002, guid: 6d2b7f2502fea43f1a2024b1321afb95,
         type: 3}
@@ -485,7 +485,7 @@ PrefabInstance:
     - target: {fileID: 680579244825399002, guid: 6d2b7f2502fea43f1a2024b1321afb95,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.97
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 680579244825399002, guid: 6d2b7f2502fea43f1a2024b1321afb95,
         type: 3}
@@ -539,7 +539,7 @@ PrefabInstance:
     - target: {fileID: 5812808517247129905, guid: 9350df1a119de4b07af98b8e52874b56,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.5
+      value: 4.48
       objectReference: {fileID: 0}
     - target: {fileID: 5812808517247129905, guid: 9350df1a119de4b07af98b8e52874b56,
         type: 3}
@@ -549,7 +549,7 @@ PrefabInstance:
     - target: {fileID: 5812808517247129905, guid: 9350df1a119de4b07af98b8e52874b56,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.5
+      value: 4.44
       objectReference: {fileID: 0}
     - target: {fileID: 5812808517247129905, guid: 9350df1a119de4b07af98b8e52874b56,
         type: 3}
@@ -595,6 +595,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Building_Test(9x9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7417542198607457058, guid: 9350df1a119de4b07af98b8e52874b56,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9350df1a119de4b07af98b8e52874b56, type: 3}

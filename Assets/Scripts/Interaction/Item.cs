@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public override void OnItemGet()
+    public virtual void OnItemGet()
     {
         Debug.Log("Get Item : " + gameObject.name);
         Destroy(gameObject);

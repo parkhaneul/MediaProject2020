@@ -23,7 +23,7 @@ public class Building : Interactable
     {
         effectManager.BlinkEffect(gameObject);
         effectManager.ShakeEffect(gameObject);
-
+        OnSpawnItem();
         if(--durability <= 0)
         {
             OnDestroy();
