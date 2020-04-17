@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Building : Interactable
 {
-    public override void OnInteract()
+    public override void OnInteract(CharacterAction actor)
     {
         OnDamaged();
     }

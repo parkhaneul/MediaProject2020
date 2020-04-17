@@ -31,9 +31,26 @@ public class CharacterAction : MonoBehaviour
     public float moveSpeed;
 
     private PlayerState _state;
-    
     private PlayerStateMachineObservables _playerStateMachineObservables;
 
+    private Tool equipment;
+    private Transform toolSocket;
+    private const string toolSocketName = "ToolSocket";
+
+    private void initTool()
+    {
+        Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>();
+        foreach (Transform t in ts)
+        {
+            if(t.gameObject.name == toolSocketName) 
+            {
+                toolSocket = t;
+                return;
+            }
+        }
+        if(toolSocket == null)
+             Debug.LogError("All Characters should have tool Socket");
+    }
     public void Start()
     {
         _playerStateMachineObservables = animator.GetBehaviour<PlayerStateMachineObservables>();
@@ -72,10 +89,12 @@ public class CharacterAction : MonoBehaviour
             {
                 foreach(var interactable in interactables)
                 {
-                    interactable.OnInteract();
+                    interactable.OnInteract(this);
                 }
             })
             .AddTo(this);
+
+        initTool();
     }
 
     public CharacterAction()
@@ -108,5 +127,20 @@ public class CharacterAction : MonoBehaviour
         {
             animator.SetBool(PlayerStateString.isSmash,true);
         }
+    }
+
+    public void SetEquipment(Tool tool)
+    {
+        _state= PlayerState.Carry;
+
+        equipment = tool;
+        tool.transform.SetParent(toolSocket);
+        tool.transform.position = Vector3.zero;
+        tool.transform.rotation = Quaternion.identity;
+    }
+
+    public void UnsetEquipment()
+    {
+
     }
 }

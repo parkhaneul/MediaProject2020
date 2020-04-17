@@ -14,13 +14,13 @@ abstract public class Interactable : MonoBehaviour
         effectManager = EffectManager.Instance;   
     }
 
-    public abstract void OnInteract(); //make this abstract
+    public abstract void OnInteract(CharacterAction actor); //make this abstract
     protected virtual void OnDestroy() 
     {
         //Debug.Log(gameObject.name + " : Destroyed");
     }
 
-    protected void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.name == CharacterAction.CONST_InteractionHitBox)
         {
@@ -32,7 +32,7 @@ abstract public class Interactable : MonoBehaviour
         }
     }
 
-    protected void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         if(other.gameObject.name == CharacterAction.CONST_InteractionHitBox)
         {
