@@ -24,6 +24,9 @@ public class PlayerStateString
 
 public class CharacterAction : MonoBehaviour
 {
+    public const string CONST_InteractionHitBox  = "InteractionHitBox";
+    public const string CONST_CharacterBound = "CharacterBound";
+    public HashSet<Interactable> interactables;
     public Animator animator;
     public float moveSpeed;
 
@@ -60,6 +63,11 @@ public class CharacterAction : MonoBehaviour
             .AddTo(this);
     }
 
+    public CharacterAction()
+    {
+        interactables = new HashSet<Interactable>();
+    }
+
     public void move(Point point)
     {
         run();
@@ -82,6 +90,12 @@ public class CharacterAction : MonoBehaviour
     public void action(bool value)
     {
         if(animator.GetBool(PlayerStateString.isSmash) == false)
+        {
+            foreach(var interactable in interactables)
+            {
+                interactable.OnInteract();
+            }
             animator.SetBool(PlayerStateString.isSmash,true);
+        }
     }
 }
