@@ -4,9 +4,19 @@ using UnityEngine;
 
 public class Building : Interactable
 {
+    public int durability;
+    public List<Item> dropItems;
+    public ToolKind kind;
     public override void OnInteract(CharacterAction actor)
     {
-        OnDamaged();
+        if(actor.equipment.kind == kind)
+        {
+            OnDamaged();
+        }
+        else
+        {
+
+        }
     }
 
     private Item GetRandomItemToSpawn()

@@ -5,8 +5,6 @@ using UnityEngine;
 abstract public class Interactable : MonoBehaviour
 {
     static protected EffectManager effectManager;
-    public int durability;
-    public List<Item> dropItems;
 
     // Start is called before the first frame update
     void Start()

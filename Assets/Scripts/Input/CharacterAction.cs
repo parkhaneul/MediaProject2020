@@ -33,7 +33,7 @@ public class CharacterAction : MonoBehaviour
     private PlayerState _state;
     private PlayerStateMachineObservables _playerStateMachineObservables;
 
-    private Tool equipment;
+    public Tool equipment { get; private set; }
     private Transform toolSocket;
     private const string toolSocketName = "ToolSocket";
 
@@ -68,9 +68,12 @@ public class CharacterAction : MonoBehaviour
             .Subscribe(_ =>
             {
                 animator.SetBool(PlayerStateString.isSmash,false);
-                foreach(var interactable in interactables)
+                if(interactables.Count > 0)
                 {
-                    interactable.OnInteract(this);
+                    foreach(var interactable in interactables)
+                    {
+                        interactable.OnInteract(this);
+                    }
                 }
             })
             .AddTo(this);
@@ -140,12 +143,14 @@ public class CharacterAction : MonoBehaviour
 
     public void SetEquipment(Tool tool)
     {
-        _state= PlayerState.Carry;
+        _state = PlayerState.Carry;
 
         equipment = tool;
+        
         tool.transform.SetParent(toolSocket);
-        tool.transform.position = Vector3.zero;
-        tool.transform.rotation = Quaternion.identity;
+        tool.transform.localPosition = new Vector3(0,0,0);
+        tool.transform.localRotation = Quaternion.identity;
+        tool.transform.localScale = Vector3.one;
     }
 
     public void UnsetEquipment()
