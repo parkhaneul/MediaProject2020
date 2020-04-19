@@ -12,13 +12,16 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     public int tileCount = 100;
     public bool debugMode = true;
     public GameObject gridGround;
-    public GameObject DEBUG_grid;
     private Grid[,] gridArray;
-    private List<Vector3> gridCenters;
+    private List<GridBundle> bundles;
+    private const int gridLayerMask = 1 << 8; 
     private const int planeOffset = 10; //Plane consists of 10 quads.
-
+    static private float tileWidth;
+    static private float planeWidth;
+    private const float rootTwo = 1.414f;
     void Start()
     {
+        bundles = new List<GridBundle>();
         GenerateGrids();
     }
 
@@ -27,22 +30,36 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     {
         if(debugMode)
         {
-            foreach(var center in gridCenters)
-            {
-                // Debug.DrawLine(center, center + Vector3.up, Color.red);
-            }
+            // foreach(var center in gridCenters)
+            // {
+            //     // Debug.DrawLine(center, center + Vector3.up, Color.red);
+            // }
         }
     }
 
     public void GenerateGrids()
     {
-        gridCenters = new List<Vector3>();
-        float tileWidth = planeOffset * gridGround.transform.localScale.x / tileCount;
-        float planeWidth = planeOffset * gridGround.transform.localScale.x;
+        Clear();
 
+        tileWidth = planeOffset * gridGround.transform.localScale.x / tileCount;
+        planeWidth = planeOffset * gridGround.transform.localScale.x;
+
+        List<Grid> occupiedGrids = InitGrid();
+        InitAdjacent();
+        InitBundles(occupiedGrids);
+    }
+    private void Clear()
+    {
+        tileWidth = -1.0f;
+        planeWidth = -1.0f;
+        gridArray = null;
+        bundles.Clear();
+    }
+    private List<Grid> InitGrid()
+    {
+        List<Grid> occupiedGrids = new List<Grid>();
+        List<Vector3>  gridCenters = new List<Vector3>();
         gridArray = new Grid[tileCount,tileCount];
-        GameObject grids = new GameObject();
-        grids.name = "Grids";
         for (int i = 0; i < tileCount; i++)
         {
             for (int j = 0; j < tileCount; j++)
@@ -53,30 +70,17 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
                     - Vector3.right * tileWidth / 2 - Vector3.forward * tileWidth / 2;
                 gridCenters.Add(center);
 
-                bool occupied = false;
-                int layerMask = 1 << 8;
+                Grid grid = new Grid(center, isGridOccupied(center, Mathf.Infinity));
+                gridArray[i,j] = grid;
 
-                if(Physics.Raycast(center, Vector3.up, Mathf.Infinity, layerMask))
-                {
-                    occupied = true;
-                }
-
-                GameObject grid = Instantiate(DEBUG_grid);
-                Grid s_grid = grid.GetComponent<Grid>();
-                Vector3 newCenter = new Vector3(center.x, center.y + 0.1f, center.z);
-                s_grid.gridCenter = newCenter;
-                s_grid.isOccupied = occupied;
-
-                grid.transform.SetParent(grids.transform);
-                gridArray[i,j] = s_grid;
+                if(grid.isOccupied)
+                    occupiedGrids.Add(grid);
             }
         }
 
-        UpdateAdjacent();
-
+        return occupiedGrids;
     }
-    
-    private void UpdateAdjacent()
+    private void InitAdjacent()
     {
         for (int i = 0; i < tileCount; i++)
         {
@@ -93,8 +97,69 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
             }
         }
     }
-    public Vector3 GetClosestGridCenter()
+
+    private void InitBundles(List<Grid> occupiedGrids)
     {
-        return Vector3.zero;
+        while(occupiedGrids.Count > 0)
+        {
+            GridBundle bundle = new GridBundle(occupiedGrids[0], occupiedGrids);
+            bundle.owner = occupiedGrids[0].owner;
+
+            foreach(var grid in bundle.grids)
+            {
+                occupiedGrids.Remove(grid);
+            }
+            bundles.Add(bundle);
+        }
+    }
+    public Grid GetRandomItemSpawnPosition(Placable placable)
+    {
+        //1. Bundle
+        return new Grid();
+    }
+
+    public static List<Grid> GetTouchingGrids(Grid target, List<Grid> grids) //TODO : Use Linq instead of foreach
+    {
+        List<Grid> neighbors = new List<Grid>();
+        foreach(var grid in grids)
+        {
+            if(isGridTouchingWith(target, grid))
+                neighbors.Add(grid);
+        }
+        return neighbors;
+    }
+
+    public bool isGridOccupied(Vector3 center, float length = Mathf.Infinity)
+    {
+        return isGridOccupied(center, Vector3.up, length);
+    }
+
+    public bool isGridOccupied(Vector3 center, Vector3 direction, float length = Mathf.Infinity)
+    {
+        if(Physics.Raycast(center, direction, Mathf.Infinity, gridLayerMask))
+        {
+            //Instead of using layer Mask, we can check Placable interface.
+            //Consider this later.
+            return true;
+        }
+        return false;
+    }
+
+    ///<summary>
+    /// Up, Down, Right, Left
+    ///</summary>
+    public static bool isGridTouchingWith(Grid a, Grid b)
+    {
+        return (a.gridCenter - b.gridCenter).sqrMagnitude <= tileWidth * tileWidth ? true : false;
+    }
+
+    ///<summary>
+    /// Up, Down, Right, Left, Diagonal
+    ///</summary>
+    public static bool isGridAdjacentWith(Grid a, Grid b)
+    {
+        return (a.gridCenter - b.gridCenter).sqrMagnitude <= tileWidth * tileWidth * rootTwo ? true : false;
     }
 }
+
+

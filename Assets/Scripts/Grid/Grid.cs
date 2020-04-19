@@ -2,40 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid : MonoBehaviour
+public class Grid
 {
-    public bool isOccupied;
-    public GameObject occupier;
+    public Placable owner;
     public List<Grid> adjacentGrids;
     public Vector3 gridCenter;
-
-    public bool DEBUG_SELECTED = false;
-
-    private Material material;
-    
-    void Start()
+    public bool isOccupied;
+    public Grid(Vector3 center, bool isOccupied)
     {
-        material = GetComponent<MeshRenderer>().material;
+        gridCenter = center;
+        this.isOccupied = isOccupied;
     }
-    void Update()
+    public Grid(Vector3 center)
     {
-        gameObject.transform.position = gridCenter;
-
-        if(DEBUG_SELECTED)
-        {
-            foreach(var grid in adjacentGrids)
-            {
-                grid.transform.Rotate(new Vector3(0, Time.deltaTime * 10, 0));
-            }   
-        }
-
-        if(isOccupied)
-        {
-            material.color = Color.red;
-        }
-        else
-        {
-            material.color = Color.cyan;
-        }
+        gridCenter = center;
+    }
+    public Grid()
+    {
+        gridCenter = Vector3.zero;
     }
 }
