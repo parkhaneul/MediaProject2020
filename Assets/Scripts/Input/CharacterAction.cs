@@ -51,46 +51,59 @@ public class CharacterAction : MonoBehaviour
         if(toolSocket == null)
              Debug.LogError("All Characters should have tool Socket");
     }
+    private Vector3 movePointer = Vector3.zero;
+    
     public void Start()
     {
         _playerStateMachineObservables = animator.GetBehaviour<PlayerStateMachineObservables>();
 
+        //smash animation
         Observable.EveryUpdate()
             .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
             .Where(_ => animator.GetBool(PlayerStateString.isSmash))
             .TakeUntil(_playerStateMachineObservables.OnStateExitObservable)
             .Repeat()
-            .Throttle(TimeSpan.FromMilliseconds(600))
+            .DistinctUntilChanged()
+            .Throttle(TimeSpan.FromMilliseconds(400))
             .Subscribe(_ =>
             {
                 animator.SetBool(PlayerStateString.isSmash,false);
-            })
-            .AddTo(this);
-
-        Observable.EveryUpdate()
-            .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
-            .Where(_ => animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Running"))
-            .Where(_ => Input.anyKey == false)
-            .TakeUntil(_playerStateMachineObservables.OnStateExitObservable)
-            .Repeat()
-            .Subscribe(_ =>
-            {
-                animator.SetBool(PlayerStateString.isMove,false);
-            })
-            .AddTo(this);
-
-        Observable.EveryUpdate()
-            .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
-            .Where(_ => animator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Smash"))
-            .TakeUntil(_playerStateMachineObservables.OnStateExitObservable)
-            .Repeat()
-            .ThrottleFirst(TimeSpan.FromMilliseconds(300))
-            .Subscribe(_ =>
-            {
                 foreach(var interactable in interactables)
                 {
                     interactable.OnInteract(this);
                 }
+            })
+            .AddTo(this);
+
+        //running animation exit
+        Observable.EveryUpdate()
+            .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
+            .TakeWhile(_ => animator.GetBool(PlayerStateString.isMove))
+            .Repeat()
+            .DistinctUntilChanged()
+            .Select(_ => movePointer)
+            .Where(x => x == Vector3.zero)
+            .Subscribe(_ =>
+            {
+                Logger.Log("stop");
+                animator.SetBool(PlayerStateString.isMove,false);
+            })
+            .AddTo(this);
+
+        //running animation enter
+        Observable.EveryUpdate()
+            .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
+            //.Where(_ => animator.GetBool(PlayerStateString.isMove) == false)
+            //.TakeUntil(_playerStateMachineObservables.OnStateExitObservable)
+            .TakeWhile(_ => animator.GetBool(PlayerStateString.isMove) == false)
+            .Repeat()
+            .DistinctUntilChanged()
+            .Select(_ => movePointer)
+            .Where(x => x != Vector3.zero)
+            .Subscribe(_ =>
+            {
+                Logger.Log("run");
+                animator.SetBool(PlayerStateString.isMove,true);
             })
             .AddTo(this);
 
@@ -104,15 +117,13 @@ public class CharacterAction : MonoBehaviour
 
     public void move(Point point)
     {
-        run();
-        turn(point);
-        this.gameObject.transform.position += this.gameObject.transform.forward * moveSpeed;
-    }
-
-    public void turn(Point point)
-    {
-        var lookAtVector = this.transform.position + new Vector3(point.x, point.y, point.z);
-        this.gameObject.transform.LookAt(lookAtVector);
+        movePointer = new Vector3(point.x,point.y,point.z);
+        
+        if(movePointer != Vector3.zero){
+            var lookAtVector = this.transform.position + movePointer;
+            this.gameObject.transform.LookAt(lookAtVector);
+            this.gameObject.transform.position += this.gameObject.transform.forward * moveSpeed;
+        }
     }
 
     public void run()
@@ -124,9 +135,7 @@ public class CharacterAction : MonoBehaviour
     public void action(bool value)
     {
         if(animator.GetBool(PlayerStateString.isSmash) == false)
-        {
             animator.SetBool(PlayerStateString.isSmash,true);
-        }
     }
 
     public void SetEquipment(Tool tool)

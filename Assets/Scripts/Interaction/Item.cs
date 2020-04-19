@@ -26,4 +26,9 @@ public class Item : MonoBehaviour
             }
         }
     }
+
+    public override string ToString()
+    {
+        return gameObject.name;
+    }
 }

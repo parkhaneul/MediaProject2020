@@ -49,15 +49,15 @@ public class InputObservableController
     {
         this._uid = uid;
 
-        var _input = parent.UpdateAsObservable()
-            .Where(_ => Input.anyKey);
-
+        var _input = parent.UpdateAsObservable();
+        
         Observable.Timer(TimeSpan.Zero, TimeSpan.FromMilliseconds(25))
             .SkipUntil(_input)
-            .TakeWhile(_ => Input.GetAxisRaw("Player1_x") != 0 || Input.GetAxisRaw("Player1_y") != 0)
-            .Repeat()
             .Select(_ => new Point(Input.GetAxisRaw("Player1_x"), 0, Input.GetAxisRaw("Player1_y")))
-            .Subscribe(_ => moveEvent(this, new KeyEventArgs<Point>(_uid, _)))
+            .Subscribe(_ =>
+            {
+                moveEvent(this, new KeyEventArgs<Point>(_uid, _));
+            })
             .AddTo(parent);
         
         
@@ -68,7 +68,8 @@ public class InputObservableController
             .Select(_ => Input.GetAxisRaw("Player1_Action") > 0)
             .Subscribe(_ =>
             {
-                actionEvent(this, new KeyEventArgs<bool>(_uid, _));
+                if(_)
+                    actionEvent(this, new KeyEventArgs<bool>(_uid, _));
             })
             .AddTo(parent);
     }
