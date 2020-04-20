@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-abstract public class Interactable : MonoBehaviour
+abstract public class Interactable : MonoBehaviour, Placable
 {
     static protected EffectManager effectManager;
+    static protected GridManager gridManager;
 
     // Start is called before the first frame update
     void Start()
     {
         effectManager = EffectManager.Instance;   
+        gridManager = GridManager.Instance;
     }
 
-    public abstract void OnInteract(CharacterAction actor); //make this abstract
+    public abstract void OnInteract(CharacterAction actor);
     protected virtual void OnDestroy() 
     {
         //Debug.Log(gameObject.name + " : Destroyed");
@@ -40,5 +42,10 @@ abstract public class Interactable : MonoBehaviour
                 characterAction.interactables.Remove(this);
             }
         }
+    }
+
+    public void AdjustPosition(Grid grid)
+    {
+        throw new System.NotImplementedException();
     }
 }

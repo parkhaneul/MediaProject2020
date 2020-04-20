@@ -7,11 +7,12 @@ public class GridBundle
     public Placable owner;
     public List<Grid> grids;
 
-    public GridBundle(Grid source, List<Grid> searchTargets)
+    public GridBundle(Grid source, Placable owner, List<Grid> searchTargets)
     {
         HashSet<Grid> touchingGrids = new HashSet<Grid>();
         SearchTouchingGrids(source, searchTargets, touchingGrids);
 
+        this.owner = owner;
         grids = new List<Grid>();
         grids.Add(source);
         foreach(var grid in touchingGrids)

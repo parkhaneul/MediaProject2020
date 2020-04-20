@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour, Placable
 {
+    public Vector3 positionOffset = new Vector3(0.0f, 0.4f, 0.0f);
     public virtual void OnItemGet()
     {
-        Debug.Log("Get Item : " + gameObject.name);
         gameObject.SetActive(false);
     }
 
@@ -30,5 +30,10 @@ public class Item : MonoBehaviour
     public override string ToString()
     {
         return gameObject.name;
+    }
+
+    public void AdjustPosition(Grid grid)
+    {
+        transform.position = grid.gridCenter + positionOffset;
     }
 }

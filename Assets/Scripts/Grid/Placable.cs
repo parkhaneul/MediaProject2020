@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface Placable
 {
-
+    void AdjustPosition(Grid grid);
 }

@@ -8,7 +8,15 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     // This component should be attached to 'ground' like mesh (for example, plane)
     //
     //
-
+    private static GridManager instance;
+    public static GridManager Instance
+    {
+        get
+        {
+            return instance;
+        }
+    }
+    
     public int tileCount = 100;
     public bool debugMode = true;
     public GameObject gridGround;
@@ -19,6 +27,18 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     static private float tileWidth;
     static private float planeWidth;
     private const float rootTwo = 1.414f;
+
+    void Awake() 
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }    
+        else 
+        {
+            DestroyImmediate(this);
+        }
+    }
     void Start()
     {
         bundles = new List<GridBundle>();
@@ -48,6 +68,19 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
         InitAdjacent();
         InitBundles(occupiedGrids);
     }
+
+    public Grid GetRandomItemSpawnPosition(Placable placable)
+    {
+        foreach(var bundle in bundles)
+        {
+            if(bundle.owner == placable)
+            {
+                List<Grid> candidates = bundle.GetVacantAdjacentGrids();
+                return candidates[Random.Range(0, candidates.Count)];
+            }
+        }
+        return new Grid();
+    }
     private void Clear()
     {
         tileWidth = -1.0f;
@@ -69,8 +102,11 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
                     - Vector3.right * i * tileWidth + Vector3.right * planeWidth / 2
                     - Vector3.right * tileWidth / 2 - Vector3.forward * tileWidth / 2;
                 gridCenters.Add(center);
-
-                Grid grid = new Grid(center, isGridOccupied(center, Mathf.Infinity));
+                
+                Placable occupier;
+                bool occupied = isGridOccupied(center, out occupier);
+                
+                Grid grid = new Grid(center, occupier, occupied);
                 gridArray[i,j] = grid;
 
                 if(grid.isOccupied)
@@ -103,22 +139,9 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
         while(occupiedGrids.Count > 0)
         {
             Grid target = occupiedGrids[0];
-            GridBundle bundle = new GridBundle(target, occupiedGrids);
-            bundle.owner = target.owner;
+            GridBundle bundle = new GridBundle(target,target.owner, occupiedGrids);
             bundles.Add(bundle);
         }
-    }
-    public Grid GetRandomItemSpawnPosition(Placable placable)
-    {
-        foreach(var bundle in bundles)
-        {
-            if(bundle.owner == placable)
-            {
-                List<Grid> candidates = bundle.GetVacantAdjacentGrids();
-                return candidates[Random.Range(0, candidates.Count)];
-            }
-        }
-        return new Grid();
     }
 
     public static List<Grid> GetTouchingGrids(Grid target, List<Grid> grids) //TODO : Use Linq instead of foreach
@@ -132,12 +155,17 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
         return neighbors;
     }
 
-    public bool isGridOccupied(Vector3 center, float length = Mathf.Infinity)
+    public static bool isGridOccupied(Vector3 center, out Placable placable, float length = Mathf.Infinity)
+    {
+        return isGridOccupied(center, Vector3.up, out placable, length);
+    }
+
+    public static bool isGridOccupied(Vector3 center, float length = Mathf.Infinity)
     {
         return isGridOccupied(center, Vector3.up, length);
     }
 
-    public bool isGridOccupied(Vector3 center, Vector3 direction, float length = Mathf.Infinity)
+    public static bool isGridOccupied(Vector3 center, Vector3 direction, float length = Mathf.Infinity)
     {
         if(Physics.Raycast(center, direction, Mathf.Infinity, gridLayerMask))
         {
@@ -145,6 +173,18 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
             //Consider this later.
             return true;
         }
+        return false;
+    }
+    public static bool isGridOccupied(Vector3 center, Vector3 direction, out Placable placable, float length = Mathf.Infinity)
+    {
+        RaycastHit hitInfo;
+        if(Physics.Raycast(center, direction, out hitInfo, Mathf.Infinity, gridLayerMask))
+        {
+            Placable p = hitInfo.transform.gameObject.GetComponent<Placable>();
+            placable = p;
+            return true;
+        }
+        placable = null;
         return false;
     }
 

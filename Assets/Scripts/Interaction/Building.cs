@@ -5,7 +5,7 @@ using UnityEngine;
 public class Building : Interactable
 {
     public int durability;
-    public List<Item> dropItems;
+    public List<GameObject> dropItems;
     public ToolKind kind;
     public override void OnInteract(CharacterAction actor)
     {
@@ -19,7 +19,7 @@ public class Building : Interactable
         }
     }
 
-    private Item GetRandomItemToSpawn()
+    private GameObject GetRandomItemToSpawn()
     {
         if(dropItems != null && dropItems.Count > 0)
             return dropItems[Random.Range(0, dropItems.Count)];
@@ -27,7 +27,15 @@ public class Building : Interactable
     }
     private void OnSpawnItem()
     {
-        //Debug.Log(gameObject.name + " : SpawnItem");
+        Grid grid = gridManager.GetRandomItemSpawnPosition(this);
+        GameObject g = Instantiate(GetRandomItemToSpawn());
+        Item item = g.GetComponent<Item>();
+        if(item == null)
+        {
+            Debug.LogError("In dropItems All Gameobject should have Item Component");
+        }
+        item.AdjustPosition(grid);
+        grid.Occupy(item);
     }
     private void OnDamaged()
     {
