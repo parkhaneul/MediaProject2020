@@ -12,13 +12,16 @@ public class Grid
     {
         gridCenter = center;
         this.isOccupied = isOccupied;
+        adjacentGrids = new List<Grid>();
     }
     public Grid(Vector3 center)
     {
         gridCenter = center;
+        adjacentGrids = new List<Grid>();
     }
     public Grid()
     {
-        gridCenter = Vector3.zero;
+        gridCenter = Vector3.one * Mathf.NegativeInfinity;
+        adjacentGrids = new List<Grid>();
     }
 }

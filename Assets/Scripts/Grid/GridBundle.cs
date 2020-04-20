@@ -9,24 +9,34 @@ public class GridBundle
 
     public GridBundle(Grid source, List<Grid> searchTargets)
     {
-        SearchTouchingGrids(source, searchTargets, grids);
+        HashSet<Grid> touchingGrids = new HashSet<Grid>();
+        SearchTouchingGrids(source, searchTargets, touchingGrids);
+
+        grids = new List<Grid>();
         grids.Add(source);
+        foreach(var grid in touchingGrids)
+        {
+            grids.Add(grid);
+        }
     }
 
-    private void SearchTouchingGrids(Grid target, List<Grid> targets, List<Grid> collections)
+    private void SearchTouchingGrids(Grid target, List<Grid> targets, HashSet<Grid> collections)
     {
+        targets.Remove(target);
         List<Grid> grids = GridManager.GetTouchingGrids(target, targets);
-        if(grids.Count == 0)
+        int prevCount = collections.Count;
+        foreach(var grid in grids)
+        {
+            collections.Add(grid);
+        }
+        if(grids.Count == prevCount)
         {
             return;
         }
-
         foreach(var grid in grids)
         {
             SearchTouchingGrids(grid, targets, collections);
         }
-
-        collections.AddRange(grids);
     } 
 
     public List<Grid> GetAdjacentGrids()

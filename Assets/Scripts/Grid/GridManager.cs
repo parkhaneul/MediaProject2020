@@ -102,19 +102,22 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     {
         while(occupiedGrids.Count > 0)
         {
-            GridBundle bundle = new GridBundle(occupiedGrids[0], occupiedGrids);
-            bundle.owner = occupiedGrids[0].owner;
-
-            foreach(var grid in bundle.grids)
-            {
-                occupiedGrids.Remove(grid);
-            }
+            Grid target = occupiedGrids[0];
+            GridBundle bundle = new GridBundle(target, occupiedGrids);
+            bundle.owner = target.owner;
             bundles.Add(bundle);
         }
     }
     public Grid GetRandomItemSpawnPosition(Placable placable)
     {
-        //1. Bundle
+        foreach(var bundle in bundles)
+        {
+            if(bundle.owner == placable)
+            {
+                List<Grid> candidates = bundle.GetVacantAdjacentGrids();
+                return candidates[Random.Range(0, candidates.Count)];
+            }
+        }
         return new Grid();
     }
 
