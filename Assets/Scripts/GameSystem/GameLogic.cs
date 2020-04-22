@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public interface GameLogic
@@ -7,40 +8,63 @@ public interface GameLogic
     void active();
     void stop();
     void run();
+    void mainLogic();
 }
 
-public abstract class BasicLogic : GameLogic
+public class BasicLogic<T> : GameLogic where T : class, new()
 {
-    public bool flag = false;
+    public static T _instance;
+    public static T Instance
+    {
+        get
+        {
+            if (_instance == null)
+                _instance = new T();
+            return _instance;
+        }
+    }
+    
+    private bool _flag = false;
     
     public void active()
     {
-        if(flag == false)
-            flag = true;
+        if(_flag == false)
+            _flag = true;
     }
 
     public void stop()
     {
-        if (flag)
-            flag = false;
+        if (_flag)
+            _flag = false;
     }
 
-    public abstract void run();
+    public void run()
+    {
+        if(_flag)
+            mainLogic();
+    }
+
+    public virtual void mainLogic()
+    {
+    }
 }
 
-public class TimeLogic : BasicLogic
+public class TimeLogic : BasicLogic<TimeLogic>
 {
     private float _limitTime; //제한 시간
     private float _currentTime; //제한 시간 중 남은 시간
 
     private const float _zeroTime = 0f;
-    
-    public TimeLogic(float time)
+
+    public TimeLogic()
+    {
+        Logger.LogWarning("Time Logic Running...");
+    }
+
+    public void setTime(float time)
     {
         _limitTime = time;
         _currentTime = time;
-        
-        Logger.LogWarning("Time Logic Running : " + time + " seconds");
     }
 
     public void countDownTik()
@@ -53,8 +77,8 @@ public class TimeLogic : BasicLogic
             stop();
         }
     }
-    
-    public override void run()
+
+    public override void mainLogic()
     {
         countDownTik();
     }
@@ -67,37 +91,14 @@ public class TimeLogic : BasicLogic
     }
 }
 
-public class MissionLogic : BasicLogic
+public class MissionLogic : BasicLogic<MissionLogic>
 {
     public MissionLogic()
     {
         Logger.LogWarning("Mission Logic Running");
     }
-    
-    public override void run()
-    {
-    }
-}
 
-public class User
-{
-    public int uid;
-
-    public string xAxisInput;
-    public string yAxisInput;
-    public string ActionInput;
-}
-
-public class GameConnectionLogic : BasicLogic
-{
-    private List<User> users;
-    
-    public GameConnectionLogic()
-    {
-        if (users == null)
-            users = new List<User>();
-    }
-    public override void run()
+    public override void mainLogic()
     {
     }
 }

@@ -19,12 +19,17 @@ public class GameSystem : MonoBehaviour
         }
     }
 
-    public List<BasicLogic> logics = new List<BasicLogic>();
+    public List<GameLogic> logics = new List<GameLogic>();
 
     public void Start()
     {
-        logics.Add(new TimeLogic(LimitTime));
-        logics.Add(new MissionLogic());
+        var tl = TimeLogic.Instance;
+        var ml = MissionLogic.Instance;
+        
+        tl.setTime(LimitTime);
+        
+        logics.Add(tl);
+        logics.Add(ml);
         
         activeAll();
     }
@@ -38,8 +43,7 @@ public class GameSystem : MonoBehaviour
     {
         foreach (var logic in logics)
         {
-            if(logic.flag)
-                logic.run();
+            logic.run();
         }
     }
 
