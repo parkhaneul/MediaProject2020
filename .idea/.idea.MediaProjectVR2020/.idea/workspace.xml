@@ -37,8 +37,9 @@
     <setting file="file://$PROJECT_DIR$/Assets/Art/Tile.shader" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/Concat.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Inventory.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/GridManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/LoadingBarObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interaction/Item.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/LoadingBarHeader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Effect/EffectManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/Grid.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interaction/Tool.cs" root0="FORCE_HIGHLIGHTING" />
@@ -65,6 +66,7 @@
         <option value="$PROJECT_DIR$/Assets/CameraMovement.cs" />
         <option value="$PROJECT_DIR$/Assets/LoadingBarHeader.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/LoadingBarObject.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameLogic.cs" />
       </list>
     </option>
@@ -126,7 +128,7 @@
       <workItem from="1587098876721" duration="2615000" />
       <workItem from="1587101773402" duration="5353000" />
       <workItem from="1587108939340" duration="14163000" />
-      <workItem from="1587527341189" duration="3314000" />
+      <workItem from="1587527341189" duration="7044000" />
     </task>
     <servers />
   </component>

@@ -15,7 +15,7 @@
           </e>
         </e>
         <e p="CameraMovement.cs" t="Include" />
-        <e p="LoadingBarHeader.cs" t="Include" />
+        <e p="LoadingBarObject.cs" t="Include" />
         <e p="Plugins" t="Include">
           <e p="UniRx" t="Include">
             <e p="Examples" t="Include">

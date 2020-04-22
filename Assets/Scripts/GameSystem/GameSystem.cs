@@ -23,6 +23,8 @@ public class GameSystem : MonoBehaviour
 
     public void Start()
     {
+        Logger.Log("start");
+        
         var tl = TimeLogic.Instance;
         var ml = MissionLogic.Instance;
         

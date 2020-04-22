@@ -93,6 +93,7 @@ public class TimeLogic : BasicLogic<TimeLogic>
 
 public class MissionLogic : BasicLogic<MissionLogic>
 {
+    private float missionPercent = 0;
     public MissionLogic()
     {
         Logger.LogWarning("Mission Logic Running");
@@ -100,5 +101,10 @@ public class MissionLogic : BasicLogic<MissionLogic>
 
     public override void mainLogic()
     {
+    }
+
+    public float getPercent()
+    {
+        return missionPercent;
     }
 }
