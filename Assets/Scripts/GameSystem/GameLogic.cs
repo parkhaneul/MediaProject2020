@@ -91,6 +91,9 @@ public class TimeLogic : BasicLogic<TimeLogic>
     }
 }
 
+/// <summary>
+/// change code if Item Data Class Update
+/// </summary>
 public class MissionLogic : BasicLogic<MissionLogic>
 {
     private float missionPercent = 0;

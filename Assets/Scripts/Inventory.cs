@@ -5,6 +5,9 @@ using JetBrains.Annotations;
 using UniRx;
 using UnityEngine;
 
+/// <summary>
+/// change code if Item Data Class Update
+/// </summary>
 public class Inventory : MonoBehaviour
 {
     private List<Item> _inventory;
