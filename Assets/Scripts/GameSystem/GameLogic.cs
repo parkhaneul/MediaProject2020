@@ -97,6 +97,9 @@ public class TimeLogic : BasicLogic<TimeLogic>
 public class MissionLogic : BasicLogic<MissionLogic>
 {
     private float missionPercent = 0;
+    private float tempPercent = 0;
+    private const float _interval = 0.5f;
+    
     private List<string> missionItemList = new List<string>();
     public MissionLogic()
     {
@@ -124,6 +127,10 @@ public class MissionLogic : BasicLogic<MissionLogic>
 
     public override void mainLogic()
     {
+        if (tempPercent < missionPercent)
+        {
+            tempPercent += _interval;
+        }
     }
 
     public void addPercent(float value)
@@ -140,6 +147,6 @@ public class MissionLogic : BasicLogic<MissionLogic>
 
     public float getPercent()
     {
-        return missionPercent;
+        return tempPercent;
     }
 }
