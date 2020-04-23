@@ -93,7 +93,7 @@ public class CharacterAction : MonoBehaviour
             .Where(x => x == Vector3.zero)
             .Subscribe(_ =>
             {
-                Logger.Log("stop");
+                //Logger.Log("stop");
                 animator.SetBool(PlayerStateString.isMove,false);
             })
             .AddTo(this);
@@ -110,7 +110,7 @@ public class CharacterAction : MonoBehaviour
             .Where(x => x != Vector3.zero)
             .Subscribe(_ =>
             {
-                Logger.Log("run");
+                //Logger.Log("run");
                 animator.SetBool(PlayerStateString.isMove,true);
             })
             .AddTo(this);

@@ -14,7 +14,7 @@
             <e p="ToonComplete.shader" t="Include" />
           </e>
         </e>
-        <e p="CameraMovement.cs" t="Include" />
+        <e p="CameraScript.cs" t="Include" />
         <e p="LoadingBarObject.cs" t="Include" />
         <e p="Plugins" t="Include">
           <e p="UniRx" t="Include">
@@ -329,6 +329,7 @@
           </e>
           <e p="Inventory.cs" t="Include" />
         </e>
+        <e p="UIManager.cs" t="Include" />
       </e>
       <e p="MediaProjectVR2020.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />

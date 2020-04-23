@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
 public class ControllerManager : MonoBehaviour
 {
     public GameObject testUnit;
     public Dictionary<int, GameObject> unitList;
-    
+
+    private Camera _camera;
     private List<InputObservableController> controllers;
+    public Vector3 playerModelScale = Vector3.one;
     
     void OnEnable()
     {
@@ -19,6 +22,9 @@ public class ControllerManager : MonoBehaviour
 
         if(unitList == null)
             unitList = new Dictionary<int, GameObject>();
+        
+        if(_camera == null)
+            _camera = Camera.main;
         
         newController(1234);
     }
@@ -35,9 +41,32 @@ public class ControllerManager : MonoBehaviour
 
     void newTestUnit(int uid)
     {
-        var unit = GameObject.Instantiate(testUnit);
-        unit.SetActive(true);
-        unitList.Add(uid,unit);
+        var go = GameObject.Instantiate(testUnit);
+        go.gameObject.transform.localScale = playerModelScale;
+        go.SetActive(true);
+
+        this.UpdateAsObservable()
+            .Select(_ => _camera.WorldToViewportPoint(go.transform.position))
+            .Where(_ => (_.x < 1 && _.x > 0 && _.y < 1 && _.y > 0) == false)
+            .DistinctUntilChanged(_ => _)
+            .Subscribe(_ =>
+            {
+                UIManager.Instance.setActive(true);
+                UIManager.Instance.test(_);
+            })
+            .AddTo(go);
+        
+        this.UpdateAsObservable()
+            .Select(_ => _camera.WorldToViewportPoint(go.transform.position))
+            .Where(_ => (_.x < 1 && _.x > 0 && _.y < 1 && _.y > 0))
+            .DistinctUntilChanged(_ => _)
+            .Subscribe(_ =>
+            {
+                UIManager.Instance.setActive(false);
+            })
+            .AddTo(go);
+        
+        unitList.Add(uid,go);
     }
 
     public void newController(int uid)

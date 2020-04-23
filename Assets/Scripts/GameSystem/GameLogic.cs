@@ -98,7 +98,7 @@ public class MissionLogic : BasicLogic<MissionLogic>
 {
     private float missionPercent = 0;
     private float tempPercent = 0;
-    private const float _interval = 0.5f;
+    private float _interval = 0.5f;
     
     private List<string> missionItemList = new List<string>();
     public MissionLogic()
@@ -110,6 +110,11 @@ public class MissionLogic : BasicLogic<MissionLogic>
     public void setList(List<string> list)
     {
         missionItemList = list;
+    }
+
+    public void setInterval(float value)
+    {
+        _interval = value;
     }
     
     //item class 정해지면 변경

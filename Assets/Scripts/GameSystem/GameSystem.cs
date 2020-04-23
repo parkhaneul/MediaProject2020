@@ -8,6 +8,7 @@ public class GameSystem : MonoBehaviour
 {
     public float LimitTime = 0f;
     public List<string> missionItemList = new List<string>();
+    public float Interval;
     
     private GameSystem _instance;
     public GameSystem Instance
@@ -29,6 +30,7 @@ public class GameSystem : MonoBehaviour
         
         tl.setTime(LimitTime);
         ml.setList(missionItemList);
+        ml.setInterval(Interval);
         
         logics.Add(tl);
         logics.Add(ml);
