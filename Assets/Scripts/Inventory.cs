@@ -15,7 +15,6 @@ public class Inventory : MonoBehaviour
         if (_inventory == null)
             _inventory = new List<Item>();
 
-        
         //Inventory Test
         Observable.EveryUpdate()
             .Where(_ => _inventory.Count != 0)
@@ -46,6 +45,25 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void deleteItem(string itemName)
+    {
+        List<Item> items = new List<Item>();
+
+        foreach (var item in _inventory)
+        {
+            if (item.name == itemName)
+            {
+                items.Add(item);
+            }
+        }
+
+        foreach (var item in items)
+        {
+            _inventory.Remove(item);
+            item.gameObject.SetActive(false);
+        }
+    }
+
     [CanBeNull]
     public Item getItem(int index)
     {
@@ -57,6 +75,19 @@ public class Inventory : MonoBehaviour
 
         return _inventory[index];
     }
+
+    public List<string> getItemString()
+    {
+        List<string> returnValue = new List<string>();
+
+        foreach (var item in _inventory)
+        {
+            returnValue.Add(item.name);
+        }
+
+        return returnValue;
+    }
+    
     public override string ToString()
     {
         return "Inventory item count is " + _inventory.Count;

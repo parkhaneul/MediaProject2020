@@ -322,6 +322,7 @@ GameObject:
   - component: {fileID: 382519259}
   - component: {fileID: 382519258}
   - component: {fileID: 382519262}
+  - component: {fileID: 382519263}
   m_Layer: 0
   m_Name: Header
   m_TagString: Untagged
@@ -415,6 +416,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4518ea56168095840bb52f3d853075f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &382519263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382519257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1155a4d530973f4459264e643481dc37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1074258705
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,6 +516,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LimitTime: 10
+  missionItemList:
+  - Debris
 --- !u!1001 &1361750225
 PrefabInstance:
   m_ObjectHideFlags: 0

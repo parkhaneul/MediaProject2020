@@ -94,13 +94,45 @@ public class TimeLogic : BasicLogic<TimeLogic>
 public class MissionLogic : BasicLogic<MissionLogic>
 {
     private float missionPercent = 0;
+    private List<string> missionItemList = new List<string>();
     public MissionLogic()
     {
         Logger.LogWarning("Mission Logic Running");
     }
 
+    //item class 정해지면 변경
+    public void setList(List<string> list)
+    {
+        missionItemList = list;
+    }
+    
+    //item class 정해지면 변경
+    public bool checkItemRequired(string itemName)
+    {
+        var returnValue = false;
+
+        foreach (var name in missionItemList)
+        {
+            returnValue |= (itemName == name);
+        }
+
+        return returnValue;
+    }
+
     public override void mainLogic()
     {
+    }
+
+    public void addPercent(float value)
+    {
+        if (missionPercent + value < 100)
+        {
+            missionPercent += value;
+        }
+        else
+        {
+            missionPercent = 100;
+        }
     }
 
     public float getPercent()

@@ -30,9 +30,11 @@ public class CharacterAction : MonoBehaviour
     public Animator animator;
     public float moveSpeed;
 
+    public Inventory Inventory;
+    
     private PlayerState _state;
     private PlayerStateMachineObservables _playerStateMachineObservables;
-
+    
     public Tool equipment { get; private set; }
     private Transform toolSocket;
     private const string toolSocketName = "ToolSocket";
@@ -55,6 +57,9 @@ public class CharacterAction : MonoBehaviour
     
     public void Start()
     {
+        if (Inventory == null)
+            Inventory = this.GetComponent<Inventory>();
+        
         _playerStateMachineObservables = animator.GetBehaviour<PlayerStateMachineObservables>();
 
         //smash animation

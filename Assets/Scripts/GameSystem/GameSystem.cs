@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameSystem : MonoBehaviour
 {
     public float LimitTime = 0f;
+    public List<string> missionItemList = new List<string>();
     
     private GameSystem _instance;
     public GameSystem Instance
@@ -23,12 +24,11 @@ public class GameSystem : MonoBehaviour
 
     public void Start()
     {
-        Logger.Log("start");
-        
         var tl = TimeLogic.Instance;
         var ml = MissionLogic.Instance;
         
         tl.setTime(LimitTime);
+        ml.setList(missionItemList);
         
         logics.Add(tl);
         logics.Add(ml);

@@ -296,6 +296,7 @@
             </e>
           </e>
         </e>
+        <e p="QuestObject.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="Effect" t="Include">
             <e p="EffectManager.cs" t="Include" />
