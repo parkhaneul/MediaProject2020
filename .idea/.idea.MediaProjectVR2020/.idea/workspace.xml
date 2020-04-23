@@ -64,12 +64,13 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/InputController.cs" />
         <option value="$PROJECT_DIR$/Assets/CameraMovement.cs" />
         <option value="$PROJECT_DIR$/Assets/LoadingBarHeader.cs" />
-        <option value="$PROJECT_DIR$/Assets/LoadingBarObject.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
         <option value="$PROJECT_DIR$/Assets/QuestObject.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Inventory.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameLogic.cs" />
+        <option value="$PROJECT_DIR$/Assets/PivotTransform.cs" />
+        <option value="$PROJECT_DIR$/Assets/LoadingBarObject.cs" />
       </list>
     </option>
   </component>
@@ -132,7 +133,7 @@
       <workItem from="1587108939340" duration="14163000" />
       <workItem from="1587527341189" duration="7044000" />
       <workItem from="1587546710407" duration="1620000" />
-      <workItem from="1587606402580" duration="1221000" />
+      <workItem from="1587606402580" duration="5740000" />
     </task>
     <servers />
   </component>
