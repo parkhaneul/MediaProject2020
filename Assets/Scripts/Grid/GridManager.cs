@@ -144,7 +144,7 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
         while(occupiedGrids.Count > 0)
         {
             Grid target = occupiedGrids[0];
-            GridBundle bundle = new GridBundle(target,target.owner, occupiedGrids);
+            GridBundle bundle = new GridBundle(target, target.owner, occupiedGrids);
             bundles.Add(bundle);
         }
     }

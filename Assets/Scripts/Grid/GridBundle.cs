@@ -10,25 +10,29 @@ public class GridBundle
     public GridBundle(Grid source, Placable owner, List<Grid> searchTargets)
     {
         HashSet<Grid> touchingGrids = new HashSet<Grid>();
-        SearchTouchingGrids(source, searchTargets, touchingGrids);
+        List<Grid> copy = new List<Grid>(searchTargets);
+        SearchTouchingGrids(source, owner, copy, touchingGrids);
 
         this.owner = owner;
         grids = new List<Grid>();
         grids.Add(source);
+        searchTargets.Remove(source);
         foreach(var grid in touchingGrids)
         {
+            searchTargets.Remove(grid);
             grids.Add(grid);
         }
     }
 
-    private void SearchTouchingGrids(Grid target, List<Grid> targets, HashSet<Grid> collections)
+    private void SearchTouchingGrids(Grid target, Placable ownerOfTarget, List<Grid> targets, HashSet<Grid> collections)
     {
         targets.Remove(target);
         List<Grid> grids = GridManager.GetTouchingGrids(target, targets);
         int prevCount = collections.Count;
         foreach(var grid in grids)
         {
-            collections.Add(grid);
+            if(ownerOfTarget == grid.owner)
+                collections.Add(grid);
         }
         if(grids.Count == prevCount)
         {
@@ -36,7 +40,7 @@ public class GridBundle
         }
         foreach(var grid in grids)
         {
-            SearchTouchingGrids(grid, targets, collections);
+            SearchTouchingGrids(grid, ownerOfTarget, targets, collections);
         }
     } 
 
