@@ -18,11 +18,11 @@ public class Item : MonoBehaviour, Placable
             if (characterAction != null)
             {
                 Inventory inven = other.transform.parent.GetComponent<Inventory>();
-                if (inven != null)
+                if (inven != null && !inven.isFull())
                 {
                     inven.addItem(this);
+                    OnItemGet();
                 }
-                OnItemGet();
             }
         }
     }

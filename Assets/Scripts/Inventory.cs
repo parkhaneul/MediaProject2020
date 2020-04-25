@@ -35,6 +35,11 @@ public class Inventory : MonoBehaviour
             .AddTo(this);
     }
 
+    public bool isFull()
+    {
+        return !(_inventory.Count < inventoryMaximumSize);
+    }
+
     public void addItem(Item item)
     {
         if (_inventory.Count < inventoryMaximumSize)
