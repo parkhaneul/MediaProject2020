@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5518154657358260749}
   - component: {fileID: 3870508141994886909}
   - component: {fileID: 5254962299288500845}
-  - component: {fileID: 5254962299288500842}
   - component: {fileID: 5254962299288500843}
-  m_Layer: 0
+  - component: {fileID: 6991042486199069167}
+  m_Layer: 8
   m_Name: Obstacles_Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,20 +98,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!64 &5254962299288500842
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5254962299288500840}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2432090755550338912, guid: 2d510a79033dac74abcbe7583ba092fe, type: 3}
 --- !u!114 &5254962299288500843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,3 +114,16 @@ MonoBehaviour:
   dropItems:
   - {fileID: 2817748586572796272, guid: ab44c474da49542e5884c998e22ace18, type: 3}
   kind: 0
+--- !u!65 &6991042486199069167
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5254962299288500840}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1999999, y: 1.8, z: 1.1999999}
+  m_Center: {x: 0.8, y: 0.9, z: 0.8}
