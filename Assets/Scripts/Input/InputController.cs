@@ -39,6 +39,11 @@ public class Point
     }
 }
 
+public class AxisName
+{
+    public string[] player1_axis = {"",""};
+}
+
 public class InputObservableController
 {
     private int _uid;
