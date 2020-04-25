@@ -50,10 +50,15 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     {
         if(debugMode)
         {
-            // foreach(var center in gridCenters)
-            // {
-            //     // Debug.DrawLine(center, center + Vector3.up, Color.red);
-            // }
+            for(int i = 0 ; i < tileCount ; i++)
+            {
+                for(int j = 0 ; j < tileCount ; j++)
+                {
+                    Grid grid = gridArray[i,j];
+                    Debug.DrawLine(grid.gridCenter, grid.gridCenter + Vector3.up, 
+                        grid.isOccupied ? Color.red : Color.blue);
+                }
+            }
         }
     }
 
