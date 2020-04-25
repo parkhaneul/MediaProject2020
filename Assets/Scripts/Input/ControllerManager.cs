@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class ControllerManager : MonoBehaviour
 {
@@ -44,6 +45,7 @@ public class ControllerManager : MonoBehaviour
         var go = GameObject.Instantiate(testUnit);
         go.gameObject.transform.localScale = playerModelScale;
         go.SetActive(true);
+        UIManager.Instance.addUser(uid);
 
         this.UpdateAsObservable()
             .Select(_ => _camera.WorldToViewportPoint(go.transform.position))
@@ -51,8 +53,8 @@ public class ControllerManager : MonoBehaviour
             .DistinctUntilChanged(_ => _)
             .Subscribe(_ =>
             {
-                UIManager.Instance.setActive(true);
-                UIManager.Instance.test(_);
+                UIManager.Instance.setActive(uid,true);
+                UIManager.Instance.test(uid,_);
             })
             .AddTo(go);
         
@@ -62,7 +64,7 @@ public class ControllerManager : MonoBehaviour
             .DistinctUntilChanged(_ => _)
             .Subscribe(_ =>
             {
-                UIManager.Instance.setActive(false);
+                UIManager.Instance.setActive(uid,false);
             })
             .AddTo(go);
         
