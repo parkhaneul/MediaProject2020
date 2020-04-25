@@ -6,18 +6,25 @@ abstract public class Interactable : MonoBehaviour, Placable
 {
     static protected EffectManager effectManager;
     static protected GridManager gridManager;
+    protected HashSet<CharacterAction> characters;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         effectManager = EffectManager.Instance;   
         gridManager = GridManager.Instance;
+        characters = new HashSet<CharacterAction>();
     }
 
     public abstract void OnInteract(CharacterAction actor);
     protected virtual void OnDestroy() 
     {
-        //Debug.Log(gameObject.name + " : Destroyed");
+        foreach(var character in characters)
+        {
+            character.interactables.Remove(this);
+        }
+        // Debug.Log(gameObject.name + " : Destroyed");
+        Destroy(gameObject);
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -28,6 +35,7 @@ abstract public class Interactable : MonoBehaviour, Placable
             if (characterAction != null)
             {
                 characterAction.interactables.Add(this);
+                characters.Add(characterAction);
             }
         }
     }
@@ -40,6 +48,7 @@ abstract public class Interactable : MonoBehaviour, Placable
             if (characterAction != null)
             {
                 characterAction.interactables.Remove(this);
+                characters.Remove(characterAction);
             }
         }
     }

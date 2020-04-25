@@ -39,12 +39,13 @@ public class Building : Interactable
     }
     private void OnDamaged()
     {
-        effectManager.BlinkEffect(gameObject);
-        effectManager.ShakeEffect(gameObject);
         OnSpawnItem();
         if(--durability <= 0)
         {
             OnDestroy();
+            return;
         }
+        effectManager.BlinkEffect(gameObject);
+        effectManager.ShakeEffect(gameObject);
     }
 }

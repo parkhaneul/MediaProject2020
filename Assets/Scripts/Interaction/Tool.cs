@@ -14,8 +14,9 @@ public class Tool : Interactable
     public ToolKind kind;
     private CharacterAction owner;
     private BoxCollider collider;
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         collider = GetComponent<BoxCollider>();
     }
     
