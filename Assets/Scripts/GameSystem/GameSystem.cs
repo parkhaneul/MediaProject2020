@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameSystem : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class GameSystem : MonoBehaviour
     public float LimitTime = 0f;
     public List<string> missionItemList = new List<string>();
     public float Interval;
+    public Text text;
     
     private GameSystem _instance;
     public GameSystem Instance
@@ -32,6 +34,7 @@ public class GameSystem : MonoBehaviour
         var ol = ObjectRecyclingLogic.Instance;
         
         tl.setTime(LimitTime);
+        tl.setText(text);
         ml.setList(missionItemList);
         ml.setInterval(Interval);
         pl.setMaximumNumber(maximumUserNumber);
@@ -76,6 +79,10 @@ public class GameSystem : MonoBehaviour
     public void randomPickUpInTrashCan()
     {
         var go = ObjectRecyclingLogic.Instance.randomPickUp();
-        go.transform.position = Vector3.up;
+
+        if (go == null)
+            Logger.Log("TrashCan is Blank.");
+        else
+            go.transform.position = Vector3.up;
     }
 }

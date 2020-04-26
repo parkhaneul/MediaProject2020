@@ -75,10 +75,11 @@
         <option value="$PROJECT_DIR$/Assets/UIManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/InputController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/ControllerManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/GameGUIManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/Item.cs" />
         <option value="$PROJECT_DIR$/Assets/QuestObject.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Inventory.cs" />
+        <option value="$PROJECT_DIR$/Assets/GameGUIManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/TimeTest.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameLogic.cs" />
       </list>
@@ -147,7 +148,7 @@
       <workItem from="1587624363852" duration="5077000" />
       <workItem from="1587802082101" duration="6413000" />
       <workItem from="1587884326184" duration="12121000" />
-      <workItem from="1587913263312" duration="1719000" />
+      <workItem from="1587913263312" duration="2777000" />
     </task>
     <servers />
   </component>

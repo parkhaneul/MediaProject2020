@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = System.Random;
 
 public interface GameLogic
@@ -111,6 +112,7 @@ public class TimeLogic : BasicLogic<TimeLogic>
     private float _limitTime; //제한 시간
     private float _currentTime; //제한 시간 중 남은 시간
 
+    private Text testText;
     private const float _zeroTime = 0f;
 
     public TimeLogic()
@@ -118,6 +120,11 @@ public class TimeLogic : BasicLogic<TimeLogic>
         Logger.LogWarning("Time Logic Running...");
     }
 
+    public void setText(Text text)
+    {
+        testText = text;
+    }
+    
     public void setTime(float time)
     {
         _limitTime = time;
@@ -128,6 +135,8 @@ public class TimeLogic : BasicLogic<TimeLogic>
     {
         _currentTime -= Time.deltaTime;
 
+        testText.text = _currentTime.ToString();
+        
         if (_currentTime < _zeroTime)
         {
             Logger.LogError("TimeOver");
