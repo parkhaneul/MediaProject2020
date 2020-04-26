@@ -49,6 +49,13 @@ public class BasicLogic<T> : GameLogic where T : class, new()
     }
 }
 
+public class ObjectRecyclingLogic : BasicLogic<ObjectRecyclingLogic>
+{
+    public override void mainLogic()
+    {
+    }
+}
+
 public class TimeLogic : BasicLogic<TimeLogic>
 {
     private float _limitTime; //제한 시간

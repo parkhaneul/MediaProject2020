@@ -76,11 +76,11 @@
         <option value="$PROJECT_DIR$/Assets/CameraScript.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
         <option value="$PROJECT_DIR$/Assets/UIManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/GameGUIManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameLogic.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/InputController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/ControllerManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/GameGUIManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameLogic.cs" />
       </list>
     </option>
   </component>
@@ -146,7 +146,7 @@
       <workItem from="1587606402580" duration="14426000" />
       <workItem from="1587624363852" duration="5077000" />
       <workItem from="1587802082101" duration="6413000" />
-      <workItem from="1587884326184" duration="10298000" />
+      <workItem from="1587884326184" duration="12121000" />
     </task>
     <servers />
   </component>
