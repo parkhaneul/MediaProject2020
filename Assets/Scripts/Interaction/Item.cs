@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour, Placable
 {
+    public ItemKind kind;
     public Vector3 positionOffset = new Vector3(0.0f, 0.4f, 0.0f);
     public virtual void OnItemGet()
     {
