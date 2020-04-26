@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UniRx;
 using UniRx.Triggers;
@@ -27,13 +28,10 @@ public class ReadInputManager
             Logger.Log("No Axes");
 
         axisNameArray = new string[axisArray.arraySize];
-
         for( int i = 0; i < axisArray.arraySize; ++i )
         {
             var axis = axisArray.GetArrayElementAtIndex(i);
- 
             var name = axis.FindPropertyRelative("m_Name").stringValue;
-
             axisNameArray[i] = name;
         }
 
@@ -108,19 +106,38 @@ public class ControllerManager : MonoBehaviour
 
     public void newController(int uid)
     {
-        if (PlayerConnectionLogic.Instance.addPlayer(1, uid) == false)
+        if (PlayerConnectionLogic.Instance.addPlayer(uid, uid) == false)
             return;
             
-        var ic = new InputObservableController(1,gameObject);
+        var index = PlayerConnectionLogic.Instance.currentPlayerNumber;
+        var axes = ReadInputManager.ReadAxes();
+        var AxisNumber = 5;
+        var useAxes = new ArraySegment<string>(axes, (index - 1) * AxisNumber, AxisNumber).ToArray();
+        
+        var ic = new InputObservableController(uid,gameObject);
 
-        ic.addNewEvent(0,25, new []{"Player1_x","Player1_y"},true,false, _ =>
+        //Arrows
+        ic.addNewEvent(0,25, new []{useAxes[0],useAxes[1]},true,false, _ =>
         {
             onMoveEvent(uid,new Point(_[0],0,_[1]));
         });
         
-        ic.addNewEvent(0,500,new []{"Player1_Action"},false,false, _ =>
+        //Interaction
+        ic.addNewEvent(0,500,new []{useAxes[2]},false,false, _ =>
         {
             onActionEvent(uid,_[0] > 0);
+        });
+        
+        //Put
+        ic.addNewEvent(0,500,new []{useAxes[3]},false,false, _ =>
+        {
+            Logger.Log("onPutEvent");
+        });
+        
+        //Menu
+        ic.addNewEvent(0,500,new []{useAxes[4]},false,false, _ =>
+        {
+            Logger.Log("onMenuEvent");
         });
         
         newTestUnit(uid);

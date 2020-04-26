@@ -674,7 +674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testUnit: {fileID: 5586435874040110506, guid: ca46ea23a15bf5f4181dc87b7075a696,
     type: 3}
-  playerModelScale: 1
+  playerModelScale: 1.5
 --- !u!4 &1074258709
 Transform:
   m_ObjectHideFlags: 0
