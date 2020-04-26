@@ -84,6 +84,45 @@ public class Inventory : MonoBehaviour
         return _inventory[index];
     }
 
+    public int getItemsCount()
+    {
+        if (_inventory == null)
+            return 0;
+            
+        return _inventory.Count;
+    }
+    
+    [CanBeNull]
+    public Item popItem(int index)
+    {
+        if (_inventory == null)
+            return null;
+        
+        if (_inventory.Count < index)
+            return null;
+
+        Item item = _inventory[index];
+        item.gameObject.SetActive(false);
+        _inventory.RemoveAt(index);
+        return item;
+    }
+
+    [CanBeNull]
+    public Item[] popAllItems()
+    {
+        if (_inventory == null)
+            return null;
+        
+        if (_inventory.Count < 0)
+            return null;
+
+        Item[] items = _inventory.ToArray();
+        foreach(var item in items)
+            item.gameObject.SetActive(false);
+        _inventory.Clear();
+        return items;
+    }
+
     public List<string> getItemString()
     {
         List<string> returnValue = new List<string>();
