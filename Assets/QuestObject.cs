@@ -23,7 +23,7 @@ public class QuestObject : Interactable
         {
             var checking = ml.checkItemRequired(itemName);
 
-            if (checking == true)
+            if (checking)
             {
                 temp.Add(itemName);
             }

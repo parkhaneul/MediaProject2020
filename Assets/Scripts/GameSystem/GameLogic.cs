@@ -1,7 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 using UnityEngine;
+using Random = System.Random;
 
 public interface GameLogic
 {
@@ -49,8 +53,54 @@ public class BasicLogic<T> : GameLogic where T : class, new()
     }
 }
 
+/// <summary>
+/// object polling class
+/// </summary>
 public class ObjectRecyclingLogic : BasicLogic<ObjectRecyclingLogic>
 {
+    private Dictionary<string, GameObject> trashCan;
+
+    public ObjectRecyclingLogic()
+    {
+        if(trashCan == null)
+            trashCan = new Dictionary<string, GameObject>();
+    }
+
+    public void chunk(string name, GameObject go)
+    {
+        trashCan[name] = go;
+        go.SetActive(false);
+        
+        Logger.Log("TrashCan has " + trashCan.Count + " Items");
+    }
+
+    [CanBeNull]
+    public GameObject randomPickUp()
+    {
+        if (trashCan.Count == 0)
+            return null;
+
+        var rValue = UnityEngine.Random.Range(0, trashCan.Count);
+
+        return pickUp(trashCan.Keys.ToArray()[rValue]);
+    }
+
+    [CanBeNull]
+    public GameObject pickUp(string name)
+    {
+        if (trashCan.ContainsKey(name))
+        {
+            var go = trashCan[name];
+            trashCan.Remove(name);
+            go.SetActive(true);
+            return go;
+        }
+
+        Logger.Log(name + " is not in trashCan.");
+        
+        return null;
+    }
+    
     public override void mainLogic()
     {
     }

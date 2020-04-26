@@ -29,6 +29,7 @@ public class GameSystem : MonoBehaviour
         var tl = TimeLogic.Instance;
         var ml = MissionLogic.Instance;
         var pl = PlayerConnectionLogic.Instance;
+        var ol = ObjectRecyclingLogic.Instance;
         
         tl.setTime(LimitTime);
         ml.setList(missionItemList);
@@ -38,6 +39,7 @@ public class GameSystem : MonoBehaviour
         logics.Add(tl);
         logics.Add(ml);
         logics.Add(pl);
+        logics.Add(ol);
         
         activeAll();
     }
@@ -69,5 +71,11 @@ public class GameSystem : MonoBehaviour
         {
             logic.active();
         }
+    }
+
+    public void randomPickUpInTrashCan()
+    {
+        var go = ObjectRecyclingLogic.Instance.randomPickUp();
+        go.transform.position = Vector3.up;
     }
 }
