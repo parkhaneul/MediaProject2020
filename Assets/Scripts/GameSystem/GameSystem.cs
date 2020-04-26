@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameSystem : MonoBehaviour
 {
+    public int maximumUserNumber = 4;
     public float LimitTime = 0f;
     public List<string> missionItemList = new List<string>();
     public float Interval;
@@ -23,17 +24,20 @@ public class GameSystem : MonoBehaviour
 
     public List<GameLogic> logics = new List<GameLogic>();
 
-    public void Start()
+    public void Awake()
     {
         var tl = TimeLogic.Instance;
         var ml = MissionLogic.Instance;
+        var pl = PlayerConnectionLogic.Instance;
         
         tl.setTime(LimitTime);
         ml.setList(missionItemList);
         ml.setInterval(Interval);
+        pl.setMaximumNumber(maximumUserNumber);
         
         logics.Add(tl);
         logics.Add(ml);
+        logics.Add(pl);
         
         activeAll();
     }

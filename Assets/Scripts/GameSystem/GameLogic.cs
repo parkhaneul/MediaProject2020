@@ -13,7 +13,7 @@ public interface GameLogic
 
 public class BasicLogic<T> : GameLogic where T : class, new()
 {
-    public static T _instance;
+    private static T _instance;
     public static T Instance
     {
         get
@@ -153,5 +153,57 @@ public class MissionLogic : BasicLogic<MissionLogic>
     public float getPercent()
     {
         return tempPercent;
+    }
+}
+
+public class PlayerConnectionLogic : BasicLogic<PlayerConnectionLogic>
+{
+    private int _currentPlayerNumber;
+    public int currentPlayerNumber
+    {
+        get { return _currentPlayerNumber; }
+    }
+
+    private int _maximumPlayerNumber;
+    public int maximumPlayerNumber
+    {
+        get { return _maximumPlayerNumber; }
+    }
+
+    private Dictionary<int, int> deviceAndUser;
+
+    public PlayerConnectionLogic()
+    {
+        if(deviceAndUser == null)
+            deviceAndUser = new Dictionary<int, int>();
+    }
+    
+    public bool addPlayer(int deviceID, int uid)
+    {
+        if (currentPlayerNumber < maximumPlayerNumber)
+        {
+            deviceAndUser[deviceID] = uid;
+            _currentPlayerNumber++;
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public int getUid(int deviceID)
+    {
+        if (deviceAndUser.ContainsKey(deviceID))
+            return deviceAndUser[deviceID];
+
+        return -1;
+    }
+
+    public void setMaximumNumber(int value)
+    {
+        _maximumPlayerNumber = value;
+    }
+    
+    public override void mainLogic()
+    {
     }
 }

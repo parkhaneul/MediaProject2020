@@ -625,6 +625,7 @@ GameObject:
   - component: {fileID: 1074258707}
   - component: {fileID: 1074258706}
   - component: {fileID: 1074258710}
+  - component: {fileID: 1074258711}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -673,7 +674,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testUnit: {fileID: 5586435874040110506, guid: ca46ea23a15bf5f4181dc87b7075a696,
     type: 3}
-  playerModelScale: {x: 1.5, y: 1.5, z: 1.5}
+  playerModelScale: 1
 --- !u!4 &1074258709
 Transform:
   m_ObjectHideFlags: 0
@@ -700,10 +701,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea457631aac4b8d40a072c836ab2e3c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maximumUserNumber: 4
   LimitTime: 10
   missionItemList:
   - Debris
   Interval: 0.1
+--- !u!114 &1074258711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074258705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 396a889ea74f8ee41b14cfc4921f6926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AddPlayerButtonAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1074258708}
+        m_MethodName: newController
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 123
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1107773413
 GameObject:
   m_ObjectHideFlags: 0
