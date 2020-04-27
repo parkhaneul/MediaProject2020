@@ -50,9 +50,9 @@ public class CraftBox : Interactable
         {
             return ItemKind.Tree;
         }
-        else if(isCraftable(new Model_Branch().GetFormula(), inventoryStatus))
+        else if(isCraftable(new Model_Rock().GetFormula(), inventoryStatus))
         {
-            return ItemKind.Branch;
+            return ItemKind.Rock;
         }
         
         // 3. 끝까지 맞는 조합이 없으면 null

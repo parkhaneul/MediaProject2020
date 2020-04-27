@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Model_Tree : ItemModel
+public class Model_Rock : ItemModel
 {
     public override ItemKind GetKind()
     {
-        return ItemKind.Tree;
+        return ItemKind.Rock;
     }
     public override ItemFormula GetFormula()
     {
@@ -14,7 +14,7 @@ public class Model_Tree : ItemModel
         {
             itemLists = new Dictionary<ItemKind, int>
             { 
-                {ItemKind.Branch, 3}
+                {ItemKind.Stone, 3}
             }
         };
     }
