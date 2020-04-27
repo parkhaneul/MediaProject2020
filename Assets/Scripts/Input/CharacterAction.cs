@@ -145,7 +145,10 @@ public class CharacterAction : MonoBehaviour
         if(animator.GetBool(PlayerStateString.isSmash) == false)
             animator.SetBool(PlayerStateString.isSmash,true);
     }
-
+    public void unmount(bool value)
+    {
+        UnsetEquipment();
+    }
     public void SetEquipment(Tool tool)
     {
         _state = PlayerState.Carry;
@@ -165,6 +168,7 @@ public class CharacterAction : MonoBehaviour
             equipment.transform.SetParent(null);
             equipment.transform.position = gameObject.transform.position;
             equipment.transform.rotation = Quaternion.identity;
+            equipment.transform.localScale = Vector3.one;
             equipment.GroundMode();
 
             equipment = null;

@@ -131,7 +131,7 @@ public class ControllerManager : MonoBehaviour
         //Put
         ic.addNewEvent(0,500,new []{useAxes[3]},false,false, _ =>
         {
-            Logger.Log("onPutEvent");
+            onUnmountEvent(uid,_[0] > 0);
         });
         
         //Menu
@@ -162,7 +162,19 @@ public class ControllerManager : MonoBehaviour
             unit.GetComponent<CharacterAction>().move(e);
         }
     }
-    
+    public void onUnmountEvent(int uid, bool e)
+    {
+        if (unitList.ContainsKey(uid) == false)
+        {
+            Logger.Log(uid + " unit lost");
+        }
+        else
+        {
+            GameObject unit;
+            unitList.TryGetValue(uid,out unit);
+            unit.GetComponent<CharacterAction>().unmount(e);
+        }
+    }
     public void onActionEvent(int uid, bool e)
     {
         if (unitList.ContainsKey(uid) == false)
@@ -176,4 +188,5 @@ public class ControllerManager : MonoBehaviour
             unit.GetComponent<CharacterAction>().action(e);
         }
     }
+    
 }
