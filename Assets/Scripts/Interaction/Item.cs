@@ -25,10 +25,6 @@ public class Item : MonoBehaviour, Placable
                     inven.addItem(this);
                     OnItemGet();
                 }
-<<<<<<< HEAD
-=======
-                //OnItemGet();
->>>>>>> 33209ef601cf18c652665688c08d7fffe52f4cfd
             }
         }
     }
