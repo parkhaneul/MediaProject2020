@@ -160,6 +160,14 @@ public class CharacterAction : MonoBehaviour
 
     public void UnsetEquipment()
     {
+        if(equipment != null)
+        {
+            equipment.transform.SetParent(null);
+            equipment.transform.position = gameObject.transform.position;
+            equipment.transform.rotation = Quaternion.identity;
+            equipment.GroundMode();
 
+            equipment = null;
+        }
     }
 }

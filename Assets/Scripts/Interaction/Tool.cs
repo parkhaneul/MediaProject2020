@@ -20,11 +20,21 @@ public class Tool : Interactable
         collider = GetComponent<BoxCollider>();
     }
     
+    public void EquipmentMode()
+    {
+        collider.enabled = false;
+    }
+
+    public void GroundMode()
+    {
+        collider.enabled = true;
+    }
+
     public override void OnInteract(CharacterAction actor)
     {
         actor.SetEquipment(this);
         owner = actor;
-        collider.enabled = false;
+        EquipmentMode();        
 
         owner.interactables.Remove(this);
     }
