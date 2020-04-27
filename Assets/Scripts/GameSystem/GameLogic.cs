@@ -1,7 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = System.Random;
 
 public interface GameLogic
 {
@@ -13,7 +18,7 @@ public interface GameLogic
 
 public class BasicLogic<T> : GameLogic where T : class, new()
 {
-    public static T _instance;
+    private static T _instance;
     public static T Instance
     {
         get
@@ -49,11 +54,65 @@ public class BasicLogic<T> : GameLogic where T : class, new()
     }
 }
 
+/// <summary>
+/// object polling class
+/// </summary>
+public class ObjectRecyclingLogic : BasicLogic<ObjectRecyclingLogic>
+{
+    private Dictionary<string, GameObject> trashCan;
+
+    public ObjectRecyclingLogic()
+    {
+        if(trashCan == null)
+            trashCan = new Dictionary<string, GameObject>();
+    }
+
+    public void chunk(string name, GameObject go)
+    {
+        trashCan[name] = go;
+        go.SetActive(false);
+        
+        Logger.Log("TrashCan has " + trashCan.Count + " Items");
+    }
+
+    [CanBeNull]
+    public GameObject randomPickUp()
+    {
+        if (trashCan.Count == 0)
+            return null;
+
+        var rValue = UnityEngine.Random.Range(0, trashCan.Count);
+
+        return pickUp(trashCan.Keys.ToArray()[rValue]);
+    }
+
+    [CanBeNull]
+    public GameObject pickUp(string name)
+    {
+        if (trashCan.ContainsKey(name))
+        {
+            var go = trashCan[name];
+            trashCan.Remove(name);
+            go.SetActive(true);
+            return go;
+        }
+
+        Logger.Log(name + " is not in trashCan.");
+        
+        return null;
+    }
+    
+    public override void mainLogic()
+    {
+    }
+}
+
 public class TimeLogic : BasicLogic<TimeLogic>
 {
     private float _limitTime; //제한 시간
     private float _currentTime; //제한 시간 중 남은 시간
 
+    private Text testText;
     private const float _zeroTime = 0f;
 
     public TimeLogic()
@@ -61,6 +120,11 @@ public class TimeLogic : BasicLogic<TimeLogic>
         Logger.LogWarning("Time Logic Running...");
     }
 
+    public void setText(Text text)
+    {
+        testText = text;
+    }
+    
     public void setTime(float time)
     {
         _limitTime = time;
@@ -71,6 +135,8 @@ public class TimeLogic : BasicLogic<TimeLogic>
     {
         _currentTime -= Time.deltaTime;
 
+        testText.text = _currentTime.ToString();
+        
         if (_currentTime < _zeroTime)
         {
             Logger.LogError("TimeOver");
@@ -153,5 +219,57 @@ public class MissionLogic : BasicLogic<MissionLogic>
     public float getPercent()
     {
         return tempPercent;
+    }
+}
+
+public class PlayerConnectionLogic : BasicLogic<PlayerConnectionLogic>
+{
+    private int _currentPlayerNumber;
+    public int currentPlayerNumber
+    {
+        get { return _currentPlayerNumber; }
+    }
+
+    private int _maximumPlayerNumber;
+    public int maximumPlayerNumber
+    {
+        get { return _maximumPlayerNumber; }
+    }
+
+    private Dictionary<int, int> deviceAndUser;
+
+    public PlayerConnectionLogic()
+    {
+        if(deviceAndUser == null)
+            deviceAndUser = new Dictionary<int, int>();
+    }
+    
+    public bool addPlayer(int deviceID, int uid)
+    {
+        if (currentPlayerNumber < maximumPlayerNumber)
+        {
+            deviceAndUser[deviceID] = uid;
+            _currentPlayerNumber++;
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public int getUid(int deviceID)
+    {
+        if (deviceAndUser.ContainsKey(deviceID))
+            return deviceAndUser[deviceID];
+
+        return -1;
+    }
+
+    public void setMaximumNumber(int value)
+    {
+        _maximumPlayerNumber = value;
+    }
+    
+    public override void mainLogic()
+    {
     }
 }

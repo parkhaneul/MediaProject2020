@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class KeyEventArgs<T> : EventArgs
 {
@@ -41,37 +43,60 @@ public class Point
 
 public class InputObservableController
 {
-    private int _uid;
-    public event EventHandler<KeyEventArgs<Point>> moveEvent;
-    public event EventHandler<KeyEventArgs<Boolean>> actionEvent;
-    
-    public InputObservableController(int uid,GameObject parent)
+    private int deviceID;
+    private IObservable<Unit> _input;
+    private GameObject _parent;
+    public InputObservableController(int deviceID,GameObject parent)
     {
-        this._uid = uid;
-
-        var _input = parent.UpdateAsObservable();
-        
-        Observable.Timer(TimeSpan.Zero, TimeSpan.FromMilliseconds(25))
+        this.deviceID = deviceID;
+        _input = parent.UpdateAsObservable();
+        _parent = parent;
+    }
+    
+    public void addNewEvent(int delayTime = 0,int intervalTime = 100, string[] axisName = null,bool mustSend = false,bool simultaneous = false, Action<float[]> func = null)
+    {
+        Observable.Timer(TimeSpan.FromMilliseconds(delayTime), TimeSpan.FromMilliseconds(intervalTime))
             .SkipUntil(_input)
-            .Select(_ => new Point(Input.GetAxisRaw("Player1_x"), 0, Input.GetAxisRaw("Player1_y")))
-            .Subscribe(_ =>
+            .TakeWhile(_ =>
             {
-                moveEvent(this, new KeyEventArgs<Point>(_uid, _));
+                if (mustSend)
+                    return mustSend;
+                
+                bool returnValue = simultaneous;
+                
+                foreach (var name in axisName)
+                {
+                    var value = !isEqaulsZero(Input.GetAxisRaw(name));
+                    
+                    if (simultaneous)
+                        returnValue &= value;
+                    else
+                        returnValue |= value;
+                }
+                return returnValue;
             })
-            .AddTo(parent);
-        
-        
-        Observable.Timer(TimeSpan.Zero,TimeSpan.FromMilliseconds(500))
-            .SkipUntil(_input)
-            .TakeWhile(_ => Input.GetAxisRaw("Player1_Action") != 0)
             .Repeat()
-            .Select(_ => Input.GetAxisRaw("Player1_Action") > 0)
+            .Select(_ =>
+            {
+                float[] axisArray = new float[axisName.Length];
+
+                for (int i = 0; i < axisName.Length; i++)
+                {
+                    axisArray[i] = Input.GetAxisRaw(axisName[i]);
+                }
+
+                return axisArray;
+            })
             .Subscribe(_ =>
             {
-                if(_)
-                    actionEvent(this, new KeyEventArgs<bool>(_uid, _));
+                func(_);
             })
-            .AddTo(parent);
+            .AddTo(_parent);
+    }
+
+    public bool isEqaulsZero(float value)
+    {
+        return Mathf.RoundToInt(value * 10) == 0;
     }
 }
 

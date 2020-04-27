@@ -6,9 +6,10 @@ public class Item : MonoBehaviour, Placable
 {
     public ItemKind kind;
     public Vector3 positionOffset = new Vector3(0.0f, 0.4f, 0.0f);
+    
     public virtual void OnItemGet()
     {
-        gameObject.SetActive(false);
+        ObjectRecyclingLogic.Instance.chunk(name,gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,6 +25,10 @@ public class Item : MonoBehaviour, Placable
                     inven.addItem(this);
                     OnItemGet();
                 }
+<<<<<<< HEAD
+=======
+                //OnItemGet();
+>>>>>>> 33209ef601cf18c652665688c08d7fffe52f4cfd
             }
         }
     }

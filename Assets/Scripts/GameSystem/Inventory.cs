@@ -68,7 +68,7 @@ public class Inventory : MonoBehaviour
         foreach (var item in items)
         {
             _inventory.Remove(item);
-            item.gameObject.SetActive(false);
+            ObjectRecyclingLogic.Instance.chunk(item.name,item.gameObject);
         }
     }
 
