@@ -12,9 +12,9 @@ public class QuestObject : Interactable
             ml = MissionLogic.Instance;
     }
     
-    public override void OnInteract(CharacterAction actor)
+    public override void OnInteract(PlayerState state)
     {
-        var inven = actor.Inventory;
+        var inven = state.Inventory;
 
         bool checkItem = false;
         List<string> temp = new List<string>();

@@ -14,9 +14,6 @@
             <e p="ToonComplete.shader" t="Include" />
           </e>
         </e>
-        <e p="CameraScript.cs" t="Include" />
-        <e p="GameGUIManager.cs" t="Include" />
-        <e p="LoadingBarObject.cs" t="Include" />
         <e p="Plugins" t="Include">
           <e p="UniRx" t="Include">
             <e p="Examples" t="Include">
@@ -297,18 +294,23 @@
             </e>
           </e>
         </e>
-        <e p="QuestObject.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="Effect" t="Include">
             <e p="EffectManager.cs" t="Include" />
           </e>
           <e p="Etc" t="Include">
+            <e p="CameraScript.cs" t="Include" />
             <e p="Logger.cs" t="Include" />
             <e p="ResourceManager.cs" t="Include" />
           </e>
           <e p="GameSystem" t="Include">
+            <e p="GameGUIManager.cs" t="Include" />
             <e p="GameLogic.cs" t="Include" />
             <e p="GameSystem.cs" t="Include" />
+            <e p="Inventory.cs" t="Include" />
+            <e p="LoadingBarObject.cs" t="Include" />
+            <e p="QuestObject.cs" t="Include" />
+            <e p="UIManager.cs" t="Include" />
           </e>
           <e p="Grid" t="Include">
             <e p="Grid.cs" t="Include" />
@@ -320,6 +322,7 @@
             <e p="CharacterAction.cs" t="Include" />
             <e p="ControllerManager.cs" t="Include" />
             <e p="InputController.cs" t="Include" />
+            <e p="PlayerState.cs" t="Include" />
             <e p="PlayerStateMachineObservables.cs" t="Include" />
           </e>
           <e p="Interaction" t="Include">
@@ -328,9 +331,7 @@
             <e p="Item.cs" t="Include" />
             <e p="Tool.cs" t="Include" />
           </e>
-          <e p="Inventory.cs" t="Include" />
         </e>
-        <e p="UIManager.cs" t="Include" />
       </e>
       <e p="MediaProjectVR2020.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />

@@ -6,15 +6,6 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-public enum PlayerState
-{
-    Idle,
-    Carry,
-    Running,
-    UnCarry,
-    Smash,
-}
-
 public class PlayerStateString
 {
     public const string isMove = "IsMove";
@@ -27,15 +18,13 @@ public class CharacterAction : MonoBehaviour
     public const string CONST_InteractionHitBox  = "InteractionHitBox";
     public const string CONST_CharacterBound = "CharacterBound";
     public HashSet<Interactable> interactables;
+    
     public Animator animator;
     public float moveSpeed;
 
-    public Inventory Inventory;
-    
-    private PlayerState _state;
     private PlayerStateMachineObservables _playerStateMachineObservables;
+    public PlayerState state;
     
-    public Tool equipment { get; private set; }
     private Transform toolSocket;
     private const string toolSocketName = "ToolSocket";
 
@@ -57,8 +46,8 @@ public class CharacterAction : MonoBehaviour
     
     public void Start()
     {
-        if (Inventory == null)
-            Inventory = this.GetComponent<Inventory>();
+        if (state == null)
+            state = this.gameObject.GetComponent<PlayerState>();
         
         _playerStateMachineObservables = animator.GetBehaviour<PlayerStateMachineObservables>();
 
@@ -77,7 +66,7 @@ public class CharacterAction : MonoBehaviour
                 {
                     foreach(var interactable in interactables)
                     {
-                        interactable.OnInteract(this);
+                        interactable.OnInteract(state);
                     }
                 }
             })
@@ -136,7 +125,7 @@ public class CharacterAction : MonoBehaviour
 
     public void run()
     {
-        _state = PlayerState.Running;
+        state.setState(PlayerStateEnum.Running);
         animator.SetBool(PlayerStateString.isMove,true);
     }
 
@@ -148,10 +137,6 @@ public class CharacterAction : MonoBehaviour
 
     public void SetEquipment(Tool tool)
     {
-        _state = PlayerState.Carry;
-
-        equipment = tool;
-        
         tool.transform.SetParent(toolSocket);
         tool.transform.localPosition = new Vector3(0,0,0);
         tool.transform.localRotation = Quaternion.identity;

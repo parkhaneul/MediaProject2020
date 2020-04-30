@@ -14,7 +14,7 @@ abstract public class Interactable : MonoBehaviour, Placable
         gridManager = GridManager.Instance;
     }
 
-    public abstract void OnInteract(CharacterAction actor);
+    public abstract void OnInteract(PlayerState state);
     protected virtual void OnDestroy() 
     {
         //Debug.Log(gameObject.name + " : Destroyed");

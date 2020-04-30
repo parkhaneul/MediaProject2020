@@ -15,10 +15,10 @@ public class Item : MonoBehaviour, Placable
     {
         if(other.gameObject.name == CharacterAction.CONST_CharacterBound)
         {
-            CharacterAction characterAction = other.transform.parent.GetComponent<CharacterAction>();
-            if (characterAction != null)
+            PlayerState player = other.transform.parent.GetComponent<PlayerState>();
+            if (player != null)
             {
-                Inventory inven = other.transform.parent.GetComponent<Inventory>();
+                var inven = player.Inventory;
                 if (inven != null)
                 {
                     inven.addItem(this);
