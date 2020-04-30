@@ -6,7 +6,17 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-public class PlayerStateString
+public enum AnimationStateEnum
+{
+    Idle,
+    Carry,
+    Running,
+    UnCarry,
+    Smash,
+    Tool,
+}
+
+public class AnimationStateString
 {
     public const string isMove = "IsMove";
     public const string isCarry = "IsCarry";
@@ -23,10 +33,14 @@ public class CharacterAction : MonoBehaviour
     public float moveSpeed;
 
     private PlayerStateMachineObservables _playerStateMachineObservables;
-    public PlayerState state;
+    public PlayerState pState;
     
+    private AnimationStateEnum _aState;
+
     private Transform toolSocket;
     private const string toolSocketName = "ToolSocket";
+
+    private Vector3 movePointer = Vector3.zero;
 
     private void initTool()
     {
@@ -42,31 +56,30 @@ public class CharacterAction : MonoBehaviour
         if(toolSocket == null)
              Debug.LogError("All Characters should have tool Socket");
     }
-    private Vector3 movePointer = Vector3.zero;
     
     public void Start()
     {
-        if (state == null)
-            state = this.gameObject.GetComponent<PlayerState>();
+        if (pState == null)
+            pState = this.gameObject.GetComponent<PlayerState>();
         
         _playerStateMachineObservables = animator.GetBehaviour<PlayerStateMachineObservables>();
 
         //smash animation
         Observable.EveryUpdate()
             .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
-            .Where(_ => animator.GetBool(PlayerStateString.isSmash))
+            .Where(_ => animator.GetBool(AnimationStateString.isSmash))
             .TakeUntil(_playerStateMachineObservables.OnStateExitObservable)
             .Repeat()
             .DistinctUntilChanged()
             .Throttle(TimeSpan.FromMilliseconds(400))
             .Subscribe(_ =>
             {
-                animator.SetBool(PlayerStateString.isSmash,false);
+                animator.SetBool(AnimationStateString.isSmash,false);
                 if(interactables.Count > 0)
                 {
                     foreach(var interactable in interactables)
                     {
-                        interactable.OnInteract(state);
+                        interactable.OnInteract(pState);
                     }
                 }
             })
@@ -75,7 +88,7 @@ public class CharacterAction : MonoBehaviour
         //running animation exit
         Observable.EveryUpdate()
             .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
-            .TakeWhile(_ => animator.GetBool(PlayerStateString.isMove))
+            .TakeWhile(_ => animator.GetBool(AnimationStateString.isMove))
             .Repeat()
             .DistinctUntilChanged()
             .Select(_ => movePointer)
@@ -83,7 +96,7 @@ public class CharacterAction : MonoBehaviour
             .Subscribe(_ =>
             {
                 //Logger.Log("stop");
-                animator.SetBool(PlayerStateString.isMove,false);
+                animator.SetBool(AnimationStateString.isMove,false);
             })
             .AddTo(this);
 
@@ -92,7 +105,7 @@ public class CharacterAction : MonoBehaviour
             .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
             //.Where(_ => animator.GetBool(PlayerStateString.isMove) == false)
             //.TakeUntil(_playerStateMachineObservables.OnStateExitObservable)
-            .TakeWhile(_ => animator.GetBool(PlayerStateString.isMove) == false)
+            .TakeWhile(_ => animator.GetBool(AnimationStateString.isMove) == false)
             .Repeat()
             .DistinctUntilChanged()
             .Select(_ => movePointer)
@@ -100,7 +113,7 @@ public class CharacterAction : MonoBehaviour
             .Subscribe(_ =>
             {
                 //Logger.Log("run");
-                animator.SetBool(PlayerStateString.isMove,true);
+                animator.SetBool(AnimationStateString.isMove,true);
             })
             .AddTo(this);
 
@@ -125,14 +138,14 @@ public class CharacterAction : MonoBehaviour
 
     public void run()
     {
-        state.setState(PlayerStateEnum.Running);
-        animator.SetBool(PlayerStateString.isMove,true);
+        _aState = AnimationStateEnum.Running;
+        animator.SetBool(AnimationStateString.isMove,true);
     }
 
     public void action(bool value)
     {
-        if(animator.GetBool(PlayerStateString.isSmash) == false)
-            animator.SetBool(PlayerStateString.isSmash,true);
+        if(animator.GetBool(AnimationStateString.isSmash) == false)
+            animator.SetBool(AnimationStateString.isSmash,true);
     }
 
     public void SetEquipment(Tool tool)

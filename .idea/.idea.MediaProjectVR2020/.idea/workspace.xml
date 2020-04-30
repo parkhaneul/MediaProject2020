@@ -80,10 +80,10 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/Interactable.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/Building.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/QuestObject.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/Tool.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Input/PlayerState.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/Item.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Input/PlayerState.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
       </list>
     </option>
   </component>
@@ -151,7 +151,7 @@
       <workItem from="1587802082101" duration="6413000" />
       <workItem from="1587884326184" duration="12121000" />
       <workItem from="1587913263312" duration="2777000" />
-      <workItem from="1588253234150" duration="1103000" />
+      <workItem from="1588253234150" duration="2507000" />
     </task>
     <servers />
   </component>
