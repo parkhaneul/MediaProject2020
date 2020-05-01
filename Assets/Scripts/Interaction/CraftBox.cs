@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CraftBox : Interactable
 {
     public CraftBillboard billboard;
+    public List<Item> craftableItems;
     [HideInInspector]
     public List<Item> items;
     [HideInInspector]
@@ -19,13 +21,6 @@ public class CraftBox : Interactable
     
     void DrawItem()
     {
-        
-        billboard.Synchronize();
-    }
-
-    void Craft()
-    {
-        // ItemFormula formula;
         billboard.Synchronize();
     }
 
@@ -88,6 +83,17 @@ public class CraftBox : Interactable
         return true;
     }
 
+    void ConsumeItems(ItemFormula formula)
+    {
+        foreach(var ingredient in formula.itemLists)
+        {
+            for(int i = 0 ; i < ingredient.Value ; i++)
+            {
+                items.Remove(items.Find(x => x.kind == ingredient.Key));
+            }
+        }
+    }
+
     Item[] GetItemsFromInventory(Inventory inventory)
     {
         if(craftBoxMaximumSize - items.Count >= inventory.getItemsCount())
@@ -136,5 +142,35 @@ public class CraftBox : Interactable
                 characterAction.interactables.Remove(this);
             }
         }
+    }
+
+    public Item Craft()
+    {
+        if(!upcomingResult.HasValue)
+        {
+            Debug.LogError("Error : call craft() after check upcoming result has value.");
+            return null;
+        }
+    
+        Item result = null;
+        foreach(var item in craftableItems)
+        {
+            if(upcomingResult == item.kind)
+            {
+                ItemFormula formula = ItemModel.GetFormula(item.kind).Value;
+                ConsumeItems(formula);
+                result = Instantiate(item, gameObject.transform.position, Quaternion.identity);
+            }
+        }
+
+        if(result == null)
+        {
+            Debug.LogError("Error : uncraftable formula");
+            return null;
+        }
+
+        upcomingResult = CalculateCloesetResult();
+        billboard.Synchronize();
+        return result;
     }
 }
