@@ -8,6 +8,7 @@ public class QuestObject : Interactable
 
     public void Start()
     {
+        base.Start();
         if (ml == null)
             ml = MissionLogic.Instance;
     }
