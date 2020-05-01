@@ -108,9 +108,9 @@ public class CraftBox : Interactable
         items = new List<Item>();
     }
 
-    public override void OnInteract(CharacterAction actor)
+    public override void OnInteract(PlayerState state)
     {
-        Item[] items = GetItemsFromInventory(actor.Inventory);
+        Item[] items = GetItemsFromInventory(state.Inventory);
         InsertItem(items);
     }
 

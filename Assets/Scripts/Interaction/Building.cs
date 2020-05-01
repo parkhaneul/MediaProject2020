@@ -7,9 +7,10 @@ public class Building : Interactable
     public int durability;
     public List<GameObject> dropItems;
     public ToolKind kind;
-    public override void OnInteract(CharacterAction actor)
+    
+    public override void OnInteract(PlayerState state)
     {
-        if(actor.equipment.kind == kind)
+        if(state.equipment.kind == kind)
         {
             OnDamaged();
         }

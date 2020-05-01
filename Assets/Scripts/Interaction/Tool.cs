@@ -12,7 +12,7 @@ public enum ToolKind
 public class Tool : Interactable
 {
     public ToolKind kind;
-    private CharacterAction owner;
+    private PlayerState owner;
     private BoxCollider collider;
     protected override void Start()
     {
@@ -29,14 +29,14 @@ public class Tool : Interactable
     {
         collider.enabled = true;
     }
-
-    public override void OnInteract(CharacterAction actor)
+    
+    public override void OnInteract(PlayerState state)
     {
-        actor.SetEquipment(this);
-        owner = actor;
-        EquipmentMode();        
+        state.setTool(this);
+        owner = state;
+        EquipmentMode();  
 
-        owner.interactables.Remove(this);
+        owner.getInteractables().Remove(this);
     }
 
     protected override void OnTriggerEnter(Collider other)

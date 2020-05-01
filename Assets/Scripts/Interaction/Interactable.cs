@@ -16,7 +16,7 @@ abstract public class Interactable : MonoBehaviour, Placable
         characters = new HashSet<CharacterAction>();
     }
 
-    public abstract void OnInteract(CharacterAction actor);
+    public abstract void OnInteract(PlayerState state);
     protected virtual void OnDestroy() 
     {
         foreach(var character in characters)

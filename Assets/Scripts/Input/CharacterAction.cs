@@ -6,16 +6,17 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-public enum PlayerState
+public enum AnimationStateEnum
 {
     Idle,
     Carry,
     Running,
     UnCarry,
     Smash,
+    Tool,
 }
 
-public class PlayerStateString
+public class AnimationStateString
 {
     public const string isMove = "IsMove";
     public const string isCarry = "IsCarry";
@@ -27,17 +28,18 @@ public class CharacterAction : MonoBehaviour
     public const string CONST_InteractionHitBox  = "InteractionHitBox";
     public const string CONST_CharacterBound = "CharacterBound";
     public HashSet<Interactable> interactables;
+    
     public Animator animator;
     public float moveSpeed;
 
-    public Inventory Inventory;
-    
-    private PlayerState _state;
     private PlayerStateMachineObservables _playerStateMachineObservables;
-    
+    public PlayerState pState;
+    private AnimationStateEnum _aState;
     public Tool equipment { get; private set; }
     private Transform toolSocket;
     private const string toolSocketName = "ToolSocket";
+
+    private Vector3 movePointer = Vector3.zero;
 
     private void initTool()
     {
@@ -53,31 +55,30 @@ public class CharacterAction : MonoBehaviour
         if(toolSocket == null)
              Debug.LogError("All Characters should have tool Socket");
     }
-    private Vector3 movePointer = Vector3.zero;
     
     public void Start()
     {
-        if (Inventory == null)
-            Inventory = this.GetComponent<Inventory>();
+        if (pState == null)
+            pState = this.gameObject.GetComponent<PlayerState>();
         
         _playerStateMachineObservables = animator.GetBehaviour<PlayerStateMachineObservables>();
 
         //smash animation
         Observable.EveryUpdate()
             .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
-            .Where(_ => animator.GetBool(PlayerStateString.isSmash))
+            .Where(_ => animator.GetBool(AnimationStateString.isSmash))
             .TakeUntil(_playerStateMachineObservables.OnStateExitObservable)
             .Repeat()
             .DistinctUntilChanged()
             .Throttle(TimeSpan.FromMilliseconds(400))
             .Subscribe(_ =>
             {
-                animator.SetBool(PlayerStateString.isSmash,false);
+                animator.SetBool(AnimationStateString.isSmash,false);
                 if(interactables.Count > 0)
                 {
                     foreach(var interactable in interactables)
                     {
-                        interactable.OnInteract(this);
+                        interactable.OnInteract(pState);
                     }
                 }
             })
@@ -86,7 +87,7 @@ public class CharacterAction : MonoBehaviour
         //running animation exit
         Observable.EveryUpdate()
             .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
-            .TakeWhile(_ => animator.GetBool(PlayerStateString.isMove))
+            .TakeWhile(_ => animator.GetBool(AnimationStateString.isMove))
             .Repeat()
             .DistinctUntilChanged()
             .Select(_ => movePointer)
@@ -94,7 +95,7 @@ public class CharacterAction : MonoBehaviour
             .Subscribe(_ =>
             {
                 //Logger.Log("stop");
-                animator.SetBool(PlayerStateString.isMove,false);
+                animator.SetBool(AnimationStateString.isMove,false);
             })
             .AddTo(this);
 
@@ -103,7 +104,7 @@ public class CharacterAction : MonoBehaviour
             .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
             //.Where(_ => animator.GetBool(PlayerStateString.isMove) == false)
             //.TakeUntil(_playerStateMachineObservables.OnStateExitObservable)
-            .TakeWhile(_ => animator.GetBool(PlayerStateString.isMove) == false)
+            .TakeWhile(_ => animator.GetBool(AnimationStateString.isMove) == false)
             .Repeat()
             .DistinctUntilChanged()
             .Select(_ => movePointer)
@@ -111,7 +112,7 @@ public class CharacterAction : MonoBehaviour
             .Subscribe(_ =>
             {
                 //Logger.Log("run");
-                animator.SetBool(PlayerStateString.isMove,true);
+                animator.SetBool(AnimationStateString.isMove,true);
             })
             .AddTo(this);
 
@@ -136,14 +137,14 @@ public class CharacterAction : MonoBehaviour
 
     public void run()
     {
-        _state = PlayerState.Running;
-        animator.SetBool(PlayerStateString.isMove,true);
+        _aState = AnimationStateEnum.Running;
+        animator.SetBool(AnimationStateString.isMove,true);
     }
 
     public void action(bool value)
     {
-        if(animator.GetBool(PlayerStateString.isSmash) == false)
-            animator.SetBool(PlayerStateString.isSmash,true);
+        if(animator.GetBool(AnimationStateString.isSmash) == false)
+            animator.SetBool(AnimationStateString.isSmash,true);
     }
     public void unmount(bool value)
     {
@@ -151,14 +152,12 @@ public class CharacterAction : MonoBehaviour
     }
     public void SetEquipment(Tool tool)
     {
-        _state = PlayerState.Carry;
-
-        equipment = tool;
-        
         tool.transform.SetParent(toolSocket);
         tool.transform.localPosition = new Vector3(0,0,0);
         tool.transform.localRotation = Quaternion.identity;
         tool.transform.localScale = Vector3.one;
+
+        equipment = tool;
     }
 
     public void UnsetEquipment()
