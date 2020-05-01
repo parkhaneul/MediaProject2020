@@ -307,7 +307,6 @@
             <e p="GameGUIManager.cs" t="Include" />
             <e p="GameLogic.cs" t="Include" />
             <e p="GameSystem.cs" t="Include" />
-            <e p="Inventory.cs" t="Include" />
             <e p="LoadingBarObject.cs" t="Include" />
             <e p="QuestObject.cs" t="Include" />
             <e p="UIManager.cs" t="Include" />
@@ -322,6 +321,7 @@
             <e p="CharacterAction.cs" t="Include" />
             <e p="ControllerManager.cs" t="Include" />
             <e p="InputController.cs" t="Include" />
+            <e p="Inventory.cs" t="Include" />
             <e p="PlayerState.cs" t="Include" />
             <e p="PlayerStateMachineObservables.cs" t="Include" />
           </e>

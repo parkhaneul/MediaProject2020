@@ -38,6 +38,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Input/ControllerManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/Concat.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Etc/Logger.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Input/Inventory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/GridManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameSystem/QuestObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/Placable.cs" root0="FORCE_HIGHLIGHTING" />
@@ -81,6 +82,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/Building.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/QuestObject.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/Tool.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Input/Inventory.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/Item.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/PlayerState.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
@@ -151,7 +153,8 @@
       <workItem from="1587802082101" duration="6413000" />
       <workItem from="1587884326184" duration="12121000" />
       <workItem from="1587913263312" duration="2777000" />
-      <workItem from="1588253234150" duration="2507000" />
+      <workItem from="1588253234150" duration="3838000" />
+      <workItem from="1588328362626" duration="5424000" />
     </task>
     <servers />
   </component>

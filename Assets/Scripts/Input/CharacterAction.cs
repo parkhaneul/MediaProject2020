@@ -40,18 +40,27 @@ public class CharacterAction : MonoBehaviour
     private Transform toolSocket;
     private const string toolSocketName = "ToolSocket";
 
+    private Transform itemSocket;
+    private const string itemSocketName = "ItemSocket";
+    
     private Vector3 movePointer = Vector3.zero;
 
-    private void initTool()
+    private void initTransform()
     {
         Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>();
         foreach (Transform t in ts)
         {
+            if (t.gameObject.name == itemSocketName)
+            {
+                itemSocket = t;
+            }
             if(t.gameObject.name == toolSocketName) 
             {
                 toolSocket = t;
-                return;
             }
+
+            if (toolSocket != null && itemSocket != null)
+                return;
         }
         if(toolSocket == null)
              Debug.LogError("All Characters should have tool Socket");
@@ -63,7 +72,20 @@ public class CharacterAction : MonoBehaviour
             pState = this.gameObject.GetComponent<PlayerState>();
         
         _playerStateMachineObservables = animator.GetBehaviour<PlayerStateMachineObservables>();
-
+        
+        //carry animation
+        Observable.EveryUpdate()
+            .Where(_ => animator.GetBool(AnimationStateString.isCarry) == false)
+            .TakeWhile(_ => pState.getItemCount() > 0)
+            .Repeat()
+            .DistinctUntilChanged()
+            .Subscribe(_ =>
+            {
+                animator.SetBool(AnimationStateString.isCarry,true);
+            })
+            .AddTo(this);
+        
+        
         //smash animation
         Observable.EveryUpdate()
             .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
@@ -112,12 +134,12 @@ public class CharacterAction : MonoBehaviour
             .Where(x => x != Vector3.zero)
             .Subscribe(_ =>
             {
-                //Logger.Log("run");
+                Logger.Log("run");
                 animator.SetBool(AnimationStateString.isMove,true);
             })
             .AddTo(this);
 
-        initTool();
+        initTransform();
     }
 
     public CharacterAction()
@@ -154,6 +176,14 @@ public class CharacterAction : MonoBehaviour
         tool.transform.localPosition = new Vector3(0,0,0);
         tool.transform.localRotation = Quaternion.identity;
         tool.transform.localScale = Vector3.one;
+    }
+
+    public void getItem(Item item)
+    {
+        item.transform.SetParent(itemSocket);
+        item.transform.localPosition = new Vector3(0,0,0);
+        item.transform.localRotation = Quaternion.identity;
+        item.transform.localScale = Vector3.one;
     }
 
     public void UnsetEquipment()

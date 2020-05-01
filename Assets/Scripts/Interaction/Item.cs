@@ -1,11 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Item : MonoBehaviour, Placable
 {
     public Vector3 positionOffset = new Vector3(0.0f, 0.4f, 0.0f);
-    
+    private BoxCollider collider;
+
+    public void Start()
+    {
+        if (collider == null)
+            collider = this.gameObject.GetComponent<BoxCollider>();
+    }
+
     public virtual void OnItemGet()
     {
         ObjectRecyclingLogic.Instance.chunk(name,gameObject);
@@ -18,12 +26,13 @@ public class Item : MonoBehaviour, Placable
             PlayerState player = other.transform.parent.GetComponent<PlayerState>();
             if (player != null)
             {
-                var inven = player.Inventory;
-                if (inven != null)
+                if (player.hasTool() == false)
                 {
-                    inven.addItem(this);
+                    player.addItem(this);
+                    //OnItemGet();
                 }
-                //OnItemGet();
+                else
+                    Logger.Log("Player has Tools");
             }
         }
     }

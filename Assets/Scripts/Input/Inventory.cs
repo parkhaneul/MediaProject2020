@@ -18,6 +18,7 @@ public class Inventory : MonoBehaviour
         if (_inventory == null)
             _inventory = new List<Item>();
 
+        /*
         //Inventory Test
         Observable.EveryUpdate()
             .Where(_ => _inventory.Count != 0)
@@ -32,7 +33,7 @@ public class Inventory : MonoBehaviour
                     item.transform.position += Vector3.right * (i - _inventory.Count/2);
                 }
             })
-            .AddTo(this);
+            .AddTo(this);*/
     }
 
     public void addItem(Item item)
@@ -94,5 +95,10 @@ public class Inventory : MonoBehaviour
     public override string ToString()
     {
         return "Inventory item count is " + _inventory.Count;
+    }
+
+    public int getItemCount()
+    {
+        return _inventory.Count;
     }
 }

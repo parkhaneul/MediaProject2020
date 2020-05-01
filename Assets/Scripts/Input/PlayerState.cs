@@ -18,11 +18,28 @@ public class PlayerState : MonoBehaviour
             _action = gameObject.GetComponent<CharacterAction>();
     }
 
+    public void addItem(Item item)
+    {
+        Inventory.addItem(item);
+
+        _action.getItem(item);
+    }
+
     public void setTool(Tool tool)
     {
         equipment = tool;
         
         _action.SetEquipment(tool);
+    }
+
+    public int getItemCount()
+    {
+        return Inventory.getItemCount();
+    }
+
+    public bool hasTool()
+    {
+        return !(equipment == null);
     }
 
     public HashSet<Interactable> getInteractables()
