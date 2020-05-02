@@ -16,8 +16,8 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
             return instance;
         }
     }
-    
-    public int tileCount = 100;
+    public int widthCount = 100;
+    public int heightCount = 100;
     public bool debugMode = true;
     public GameObject gridGround;
     private Grid[,] gridArray;
@@ -25,6 +25,7 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     private const int gridLayerMask = 1 << 8; 
     private const int planeOffset = 10; //Plane consists of 10 quads.
     static private float tileWidth;
+    static private float tileHeight;
     static private float planeWidth;
     private const float rootTwo = 1.414f;
 
@@ -50,9 +51,9 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     {
         if(debugMode)
         {
-            for(int i = 0 ; i < tileCount ; i++)
+            for(int i = 0 ; i < widthCount ; i++)
             {
-                for(int j = 0 ; j < tileCount ; j++)
+                for(int j = 0 ; j < heightCount ; j++)
                 {
                     Grid grid = gridArray[i,j];
                     Debug.DrawLine(grid.gridCenter, grid.gridCenter + Vector3.up, 
@@ -66,7 +67,8 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     {
         Clear();
 
-        tileWidth = planeOffset * gridGround.transform.localScale.x / tileCount;
+        tileWidth = planeOffset * gridGround.transform.localScale.x / widthCount;
+        tileHeight = planeOffset * gridGround.transform.localScale.z / heightCount;
         planeWidth = planeOffset * gridGround.transform.localScale.x;
 
         List<Grid> occupiedGrids = InitGrid();
@@ -89,6 +91,7 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     private void Clear()
     {
         tileWidth = -1.0f;
+        tileHeight = -1.0f;
         planeWidth = -1.0f;
         gridArray = null;
         bundles.Clear();
@@ -97,15 +100,15 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     {
         List<Grid> occupiedGrids = new List<Grid>();
         List<Vector3>  gridCenters = new List<Vector3>();
-        gridArray = new Grid[tileCount,tileCount];
-        for (int i = 0; i < tileCount; i++)
+        gridArray = new Grid[widthCount,heightCount];
+        for (int i = 0; i < widthCount; i++)
         {
-            for (int j = 0; j < tileCount; j++)
+            for (int j = 0; j < heightCount; j++)
             {
                 Vector3 center = gridGround.transform.position
-                    - Vector3.forward * j * tileWidth + Vector3.forward * planeWidth / 2
+                    - Vector3.forward * j * tileHeight + Vector3.forward * planeWidth / 2
                     - Vector3.right * i * tileWidth + Vector3.right * planeWidth / 2
-                    - Vector3.right * tileWidth / 2 - Vector3.forward * tileWidth / 2;
+                    - Vector3.right * tileWidth / 2 - Vector3.forward * tileHeight / 2;
                 gridCenters.Add(center);
                 
                 Placable occupier;
@@ -123,15 +126,15 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     }
     private void InitAdjacent()
     {
-        for (int i = 0; i < tileCount; i++)
+        for (int i = 0; i < widthCount; i++)
         {
-            for (int j = 0; j < tileCount; j++)
+            for (int j = 0; j < heightCount; j++)
             {
                 for(int k = -1; k < 2; k++)
                 {
                     for(int l = -1; l < 2; l++)
                     {
-                        if( (k != 0 && l != 0) && (i+k >= 0 && i+k <tileCount) && (j+l >= 0 && j+l <tileCount) )
+                        if( (k != 0 && l != 0) && (i+k >= 0 && i+k <widthCount) && (j+l >= 0 && j+l <heightCount) )
                             gridArray[i,j].adjacentGrids.Add(gridArray[i+k, j+l]);
                     }
                 }
@@ -198,7 +201,8 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     ///</summary>
     public static bool isGridTouchingWith(Grid a, Grid b)
     {
-        return (a.gridCenter - b.gridCenter).sqrMagnitude <= tileWidth * tileWidth ? true : false;
+        float biggerOne = tileHeight > tileWidth ? tileHeight : tileWidth;
+        return (a.gridCenter - b.gridCenter).sqrMagnitude <= biggerOne * biggerOne ? true : false;
     }
 
     ///<summary>
@@ -206,7 +210,7 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     ///</summary>
     public static bool isGridAdjacentWith(Grid a, Grid b)
     {
-        return (a.gridCenter - b.gridCenter).sqrMagnitude <= tileWidth * tileWidth * rootTwo ? true : false;
+        return (a.gridCenter - b.gridCenter).sqrMagnitude <= tileWidth * tileWidth + tileHeight * tileHeight? true : false;
     }
 }
 

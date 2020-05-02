@@ -1423,7 +1423,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aac9494c5098ecd489af2b1cc8052c5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileCount: 100
+  widthCount: 100
+  heightCount: 100
   debugMode: 0
   gridGround: {fileID: 1147879564}
 --- !u!114 &974307143
