@@ -21,6 +21,9 @@ public class Item : MonoBehaviour, Placable
 
     private void OnTriggerEnter(Collider other)
     {
+        if (this.enabled == false)
+            return;
+        
         if(other.gameObject.name == CharacterAction.CONST_CharacterBound)
         {
             PlayerState player = other.transform.parent.GetComponent<PlayerState>();

@@ -32,6 +32,16 @@ public class PlayerState : MonoBehaviour
         _action.SetEquipment(tool);
     }
 
+    public Item putItem(int index)
+    {
+        return Inventory.putItem(index);
+    }
+
+    public bool hasItem()
+    {
+        return getItemCount() > 0;
+    }
+
     public int getItemCount()
     {
         return Inventory.getItemCount();

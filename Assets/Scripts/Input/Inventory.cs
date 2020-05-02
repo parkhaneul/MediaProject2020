@@ -69,6 +69,21 @@ public class Inventory : MonoBehaviour
     }
 
     [CanBeNull]
+    public Item putItem(int index)
+    {
+        if (_inventory == null)
+            return null;
+
+        if (_inventory.Count < index)
+            return null;
+
+        var item = _inventory[index];
+        _inventory.RemoveAt(index);
+
+        return item;
+    }
+
+    [CanBeNull]
     public Item getItem(int index)
     {
         if (_inventory == null)
