@@ -499,24 +499,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &662101826 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 680579244825398977, guid: 6d2b7f2502fea43f1a2024b1321afb95,
-    type: 3}
-  m_PrefabInstance: {fileID: 1361750225}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &662101832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 662101826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d7000e4a983ceb4ab526783a34bca5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &729269410
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,6 +627,7 @@ GameObject:
   - component: {fileID: 1074258706}
   - component: {fileID: 1074258710}
   - component: {fileID: 1074258711}
+  - component: {fileID: 1074258712}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -770,6 +753,18 @@ MonoBehaviour:
   TimeResetButtonAction:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1074258712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074258705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d7000e4a983ceb4ab526783a34bca5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1107773413
 GameObject:
   m_ObjectHideFlags: 0

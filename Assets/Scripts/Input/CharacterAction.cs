@@ -197,8 +197,9 @@ public class CharacterAction : MonoBehaviour
             return;
 
         var go = item.gameObject;
-        go.GetComponent<BlockMovement>().itemDrop(0.1f);
         go.transform.SetParent(transform.root.transform.parent);
+        ObjectMovementSystem.Instance.shoot(go, this.gameObject.transform.forward,1, 1,
+            () => { ObjectMovementSystem.Instance.turn(go, true); });
     }
 
     public void action()
