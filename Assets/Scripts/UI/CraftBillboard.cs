@@ -60,6 +60,6 @@ public class CraftBillboard : MonoBehaviour
 
     void Update()
     {
-        gameObject.transform.LookAt(gameObject.transform.position + canvas.worldCamera.transform.forward, Vector3.up);
+        //gameObject.transform.LookAt(gameObject.transform.position + canvas.worldCamera.transform.forward, Vector3.up);
     }
 }

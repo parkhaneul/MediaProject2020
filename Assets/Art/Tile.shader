@@ -6,7 +6,8 @@
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
-        _TileCount ("Tile Count", Int) = 10
+        _WidthCount ("Width Count", Int) = 10
+        _HeightCount("Height Count", Int) = 10
     }
     SubShader
     {
@@ -30,7 +31,8 @@
         half _Glossiness;
         half _Metallic;
         fixed4 _Color;
-        int _TileCount;
+        int _WidthCount;
+        int _HeightCount;
 
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
         // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -43,7 +45,7 @@
         {
             // Albedo comes from a texture tinted by color
             fixed4 c = tex2D (_MainTex, IN.uv_MainTex) * _Color;    
-            fixed2 tile_uv = frac(IN.uv_MainTex * _TileCount);
+            fixed2 tile_uv = fixed2(frac(IN.uv_MainTex.x * _WidthCount), frac(IN.uv_MainTex.y * _HeightCount));
             if(tile_uv.x < 0.01 || tile_uv.y < 0.01 || tile_uv.x > 0.99 || tile_uv.y > 0.99)
                 o.Albedo = c.rgb * 2.0f;
             else

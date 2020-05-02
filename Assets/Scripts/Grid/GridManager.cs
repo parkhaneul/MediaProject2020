@@ -19,6 +19,7 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     public int widthCount = 100;
     public int heightCount = 100;
     public bool debugMode = true;
+    public bool isPlane = true;
     public GameObject gridGround;
     private Grid[,] gridArray;
     private List<GridBundle> bundles;
@@ -27,6 +28,7 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     static private float tileWidth;
     static private float tileHeight;
     static private float planeWidth;
+    static private float planeHeight;
     private const float rootTwo = 1.414f;
 
     void Awake() 
@@ -67,9 +69,10 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
     {
         Clear();
 
-        tileWidth = planeOffset * gridGround.transform.localScale.x / widthCount;
-        tileHeight = planeOffset * gridGround.transform.localScale.z / heightCount;
-        planeWidth = planeOffset * gridGround.transform.localScale.x;
+        tileWidth = (isPlane ? planeOffset : 1) * gridGround.transform.localScale.x / widthCount;
+        tileHeight = (isPlane ? planeOffset : 1) * gridGround.transform.localScale.z / heightCount;
+        planeWidth = (isPlane ? planeOffset : 1) * gridGround.transform.localScale.x;
+        planeHeight = (isPlane ? planeOffset : 1) * gridGround.transform.localScale.z;
 
         List<Grid> occupiedGrids = InitGrid();
         InitAdjacent();
@@ -106,9 +109,12 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
             for (int j = 0; j < heightCount; j++)
             {
                 Vector3 center = gridGround.transform.position
-                    - Vector3.forward * j * tileHeight + Vector3.forward * planeWidth / 2
+                    - Vector3.forward * j * tileHeight + Vector3.forward * planeHeight / 2
                     - Vector3.right * i * tileWidth + Vector3.right * planeWidth / 2
                     - Vector3.right * tileWidth / 2 - Vector3.forward * tileHeight / 2;
+
+                if (!isPlane)
+                    center.y += gridGround.transform.lossyScale.y * 0.5f;
                 gridCenters.Add(center);
                 
                 Placable occupier;

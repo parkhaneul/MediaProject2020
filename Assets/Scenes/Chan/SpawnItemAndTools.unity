@@ -1426,6 +1426,7 @@ MonoBehaviour:
   widthCount: 100
   heightCount: 100
   debugMode: 0
+  isPlane: 1
   gridGround: {fileID: 1147879564}
 --- !u!114 &974307143
 MonoBehaviour:
@@ -1826,7 +1827,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1b0a2994cbe7747d19f22e86a7dd27c0, type: 2}
+  - {fileID: 2100000, guid: 161ff52981678554d99514f5cbd3ed08, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
