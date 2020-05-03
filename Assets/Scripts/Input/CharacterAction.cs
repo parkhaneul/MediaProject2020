@@ -39,29 +39,63 @@ public class CharacterAction : MonoBehaviour
     private Transform toolSocket;
     private const string toolSocketName = "ToolSocket";
 
+    private Transform itemSocket;
+    private const string itemSocketName = "ItemSocket";
+    
     private Vector3 movePointer = Vector3.zero;
 
-    private void initTool()
+    private void initTransform()
     {
         Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>();
         foreach (Transform t in ts)
         {
+            if (t.gameObject.name == itemSocketName)
+            {
+                itemSocket = t;
+            }
             if(t.gameObject.name == toolSocketName) 
             {
                 toolSocket = t;
-                return;
             }
+
+            if (toolSocket != null && itemSocket != null)
+                return;
         }
         if(toolSocket == null)
              Debug.LogError("All Characters should have tool Socket");
     }
-    
+
     public void Start()
     {
         if (pState == null)
             pState = this.gameObject.GetComponent<PlayerState>();
-        
+
         _playerStateMachineObservables = animator.GetBehaviour<PlayerStateMachineObservables>();
+
+        //carry animation
+        Observable.EveryUpdate()
+            .Where(_ => animator.GetBool(AnimationStateString.isCarry) == false)
+            .TakeWhile(_ => pState.getItemCount() > 0)
+            .Repeat()
+            .DistinctUntilChanged()
+            .Subscribe(_ => { 
+                //Logger.Log("Carry");
+                animatorSet(AnimationStateString.isCarry, true);
+            })
+            .AddTo(this);
+
+        //unCarry animation
+        Observable.EveryUpdate()
+            .Where(_ => animator.GetBool(AnimationStateString.isCarry))
+            .TakeWhile(_ => pState.getItemCount() == 0)
+            .Repeat()
+            .DistinctUntilChanged()
+            .Subscribe(_ =>
+            {
+                //Logger.Log("UnCarry");
+                animatorSet(AnimationStateString.isCarry, false);
+            })
+            .AddTo(this);
 
         //smash animation
         Observable.EveryUpdate()
@@ -73,7 +107,8 @@ public class CharacterAction : MonoBehaviour
             .Throttle(TimeSpan.FromMilliseconds(400))
             .Subscribe(_ =>
             {
-                animator.SetBool(AnimationStateString.isSmash,false);
+                //Logger.Log("Smash");
+                animatorSet(AnimationStateString.isSmash,false);
                 if(interactables.Count > 0)
                 {
                     foreach(var interactable in interactables)
@@ -95,7 +130,7 @@ public class CharacterAction : MonoBehaviour
             .Subscribe(_ =>
             {
                 //Logger.Log("stop");
-                animator.SetBool(AnimationStateString.isMove,false);
+                animatorSet(AnimationStateString.isMove,false);
             })
             .AddTo(this);
 
@@ -112,11 +147,12 @@ public class CharacterAction : MonoBehaviour
             .Subscribe(_ =>
             {
                 //Logger.Log("run");
-                animator.SetBool(AnimationStateString.isMove,true);
+                animatorSet(AnimationStateString.isMove, true);
+                //animator.SetBool(AnimationStateString.isMove,true);
             })
             .AddTo(this);
 
-        initTool();
+        initTransform();
     }
 
     public CharacterAction()
@@ -135,13 +171,37 @@ public class CharacterAction : MonoBehaviour
         }
     }
 
-    public void run()
+    public void animatorSet(string str, bool value)
     {
-        _aState = AnimationStateEnum.Running;
-        animator.SetBool(AnimationStateString.isMove,true);
+        Logger.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name + "\n" +
+            "IsCarry : " + animator.GetBool(AnimationStateString.isCarry) + "\n" +
+                   "IsMove : " + animator.GetBool(AnimationStateString.isMove) + "\n" +
+                   "IsSmash : " + animator.GetBool(AnimationStateString.isSmash));
+        animator.SetBool(str,value);
+    }
+    
+    public void interaction()
+    {
+        if(pState.hasItem())
+            throwItem();
+        else
+            action();
     }
 
-    public void action(bool value)
+    public void throwItem()
+    {
+        var item = pState.putItem(0);
+
+        if (item == null)
+            return;
+
+        var go = item.gameObject;
+        go.transform.SetParent(transform.root.transform.parent);
+        ObjectMovementSystem.Instance.shoot(go, this.gameObject.transform.forward,1, 1,
+            () => { ObjectMovementSystem.Instance.turn(go, true); });
+    }
+
+    public void action()
     {
         if(animator.GetBool(AnimationStateString.isSmash) == false)
             animator.SetBool(AnimationStateString.isSmash,true);
@@ -158,6 +218,14 @@ public class CharacterAction : MonoBehaviour
         tool.transform.localScale = Vector3.one;
 
         equipment = tool;
+    }
+
+    public void getItem(Item item)
+    {
+        item.transform.SetParent(itemSocket);
+        item.transform.localPosition = new Vector3(0,0,0);
+        item.transform.localRotation = Quaternion.identity;
+        item.transform.localScale = Vector3.one;
     }
 
     public void UnsetEquipment()

@@ -125,7 +125,7 @@ public class ControllerManager : MonoBehaviour
         //Interaction
         ic.addNewEvent(0,500,new []{useAxes[2]},false,false, _ =>
         {
-            onActionEvent(uid,_[0] > 0);
+            onInteractionEvent(uid,_[0] > 0);
         });
         
         //Put
@@ -159,6 +159,10 @@ public class ControllerManager : MonoBehaviour
         {
             GameObject unit;
             unitList.TryGetValue(uid,out unit);
+            
+            if (unit == null)
+                return;
+            
             unit.GetComponent<CharacterAction>().move(e);
         }
     }
@@ -175,7 +179,8 @@ public class ControllerManager : MonoBehaviour
             unit.GetComponent<CharacterAction>().unmount(e);
         }
     }
-    public void onActionEvent(int uid, bool e)
+    
+    public void onInteractionEvent(int uid, bool e)
     {
         if (unitList.ContainsKey(uid) == false)
         {
@@ -185,7 +190,11 @@ public class ControllerManager : MonoBehaviour
         {
             GameObject unit;
             unitList.TryGetValue(uid,out unit);
-            unit.GetComponent<CharacterAction>().action(e);
+
+            if (unit == null)
+                return;
+            
+            unit.GetComponent<CharacterAction>().interaction();
         }
     }
     

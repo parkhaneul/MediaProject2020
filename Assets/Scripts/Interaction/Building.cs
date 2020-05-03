@@ -10,13 +10,11 @@ public class Building : Interactable
     
     public override void OnInteract(PlayerState state)
     {
-        if(state.equipment.kind == kind)
+        ToolKind? kind = state.getToolKind();
+        if(kind.HasValue)
         {
-            OnDamaged();
-        }
-        else
-        {
-
+            if(kind.Value == kind)
+                OnDamaged();
         }
     }
 

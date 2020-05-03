@@ -7,7 +7,6 @@ public class PlayerState : MonoBehaviour
 {
     private CharacterAction _action;
     public Inventory Inventory;
-    public Tool equipment { get; private set; }
 
     public void Start()
     {
@@ -18,11 +17,46 @@ public class PlayerState : MonoBehaviour
             _action = gameObject.GetComponent<CharacterAction>();
     }
 
+    public void addItem(Item item)
+    {
+        Inventory.addItem(item);
+
+        _action.getItem(item);
+    }
+
     public void setTool(Tool tool)
     {
-        equipment = tool;
-        
         _action.SetEquipment(tool);
+    }
+    public bool isInventoryFull()
+    {
+        return Inventory.isFull();
+    }
+    public Item putItem(int index)
+    {
+        return Inventory.putItem(index);
+    }
+
+    public bool hasItem()
+    {
+        return getItemCount() > 0;
+    }
+
+    public int getItemCount()
+    {
+        return Inventory.getItemCount();
+    }
+
+    public bool hasTool()
+    {
+        return !(_action.equipment == null);
+    }
+
+    public ToolKind? getToolKind()
+    {
+        if(!hasTool())
+            return null;
+        return _action.equipment.kind;
     }
 
     public HashSet<Interactable> getInteractables()
