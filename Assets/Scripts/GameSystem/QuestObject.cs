@@ -15,31 +15,23 @@ public class QuestObject : Interactable
     
     public override void OnInteract(PlayerState state)
     {
-        var inven = state.Inventory;
-
-        bool checkItem = false;
-        List<string> temp = new List<string>();
-        
-        foreach (var itemName in inven.getItemString())
+        Inventory inven = state.Inventory;
+        List<int> removeItemIndices = new List<int>();
+        for(int i = 0 ; i < inven.getItemsCount(); i ++)
         {
-            var checking = ml.checkItemRequired(itemName);
-
-            if (checking)
+            Item item = inven.getItem(i);
+            if(ml.isItemRequired(item.kind))
             {
-                temp.Add(itemName);
+                removeItemIndices.Add(i);
             }
-
-            checkItem |= checking;
         }
+        removeItemIndices.Sort();
+        removeItemIndices.Reverse();
 
-        if (checkItem)
+        foreach(int i in removeItemIndices)
         {
-            foreach (var itemName in temp)
-            {
-                inven.deleteItem(itemName);
-            }
-            
-            ml.addPercent(10);
+            Item item = inven.popItem(i);
+            ml.putItem(item);
         }
     }
 }

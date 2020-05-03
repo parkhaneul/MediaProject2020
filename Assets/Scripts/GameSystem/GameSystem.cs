@@ -9,7 +9,7 @@ public class GameSystem : MonoBehaviour
 {
     public int maximumUserNumber = 4;
     public float LimitTime = 0f;
-    public List<string> missionItemList = new List<string>();
+    public RequiredItems missionItemList = new RequiredItems();
     public float Interval;
     public Text text;
     
@@ -33,6 +33,8 @@ public class GameSystem : MonoBehaviour
         var pl = PlayerConnectionLogic.Instance;
         var ol = ObjectRecyclingLogic.Instance;
         
+        missionItemList = loadStage1Misson();
+
         tl.setTime(LimitTime);
         tl.setText(text);
         ml.setList(missionItemList);
@@ -84,5 +86,10 @@ public class GameSystem : MonoBehaviour
             Logger.Log("TrashCan is Blank.");
         else
             go.transform.position = Vector3.up;
+    }
+
+    private RequiredItems loadStage1Misson()
+    {  
+        return new Stage1().GetRequiredItems();
     }
 }

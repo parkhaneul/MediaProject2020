@@ -157,25 +157,24 @@ public class TimeLogic : BasicLogic<TimeLogic>
     }
 }
 
-/// <summary>
-/// change code if Item Data Class Update
-/// </summary>
 public class MissionLogic : BasicLogic<MissionLogic>
 {
     private float missionPercent = 0;
-    private float tempPercent = 0;
+    private float animationPurposePercent = 0;
     private float _interval = 0.5f;
     
-    private List<string> missionItemList = new List<string>();
+    private RequiredItems missionItemList = new RequiredItems();
+    private RequiredItems possessingItems = new RequiredItems();
     public MissionLogic()
     {
         Logger.LogWarning("Mission Logic Running");
     }
 
-    //item class 정해지면 변경
-    public void setList(List<string> list)
+    public void setList(RequiredItems list)
     {
         missionItemList = list;
+        possessingItems = new RequiredItems();
+        possessingItems.requiredItems = new Dictionary<ItemKind, int>();
     }
 
     public void setInterval(float value)
@@ -183,42 +182,73 @@ public class MissionLogic : BasicLogic<MissionLogic>
         _interval = value;
     }
     
-    //item class 정해지면 변경
-    public bool checkItemRequired(string itemName)
+    public bool isItemRequired(ItemKind itemName)
     {
-        var returnValue = false;
-
-        foreach (var name in missionItemList)
+        bool isTarget = missionItemList.requiredItems.Any( i => i.Key == itemName) ;
+        bool isNeededMore = false;
+        int required = 0, possess = 0;
+        if(missionItemList.requiredItems.TryGetValue(itemName, out required))
         {
-            returnValue |= (itemName == name);
+            possessingItems.requiredItems.TryGetValue(itemName, out possess);
+            isNeededMore = required > possess;
         }
-
-        return returnValue;
+        return isTarget && isNeededMore;
     }
 
     public override void mainLogic()
     {
-        if (tempPercent < missionPercent)
+        if (animationPurposePercent < missionPercent)
         {
-            tempPercent += _interval;
+            animationPurposePercent += _interval;
         }
     }
-
-    public void addPercent(float value)
-    {
-        if (missionPercent + value < 100)
+    public void putItem(Item item)
+    { 
+        if(missionItemList.requiredItems.ContainsKey(item.kind))
         {
-            missionPercent += value;
+            if(possessingItems.requiredItems.ContainsKey(item.kind))
+            {
+                if(possessingItems.requiredItems[item.kind] <
+                    missionItemList.requiredItems[item.kind])
+                {
+                    possessingItems.requiredItems[item.kind] = possessingItems.requiredItems[item.kind] + 1;   
+                }
+                else
+                {
+                    Debug.LogError("You can't put item more than requied amount.");
+                    return;
+                }
+            }
+            else
+            {
+                possessingItems.requiredItems.Add(item.kind, 1);
+            }
         }
         else
         {
-            missionPercent = 100;
+            Debug.LogError("You can't put item to misson logic that is not required.");
+            return;
         }
+        updatePercent();
+    }
+    private void updatePercent()
+    {
+        int total = 0, current = 0;
+        foreach(var item in missionItemList.requiredItems)
+        {
+            total += item.Value;
+        }
+        foreach(var item in possessingItems.requiredItems)
+        {
+            current += item.Value;
+        }
+
+        missionPercent = (float)total / current;
     }
 
     public float getPercent()
     {
-        return tempPercent;
+        return animationPurposePercent;
     }
 }
 
