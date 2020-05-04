@@ -22,12 +22,56 @@ public class AnimationStateString
     public const string isCarry = "IsCarry";
     public const string isSmash = "IsSmash";
 }
+public class InteractableSet
+{
+    private HashSet<Interactable> interactables;
+    private HashSet<Interactable> dirtyList;
+    public int Count
+    {
+        get { return interactables.Count; }
+    }
+    public InteractableSet()
+    {
+        interactables = new HashSet<Interactable>();
+        dirtyList = new HashSet<Interactable>();
+    }
+    public void InteractAll(PlayerState player)
+    {
+        foreach(var interactable in interactables)
+        {
+            if(!dirtyList.Contains(interactable))
+            {
+                interactable.OnInteract(player);
+            }
+        }
+    }
+    public void Add(Interactable interactable)
+    {
+        interactables.Add(interactable);
+    }
 
+    public void SetDirty(Interactable interactable)
+    {
+        dirtyList.Add(interactable);
+    }
+
+    public void Clean()
+    {
+        foreach(var dirty in dirtyList)
+        {
+            if(interactables.Contains(dirty))
+            {
+                interactables.Remove(dirty);
+            }
+        }
+        dirtyList.Clear();
+    }    
+}
 public class CharacterAction : MonoBehaviour
 {
     public const string CONST_InteractionHitBox  = "InteractionHitBox";
     public const string CONST_CharacterBound = "CharacterBound";
-    public HashSet<Interactable> interactables;
+    public InteractableSet interactables;
     
     public Animator animator;
     public float moveSpeed;
@@ -109,13 +153,8 @@ public class CharacterAction : MonoBehaviour
             {
                 //Logger.Log("Smash");
                 animatorSet(AnimationStateString.isSmash,false);
-                if(interactables.Count > 0)
-                {
-                    foreach(var interactable in interactables)
-                    {
-                        interactable.OnInteract(pState);
-                    }
-                }
+                interactables.InteractAll(pState);
+                interactables.Clean();
             })
             .AddTo(this);
 
@@ -157,7 +196,7 @@ public class CharacterAction : MonoBehaviour
 
     public CharacterAction()
     {
-        interactables = new HashSet<Interactable>();
+        interactables = new InteractableSet();
     }
 
     public void move(Point point)

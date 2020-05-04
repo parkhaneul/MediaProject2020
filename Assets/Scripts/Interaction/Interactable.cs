@@ -21,7 +21,7 @@ abstract public class Interactable : MonoBehaviour, Placable
     {
         foreach(var character in characters)
         {
-            character.interactables.Remove(this);
+            character.interactables.SetDirty(this);
         }
         // Debug.Log(gameObject.name + " : Destroyed");
         Destroy(gameObject);
@@ -47,7 +47,7 @@ abstract public class Interactable : MonoBehaviour, Placable
             CharacterAction characterAction = other.transform.parent.GetComponent<CharacterAction>();
             if (characterAction != null)
             {
-                characterAction.interactables.Remove(this);
+                characterAction.interactables.SetDirty(this);
                 characters.Remove(characterAction);
             }
         }

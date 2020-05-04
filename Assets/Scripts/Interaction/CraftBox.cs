@@ -139,7 +139,7 @@ public class CraftBox : Interactable
             CharacterAction characterAction = other.transform.parent.GetComponent<CharacterAction>();
             if (characterAction != null)
             {
-                characterAction.interactables.Remove(this);
+                characterAction.interactables.SetDirty(this);
             }
         }
     }

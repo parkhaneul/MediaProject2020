@@ -59,7 +59,7 @@ public class PlayerState : MonoBehaviour
         return _action.equipment.kind;
     }
 
-    public HashSet<Interactable> getInteractables()
+    public InteractableSet getInteractables()
     {
         return _action.interactables;
     }

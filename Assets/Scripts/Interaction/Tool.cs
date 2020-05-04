@@ -36,7 +36,7 @@ public class Tool : Interactable
         owner = state;
         EquipmentMode();  
 
-        owner.getInteractables().Remove(this);
+        owner.getInteractables().SetDirty(this);
     }
 
     protected override void OnTriggerEnter(Collider other)
@@ -46,7 +46,7 @@ public class Tool : Interactable
             CharacterAction characterAction = other.transform.parent.GetComponent<CharacterAction>();
             if (characterAction != null)
             {
-                characterAction.interactables.Add(this);
+                characterAction.interactables.SetDirty(this);
             }
         }
     }
@@ -58,7 +58,7 @@ public class Tool : Interactable
             CharacterAction characterAction = other.transform.parent.GetComponent<CharacterAction>();
             if (characterAction != null)
             {
-                characterAction.interactables.Remove(this);
+                characterAction.interactables.SetDirty(this);
             }
         }
     }
