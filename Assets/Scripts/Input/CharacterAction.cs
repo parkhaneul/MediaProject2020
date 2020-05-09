@@ -233,8 +233,14 @@ public class CharacterAction : MonoBehaviour
     
     public void interaction()
     {
-        if(pState.hasItem())
-            throwItem();
+        if (pState.hasItem())
+        {
+            if (interactables.Count > 0)
+            {
+                action();
+            }else
+                throwItem();
+        }
         else
             action();
     }
