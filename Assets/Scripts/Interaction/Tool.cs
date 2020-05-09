@@ -55,6 +55,7 @@ public class Tool : Interactable
     {
         if(other.gameObject.name == CharacterAction.CONST_InteractionHitBox || other.gameObject.name == CharacterAction.CONST_CharacterBound)
         {
+            //조건 추가가 필요, 두 hit box의 union에서 벗어났을때 Dirty로 체크해야함.
             CharacterAction characterAction = other.transform.parent.GetComponent<CharacterAction>();
             if (characterAction != null)
             {

@@ -87,6 +87,7 @@ public class CharacterAction : MonoBehaviour
     
     public Animator animator;
     public float moveSpeed;
+    public bool hasMovedThisFrame { get; private set; }
 
     private PlayerStateMachineObservables _playerStateMachineObservables;
     public PlayerState pState;
@@ -213,6 +214,7 @@ public class CharacterAction : MonoBehaviour
 
     public void move(Point point)
     {
+        hasMovedThisFrame = Mathf.Abs(point.x) > 0 || Mathf.Abs(point.y) > 0 || Mathf.Abs(point.z) > 0 ? true : false;
         movePointer = new Vector3(point.x,point.y,point.z);
         
         if(movePointer != Vector3.zero){
