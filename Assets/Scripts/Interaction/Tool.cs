@@ -46,7 +46,7 @@ public class Tool : Interactable
             CharacterAction characterAction = other.transform.parent.GetComponent<CharacterAction>();
             if (characterAction != null)
             {
-                characterAction.interactables.SetDirty(this);
+                characterAction.interactables.Add(this);
             }
         }
     }

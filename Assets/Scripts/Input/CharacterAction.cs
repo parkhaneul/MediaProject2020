@@ -35,6 +35,17 @@ public class InteractableSet
         interactables = new HashSet<Interactable>();
         dirtyList = new HashSet<Interactable>();
     }
+    public void Interact(PlayerState player)
+    {
+        foreach(var interactable in interactables)
+        {
+            if(!dirtyList.Contains(interactable))
+            {
+                interactable.OnInteract(player);
+                return;
+            }
+        }
+    }
     public void InteractAll(PlayerState player)
     {
         foreach(var interactable in interactables)
@@ -52,7 +63,8 @@ public class InteractableSet
 
     public void SetDirty(Interactable interactable)
     {
-        dirtyList.Add(interactable);
+        if(interactables.Contains(interactable))
+            dirtyList.Add(interactable);
     }
 
     public void Clean()
@@ -153,8 +165,8 @@ public class CharacterAction : MonoBehaviour
             {
                 //Logger.Log("Smash");
                 animatorSet(AnimationStateString.isSmash,false);
-                interactables.InteractAll(pState);
                 interactables.Clean();
+                interactables.Interact(pState);
             })
             .AddTo(this);
 
