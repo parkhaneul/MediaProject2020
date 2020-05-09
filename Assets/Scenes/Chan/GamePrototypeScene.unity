@@ -1601,6 +1601,7 @@ GameObject:
   - component: {fileID: 1074258706}
   - component: {fileID: 1074258710}
   - component: {fileID: 1074258711}
+  - component: {fileID: 1074258712}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1680,8 +1681,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximumUserNumber: 2
   LimitTime: 100
-  missionItemList:
-  - Debris
   Interval: 0.1
   text: {fileID: 1166674389}
 --- !u!114 &1074258711
@@ -1728,6 +1727,18 @@ MonoBehaviour:
   TimeResetButtonAction:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1074258712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074258705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d7000e4a983ceb4ab526783a34bca5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1098700705
 GameObject:
   m_ObjectHideFlags: 0
