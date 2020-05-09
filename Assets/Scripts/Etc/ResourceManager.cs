@@ -2,62 +2,49 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-public class ResourceManager
+public class SpriteManager
 {
-    private static ResourceManager _instance;
-    public static ResourceManager Instance
+    private static SpriteManager _instance;
+    public static SpriteManager Instance
     {
         get
         {
             if (_instance == null)
-                _instance = new ResourceManager();
+                _instance = new SpriteManager();
             return _instance;
         }
     }
 
-    private static Dictionary<string, GameObject> _assetCache;
+    private static Dictionary<string, Sprite> _SpriteCache;
     
-    public ResourceManager()
+    public SpriteManager()
     {
         if (_instance == null)
             _instance = this;
         
-        if(_assetCache == null)
+        if(_SpriteCache == null)
             clear();
     }
 
     public void clear()
     {
-        _assetCache = new Dictionary<string, GameObject>();
+        _SpriteCache = new Dictionary<string, Sprite>();
     }
 
     [CanBeNull]
-    public GameObject getAsset(string fileName)
+    public Sprite getAsset(string filePath)
     {
-        GameObject returnValue = null;
-        _assetCache.TryGetValue(fileName, out returnValue);
-        return returnValue;
-    }
+        if(_SpriteCache.ContainsKey(filePath))
+            return _SpriteCache[filePath];
+        
+        Sprite returnValue = AssetDatabase.LoadAssetAtPath<Sprite>(filePath);
 
-    public bool loadAll(string folderPath)
-    {
-        object[] values = Resources.LoadAll(folderPath);
+        _SpriteCache[filePath] = returnValue;
 
-        if (values.Length == 0)
-        {
-            Logger.LogWarning("ResourceManager Error");
-            return false;
-        }
-
-        foreach (var value in values)
-        {
-            var go = value as GameObject;
-            _assetCache.Add(go.name,go);
-        }
-
-        return true;
+        return _SpriteCache[filePath];
     }
 }

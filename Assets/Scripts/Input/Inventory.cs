@@ -17,23 +17,6 @@ public class Inventory : MonoBehaviour
     {
         if (_inventory == null)
             _inventory = new List<Item>();
-
-        /*
-        //Inventory Test
-        Observable.EveryUpdate()
-            .Where(_ => _inventory.Count != 0)
-            .Subscribe(_ =>
-            {
-                for (int i = 0; i < _inventory.Count; i++)
-                {
-                    var item = _inventory[i];
-                    if(item.gameObject.active == false)
-                        item.gameObject.SetActive(true);
-                    item.transform.position = this.gameObject.transform.position + Vector3.up * 2;
-                    item.transform.position += Vector3.right * (i - _inventory.Count/2);
-                }
-            })
-            .AddTo(this);*/
     }
 
     public bool isFull()

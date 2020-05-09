@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024cc45d1ab72411699f2d6e85964a70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemCode: 4
   kind: 4
   positionOffset: {x: 0, y: 0, z: 0}
 --- !u!65 &7460788398726412866

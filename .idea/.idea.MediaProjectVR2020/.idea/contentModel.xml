@@ -14,6 +14,8 @@
             <e p="ToonComplete.shader" t="Include" />
           </e>
         </e>
+        <e p="CraftSystem.cs" t="Include" />
+        <e p="CraftTable.cs" t="Include" />
         <e p="MapAutoGenerator.cs" t="Include" />
         <e p="ObjectMovementSystem.cs" t="Include" />
         <e p="Plugins" t="Include">
@@ -296,12 +298,16 @@
             </e>
           </e>
         </e>
+        <e p="Resources" t="Include">
+          <e p="ItemData.txt" t="Include" />
+        </e>
         <e p="Scripts" t="Include">
           <e p="Effect" t="Include">
             <e p="EffectManager.cs" t="Include" />
           </e>
           <e p="Etc" t="Include">
             <e p="CameraScript.cs" t="Include" />
+            <e p="ItemDataEditor.cs" t="Include" />
             <e p="Logger.cs" t="Include" />
             <e p="ResourceManager.cs" t="Include" />
           </e>
@@ -311,6 +317,10 @@
             <e p="GameSystem.cs" t="Include" />
             <e p="LoadingBarObject.cs" t="Include" />
             <e p="QuestObject.cs" t="Include" />
+            <e p="StageModels" t="Include">
+              <e p="Stage1.cs" t="Include" />
+              <e p="StageModel.cs" t="Include" />
+            </e>
             <e p="UIManager.cs" t="Include" />
           </e>
           <e p="Grid" t="Include">
@@ -329,9 +339,22 @@
           </e>
           <e p="Interaction" t="Include">
             <e p="Building.cs" t="Include" />
+            <e p="CraftBox.cs" t="Include" />
+            <e p="CraftResultBox.cs" t="Include" />
             <e p="Interactable.cs" t="Include" />
             <e p="Item.cs" t="Include" />
+            <e p="ItemModels" t="Include">
+              <e p="ItemModel.cs" t="Include" />
+              <e p="Model_Branch.cs" t="Include" />
+              <e p="Model_Mountain.cs" t="Include" />
+              <e p="Model_Rock.cs" t="Include" />
+              <e p="Model_Stone.cs" t="Include" />
+              <e p="Model_Tree.cs" t="Include" />
+            </e>
             <e p="Tool.cs" t="Include" />
+          </e>
+          <e p="UI" t="Include">
+            <e p="CraftBillboard.cs" t="Include" />
           </e>
         </e>
       </e>

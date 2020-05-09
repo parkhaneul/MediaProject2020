@@ -224,10 +224,11 @@ public class CharacterAction : MonoBehaviour
 
     public void animatorSet(string str, bool value)
     {
-        Logger.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name + "\n" +
+        /*Logger.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name + "\n" +
             "IsCarry : " + animator.GetBool(AnimationStateString.isCarry) + "\n" +
                    "IsMove : " + animator.GetBool(AnimationStateString.isMove) + "\n" +
                    "IsSmash : " + animator.GetBool(AnimationStateString.isSmash));
+        */
         animator.SetBool(str,value);
     }
     
@@ -255,7 +256,12 @@ public class CharacterAction : MonoBehaviour
         var go = item.gameObject;
         go.transform.SetParent(transform.root.transform.parent);
         ObjectMovementSystem.Instance.shoot(go, this.gameObject.transform.forward,1, 1,
-            () => { ObjectMovementSystem.Instance.turn(go, true); });
+            () =>
+            {
+                ObjectMovementSystem.Instance.turn(go, true);
+                go.transform.localScale = Vector3.one;
+                go.transform.eulerAngles = Vector3.one;
+            });
     }
 
     public void action()

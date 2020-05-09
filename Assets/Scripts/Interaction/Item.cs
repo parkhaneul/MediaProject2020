@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour, Placable
 {
+    public int ItemCode;
     public ItemKind kind;
     public Vector3 positionOffset = new Vector3(0.0f, 0.4f, 0.0f);
     private BoxCollider collider;
@@ -49,5 +50,10 @@ public class Item : MonoBehaviour, Placable
     public void AdjustPosition(Grid grid)
     {
         transform.position = grid.gridCenter + positionOffset;
+    }
+
+    public ItemData getData()
+    {
+        return ItemPalette.Instance.searchItem(ItemCode);
     }
 }

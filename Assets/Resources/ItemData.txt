@@ -1,0 +1,114 @@
+[
+  {
+    "materials": [],
+    "result": {
+      "itemName": "branch",
+      "itemCode": 1,
+      "imageFilePath": "Assets/Resources/2D_Objects/Object_Branch.png"
+    }
+  },
+  {
+    "materials": [],
+    "result": {
+      "itemName": "stone",
+      "itemCode": 2,
+      "imageFilePath": "Assets/Resources/2D_Objects/Object_Stone.png"
+    }
+  },
+  {
+    "materials": [
+      {
+        "itemName": "stone",
+        "itemCode": 2,
+        "imageFilePath": "Assets/Resources/2D_Objects/Object_Stone.png"
+      },
+      {
+        "itemName": "stone",
+        "itemCode": 2,
+        "imageFilePath": "Assets/Resources/2D_Objects/Object_Stone.png"
+      }
+    ],
+    "result": {
+      "itemName": "Rock",
+      "itemCode": 3,
+      "imageFilePath": "Assets/Resources/2D_Objects/Object_Rock.png"
+    }
+  },
+  {
+    "materials": [
+      {
+        "itemName": "branch",
+        "itemCode": 1,
+        "imageFilePath": "Assets/Resources/2D_Objects/Object_Branch.png"
+      },
+      {
+        "itemName": "branch",
+        "itemCode": 1,
+        "imageFilePath": "Assets/Resources/2D_Objects/Object_Branch.png"
+      }
+    ],
+    "result": {
+      "itemName": "wood",
+      "itemCode": 4,
+      "imageFilePath": "Assets/Resources/2D_Objects/Object_Tree.png"
+    }
+  },
+  {
+    "materials": [
+      {
+        "itemName": "Rock",
+        "itemCode": 3,
+        "imageFilePath": "Assets/Resources/2D_Objects/Object_Rock.png"
+      },
+      {
+        "itemName": "Rock",
+        "itemCode": 3,
+        "imageFilePath": "Assets/Resources/2D_Objects/Object_Rock.png"
+      },
+      {
+        "itemName": "wood",
+        "itemCode": 4,
+        "imageFilePath": "Assets/Resources/2D_Objects/Object_Tree.png"
+      },
+      {
+        "itemName": "wood",
+        "itemCode": 4,
+        "imageFilePath": "Assets/Resources/2D_Objects/Object_Tree.png"
+      }
+    ],
+    "result": {
+      "itemName": "mountain",
+      "itemCode": 5,
+      "imageFilePath": "Assets/Resources/2D_Objects/Object_Mountain.png"
+    }
+  },
+  {
+    "materials": [
+      {
+        "itemName": "stone",
+        "itemCode": 2,
+        "imageFilePath": "Assets/Resources/2D_Objects/Object_Stone.png"
+      },
+      {
+        "itemName": "stone",
+        "itemCode": 2,
+        "imageFilePath": "Assets/Resources/2D_Objects/Object_Stone.png"
+      },
+      {
+        "itemName": "stone",
+        "itemCode": 2,
+        "imageFilePath": "Assets/Resources/2D_Objects/Object_Stone.png"
+      },
+      {
+        "itemName": "stone",
+        "itemCode": 2,
+        "imageFilePath": "Assets/Resources/2D_Objects/Object_Stone.png"
+      }
+    ],
+    "result": {
+      "itemName": "moreStone",
+      "itemCode": 6,
+      "imageFilePath": "Assets/Resources/2D_Objects/Object_Stone.png"
+    }
+  }
+]
