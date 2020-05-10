@@ -1,21 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+
+using Vector3 = UnityEngine.Vector3;
 
 public class Pushwall : MonoBehaviour, Placable
 {
-    struct PushTimer
-    {
-        GameObject character;
-        float startTime;
-
-        public PushTimer(GameObject character, float startTime)
-        {
-            this.character = character;
-            this.startTime = startTime;
-        }
-    }
-    
     public float PushThresholdTime = 1.0f;
     static private GridManager gridManager;
     private Dictionary<CharacterAction, float> timers;
@@ -46,7 +37,7 @@ public class Pushwall : MonoBehaviour, Placable
 
     private void OnCollisionEnter(Collision other) 
     {
-        Debug.Log("Collision Enter");    
+        //Debug.Log("Collision Enter");    
         CharacterAction character = other.gameObject.GetComponent<CharacterAction>();
         if(character != null)
         {
@@ -56,7 +47,7 @@ public class Pushwall : MonoBehaviour, Placable
 
     private void OnCollisionStay(Collision other) 
     {
-        Debug.Log("Collision Stay");
+        //Debug.Log("Collision Stay");
         CharacterAction character = other.gameObject.GetComponent<CharacterAction>();
         if(character != null)
         {
@@ -64,12 +55,13 @@ public class Pushwall : MonoBehaviour, Placable
             {
                 if(!character.hasMovedThisFrame)
                 {
+                    Debug.Log("Reset");
                     timers[character] = Time.time;
                 }
-                if(timers[character] >= Time.time + PushThresholdTime)
+                if(Time.time >= timers[character] + PushThresholdTime)
                 {
                     timers[character] = Time.time;
-                    MoveToNextGrid();
+                    MoveToNextGrid(character.gameObject.transform.position);
                 }
             }
         }
@@ -77,7 +69,7 @@ public class Pushwall : MonoBehaviour, Placable
 
     private void OnCollisionExit(Collision other)
     {
-        Debug.Log("Collision Exit");   
+        //Debug.Log("Collision Exit");   
         CharacterAction character = other.gameObject.GetComponent<CharacterAction>();
         if(character != null)
         {
@@ -85,8 +77,34 @@ public class Pushwall : MonoBehaviour, Placable
         }
     }
 
-    private void MoveToNextGrid()
+    private void MoveToNextGrid(Vector3 characterPos)
     {
+        //Debug.Log("Move To Next Grid");
+        Vector3 dir = MoveDirection(characterPos);
+        Grid neighborGrid = gridManager.GetNeighborGridFromDirection(this, dir);
+        if(neighborGrid != null)
+        {
 
+        }
+    }
+
+    private Vector3 MoveDirection(Vector3 pos)
+    {
+        Vector3 dir = gameObject.transform.position - pos;
+        float f_cos = Vector3.Dot(dir, Vector3.forward);
+        float b_cos = Vector3.Dot(dir, Vector3.back);
+        float r_cos = Vector3.Dot(dir, Vector3.right);
+        float l_cos = Vector3.Dot(dir, Vector3.left);
+
+        float max = Mathf.Max(f_cos, b_cos, r_cos, l_cos);
+
+        if (max - f_cos <= float.Epsilon)
+            return Vector3.forward;
+        else if (max - b_cos <= float.Epsilon)
+            return Vector3.back;
+        else if (max - r_cos <= float.Epsilon)
+            return Vector3.right;
+        else
+            return Vector3.left;
     }
 }

@@ -91,6 +91,55 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
         }
         return new Grid();
     }
+
+    public Grid GetNeighborGridFromDirection(Placable placable, Vector3 dir)
+    {
+        foreach(var bundle in bundles)
+        {
+            if(bundle.owner == placable)
+            {
+                if(bundle.grids.Count > 1)
+                {
+                    Debug.LogError("This method should be called from placable object which has only one grid");
+                    return null;
+                }
+
+                return bundle.GetGridFromDirection(dir);
+            }
+        }
+        return null;
+    }
+
+    public void Move(Placable placable, Grid grid)
+    {
+        foreach (var bundle in bundles)
+        {
+            if (bundle.owner == placable)
+            {
+                if (bundle.grids.Count > 1)
+                {
+                    Debug.LogError("This method should be called from placable object which has only one grid");
+                }
+                /* Content */
+            }
+        }
+    }
+
+    public void Move(Placable placable, Grid[] grids)
+    {
+        foreach (var bundle in bundles)
+        {
+            if (bundle.owner == placable)
+            {
+                if (bundle.grids.Count > grids.Length)
+                {
+                    Debug.LogError("This method should be called from placable object which has only one grid");
+                }
+                /* Content */
+            }
+        }
+    }
+
     private void Clear()
     {
         tileWidth = -1.0f;

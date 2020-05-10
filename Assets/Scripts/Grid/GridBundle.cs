@@ -78,4 +78,10 @@ public class GridBundle
         }
         return new List<Grid>(adjacents);
     }
+
+    public Grid GetGridFromDirection(Vector3 dir)
+    {
+        
+        return null;
+    }
 }
