@@ -92,6 +92,18 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
         return new Grid();
     }
 
+    public GridBundle GetGridBundles(Placable placable)
+    {
+        foreach (var bundle in bundles)
+        {
+            if (bundle.owner == placable)
+            {
+                return bundle;
+            }
+        }
+        return null;
+    }
+
     public Grid GetNeighborGridFromDirection(Placable placable, Vector3 dir)
     {
         foreach(var bundle in bundles)
@@ -105,6 +117,18 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
                 }
 
                 return bundle.GetGridFromDirection(dir);
+            }
+        }
+        return null;
+    }
+
+    public Grid[] GetNeighborGridsFromDirection(Placable placable, Vector3 dir)
+    {
+        foreach (var bundle in bundles)
+        {
+            if (bundle.owner == placable)
+            {
+                return bundle.GetGridsFromDirection(dir);
             }
         }
         return null;
@@ -132,12 +156,12 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
         {
             if (bundle.owner == placable)
             {
-                if (bundle.grids.Count > grids.Length)
+                if (bundle.grids.Count != grids.Length)
                 {
-                    /* 미완성 함수 */
-                    Debug.LogError("This method should be called from placable object which has only one grid");
+                    Debug.LogError("Spaces of destination and origin should be same.");
+                    return;
                 }
-                /* Content */
+                bundle.MoveToNewGrids(grids);
             }
         }
     }

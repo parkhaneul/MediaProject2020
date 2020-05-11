@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using UnityEngine;
 
@@ -70,7 +71,12 @@ public class Pushwall : MonoBehaviour, Placable
                 if(Time.time >= timers[character] + PushThresholdTime)
                 {
                     timers[character] = Time.time;
-                    MoveToNextGrid(character.gameObject.transform.position);
+                    GridBundle bundle = gridManager.GetGridBundles(this);
+
+                    if (bundle.grids.Count > 1)
+                        MoveToNextGrids(character.gameObject.transform.position);
+                    else
+                        MoveToNextGrid(character.gameObject.transform.position);
                 }
             }
         }
@@ -89,11 +95,28 @@ public class Pushwall : MonoBehaviour, Placable
     {
         Vector3 dir = MoveDirection(characterPos);
         Grid neighborGrid = gridManager.GetNeighborGridFromDirection(this, dir);
-        gridManager.Move(this, neighborGrid);
+        
         if(neighborGrid != null)
         {
+            gridManager.Move(this, neighborGrid);
             isMoving = true;
             animationBundle = new MovingAnimationBundle(Time.time, gameObject.transform.position, neighborGrid.gridCenter + MeshOffset);
+        }
+    }
+
+    private void MoveToNextGrids(Vector3 characterPos)
+    {
+        Vector3 dir = MoveDirection(characterPos);
+        Grid[] neighborGrids = gridManager.GetNeighborGridsFromDirection(this, dir);
+
+        if (neighborGrids != null)
+        {
+            gridManager.Move(this, neighborGrids);
+            Vector3 gridCenter = neighborGrids.Select(i => i.gridCenter)
+                .Aggregate((sum, var) => sum += var) / neighborGrids.Length;
+
+            isMoving = true;
+            animationBundle = new MovingAnimationBundle(Time.time, gameObject.transform.position, gridCenter + MeshOffset);
         }
     }
 

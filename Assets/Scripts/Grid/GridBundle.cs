@@ -87,9 +87,30 @@ public class GridBundle
             return null;
         }
 
-        Grid gridInDirection = grids[0].adjacentGrids[0];
-        float dot = Vector3.Dot((gridInDirection.gridCenter - grids[0].gridCenter).normalized, dir);
-        foreach (var grid in grids[0].adjacentGrids)
+        return GetGridFromDirection(grids[0], dir);
+    }
+
+    public Grid[] GetGridsFromDirection(Vector3 dir)
+    {
+        List<Grid> results = new List<Grid>();
+        for(int i = 0; i < grids.Count; i++)
+        {
+            Grid gridInDirection = GetGridFromDirection(grids[i], dir);
+            if(gridInDirection == null)
+            {
+                return null;
+            }
+            results.Add(gridInDirection);
+        }
+       
+        return results.ToArray();
+    }
+
+    private Grid GetGridFromDirection(Grid origin, Vector3 dir)
+    {
+        Grid gridInDirection = origin.adjacentGrids[0];
+        float dot = Vector3.Dot((gridInDirection.gridCenter - origin.gridCenter).normalized, dir);
+        foreach (var grid in origin.adjacentGrids)
         {
             float newDot = Vector3.Dot((grid.gridCenter - grids[0].gridCenter).normalized, dir);
             if (newDot > dot)
@@ -98,6 +119,18 @@ public class GridBundle
                 gridInDirection = grid;
             }
         }
+
+        if (dot < Mathf.Cos(180 / Mathf.PI * 30.0f))
+        {
+            Debug.LogError("There is no valid grid in direction. Grid : " + origin.gridCenter + "dir : " + dir);
+            return null;
+        }
+
+        if(gridInDirection.isOccupied)
+        {
+            return null;
+        }
+
         return gridInDirection;
     }
 
@@ -113,5 +146,19 @@ public class GridBundle
         grids.Clear();
         grids.Add(grid);
         grid.Occupy(owner);
+    }
+
+    public void MoveToNewGrids(Grid[] newGrids)
+    {
+        foreach(var grid in grids)
+        {
+            grid.Unoccupy();
+        }
+        grids.Clear();
+        grids.AddRange(newGrids);
+        foreach (var grid in grids)
+        {
+            grid.Occupy(owner);
+        }
     }
 }
