@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MeshOffset: {x: -1.5, y: 0, z: -0.5}
-  PushThresholdTime: 1
+  PushThresholdTime: 0.5
   TimeToArriveAtDestination: 1
 --- !u!65 &8514326966911535102
 BoxCollider:

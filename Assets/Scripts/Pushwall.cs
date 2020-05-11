@@ -68,7 +68,7 @@ public class Pushwall : MonoBehaviour, Placable
                 {
                     timers[character] = Time.time;
                 }
-                if(Time.time >= timers[character] + PushThresholdTime)
+                if(Time.time >= timers[character] + PushThresholdTime && !isMoving)
                 {
                     timers[character] = Time.time;
                     GridBundle bundle = gridManager.GetGridBundles(this);
