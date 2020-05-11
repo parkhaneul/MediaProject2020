@@ -81,7 +81,37 @@ public class GridBundle
 
     public Grid GetGridFromDirection(Vector3 dir)
     {
-        
-        return null;
+        if(grids.Count != 1)
+        {
+            Debug.LogError("Error");
+            return null;
+        }
+
+        Grid gridInDirection = grids[0].adjacentGrids[0];
+        float dot = Vector3.Dot((gridInDirection.gridCenter - grids[0].gridCenter).normalized, dir);
+        foreach (var grid in grids[0].adjacentGrids)
+        {
+            float newDot = Vector3.Dot((grid.gridCenter - grids[0].gridCenter).normalized, dir);
+            if (newDot > dot)
+            {
+                dot = newDot;
+                gridInDirection = grid;
+            }
+        }
+        return gridInDirection;
+    }
+
+    public void MoveToNewGrid(Grid grid)
+    {
+        if(grids.Count != 1)
+        {
+            Debug.LogError("Error");
+            return;
+        }
+
+        grids[0].Unoccupy();
+        grids.Clear();
+        grids.Add(grid);
+        grid.Occupy(owner);
     }
 }

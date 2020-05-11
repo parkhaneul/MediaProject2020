@@ -2827,7 +2827,7 @@ GameObject:
   - component: {fileID: 4521420014610991275}
   - component: {fileID: 4892282997686875200}
   - component: {fileID: 4892282997686875199}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Obstacles_Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

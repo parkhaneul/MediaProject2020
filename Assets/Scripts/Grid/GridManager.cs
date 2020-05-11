@@ -119,8 +119,9 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
                 if (bundle.grids.Count > 1)
                 {
                     Debug.LogError("This method should be called from placable object which has only one grid");
+                    return;
                 }
-                /* Content */
+                bundle.MoveToNewGrid(grid);
             }
         }
     }
@@ -133,6 +134,7 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
             {
                 if (bundle.grids.Count > grids.Length)
                 {
+                    /* 미완성 함수 */
                     Debug.LogError("This method should be called from placable object which has only one grid");
                 }
                 /* Content */
@@ -189,7 +191,7 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
                 {
                     for(int l = -1; l < 2; l++)
                     {
-                        if( (k != 0 && l != 0) && (i+k >= 0 && i+k <widthCount) && (j+l >= 0 && j+l <heightCount) )
+                        if( (k != 0 || l != 0) && (i+k >= 0 && i+k <widthCount) && (j+l >= 0 && j+l <heightCount) )
                             gridArray[i,j].adjacentGrids.Add(gridArray[i+k, j+l]);
                     }
                 }
