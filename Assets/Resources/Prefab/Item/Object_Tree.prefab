@@ -93,6 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 024cc45d1ab72411699f2d6e85964a70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ItemCode: 4
+  _2DImage: {fileID: 21300000, guid: 7a763b31c6dd3d14bad6996fd42a9d60, type: 3}
   kind: 3
   positionOffset: {x: 0, y: 0, z: 0}
 --- !u!65 &873122096571576504
