@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Xml.Schema;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
@@ -301,5 +302,92 @@ public class PlayerConnectionLogic : BasicLogic<PlayerConnectionLogic>
     
     public override void mainLogic()
     {
+    }
+}
+
+public class BorderCube
+{
+    private float minX;
+    private float minY;
+    private float minZ;
+    private float maxX;
+    private float maxY;
+    private float maxZ;
+
+    public bool canMove;
+
+    public BorderCube setBorder(float minX, float minY, float minZ, float maxX, float maxY, float maxZ)
+    {
+        this.minX = minX;
+        this.minY = minY;
+        this.minZ = minZ;
+        this.maxX = maxX;
+        this.maxY = maxY;
+        this.maxZ = maxZ;
+
+        return this;
+    }
+
+    public BorderCube setMove(bool value)
+    {
+        canMove = value;
+        return this;
+    }
+    public bool isContain(Vector3 position)
+    {
+        if (!(position.x > minX && position.x < maxX))
+            return false;
+
+        if (!(position.y > minY && position.y < maxY))
+            return false;
+
+        if (!(position.z > minZ && position.z < maxZ))
+            return false;
+
+        return true;
+    }
+}
+
+public class PlayerMoveLimitLogic : BasicLogic<PlayerMoveLimitLogic>
+{
+    private List<BorderCube> borders;
+    
+    public PlayerMoveLimitLogic()
+    {
+        borders = new List<BorderCube>();
+    }
+    public override void mainLogic()
+    {
+    }
+
+    public void addBorder(BorderCube cube)
+    {
+        borders.Add(cube);
+    }
+
+    public bool canMove(Vector3 position)
+    {
+        if (borders == null || borders.Count == 0)
+            return true;
+
+        List<BorderCube> checkList = new List<BorderCube>();
+        
+        foreach (var cube in borders)
+        {
+            if(cube.isContain(position))
+                checkList.Add(cube);
+        }
+
+        if (checkList.Count == 0)
+            return false;
+
+        var returnValue = true;
+        
+        foreach (var cube in checkList)
+        {
+            returnValue |= cube.canMove;
+        }
+
+        return returnValue;
     }
 }
