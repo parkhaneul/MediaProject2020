@@ -73,7 +73,7 @@ public class ControllerManager : MonoBehaviour
         controllers = null;
     }
 
-    void newTestUnit(int uid)
+    GameObject newTestUnit(int uid)
     {
         var go = GameObject.Instantiate(testUnit);
         go.gameObject.transform.localScale *= playerModelScale;
@@ -102,14 +102,24 @@ public class ControllerManager : MonoBehaviour
             .AddTo(go);
         
         unitList.Add(uid,go);
+
+        return go;
     }
 
     public void newController(int uid)
     {
-        if (PlayerConnectionLogic.Instance.addPlayer(uid, uid) == false)
+        if (PlayerControlLogic.Instance.canAddPlayer() == false)
+        {
+            Logger.Log("Player is Full");
             return;
-            
-        var index = PlayerConnectionLogic.Instance.currentPlayerNumber;
+        }
+
+        var go = newTestUnit(uid);
+        var playerState = go.GetComponent<PlayerState>();
+
+        PlayerControlLogic.Instance.addPlayer(uid, playerState);
+        
+        var index = PlayerControlLogic.Instance.currentPlayerNumber;
         var axes = ReadInputManager.ReadAxes();
         var AxisNumber = 5;
         var useAxes = new ArraySegment<string>(axes, (index - 1) * AxisNumber, AxisNumber).ToArray();
@@ -140,7 +150,6 @@ public class ControllerManager : MonoBehaviour
             Logger.Log("onMenuEvent");
         });
         
-        newTestUnit(uid);
         addController(ic);
     }
 

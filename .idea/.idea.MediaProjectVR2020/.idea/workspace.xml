@@ -98,7 +98,6 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/Building.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/QuestObject.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/Tool.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Input/PlayerState.cs" />
         <option value="$PROJECT_DIR$/Assets/BlockMovement.cs" />
         <option value="$PROJECT_DIR$/Assets/ObjectMovementSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/MapAutoGenerator.cs" />
@@ -111,6 +110,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Etc/ItemDataEditor.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Etc/Logger.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/ControllerManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Input/PlayerState.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameLogic.cs" />
@@ -189,7 +189,7 @@
       <workItem from="1588587241144" duration="1151000" />
       <workItem from="1589013182385" duration="12815000" />
       <workItem from="1589026060942" duration="7976000" />
-      <workItem from="1589290253247" duration="3983000" />
+      <workItem from="1589290253247" duration="10954000" />
     </task>
     <servers />
   </component>

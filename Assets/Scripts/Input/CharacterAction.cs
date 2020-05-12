@@ -230,9 +230,11 @@ public class CharacterAction : MonoBehaviour
         if(movePointer != Vector3.zero){
             var lookAtVector = this.transform.position + movePointer;
             this.gameObject.transform.LookAt(lookAtVector);
-            
-            if(PlayerMoveLimitLogic.Instance.canMove(this.gameObject.transform.position + this.gameObject.transform.forward * moveSpeed))
-                this.gameObject.transform.position += this.gameObject.transform.forward * moveSpeed;
+
+            if (PlayerMoveLimitLogic.Instance.canMove(this.gameObject.transform.position +
+                                                      this.gameObject.transform.forward * moveSpeed))
+                this.gameObject.transform.position +=
+                    this.gameObject.transform.forward * moveSpeed * pState.speedMul;
         }
     }
 
