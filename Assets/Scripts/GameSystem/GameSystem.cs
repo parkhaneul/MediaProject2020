@@ -30,8 +30,10 @@ public class GameSystem : MonoBehaviour
     {
         var tl = TimeLogic.Instance;
         var ml = MissionLogic.Instance;
-        var pl = PlayerConnectionLogic.Instance;
-        var ol = ObjectRecyclingLogic.Instance;
+        var pcl = PlayerControlLogic.Instance;
+        var orl = ObjectRecyclingLogic.Instance;
+        var pmll = PlayerMoveLimitLogic.Instance;
+        var bl = BuffLogic.Instance;
         
         missionItemList = loadStage1Misson();
 
@@ -39,12 +41,31 @@ public class GameSystem : MonoBehaviour
         tl.setText(text);
         ml.setList(missionItemList);
         ml.setInterval(Interval);
-        pl.setMaximumNumber(maximumUserNumber);
+        pcl.setMaximumNumber(maximumUserNumber);
+        pmll.addBorder(new BorderCube().setBorder(-6,-2,-5,8,2,5).setMove(true));
+        
+        bl.addBuff(BuffKind.SpeedUp,(_) =>
+        {
+            Logger.Log("Buff Start");
+            foreach (var state in _)
+            {
+                state.speedMul = 1;
+            }   
+        }, (_) =>
+        {
+            Logger.Log("Buff End");
+            foreach (var state in _)
+            {
+                state.speedMul = 2;
+            }
+        },5,PlayerControlLogic.Instance.getAllPlayerState());
         
         logics.Add(tl);
         logics.Add(ml);
-        logics.Add(pl);
-        logics.Add(ol);
+        logics.Add(pcl);
+        logics.Add(orl);
+        logics.Add(pmll);
+        logics.Add(bl);
         
         activeAll();
     }

@@ -15,7 +15,7 @@ public sealed class Logger
     [Conditional(ENABLE_LOGS)]
     public static void Log(object message)
     {
-        //Debug.Log(message);
+        Debug.Log(message);
     }
     
     [Conditional(ENABLE_LOGS)]

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
+    public float speedMul = 1;
+    
     private CharacterAction _action;
     public Inventory Inventory;
 
@@ -62,5 +64,19 @@ public class PlayerState : MonoBehaviour
     public InteractableSet getInteractables()
     {
         return _action.interactables;
+    }
+
+    public override bool Equals(object other)
+    {
+        if (other == null)
+            return false;
+
+        if (other.GetType() != typeof(PlayerState))
+            return false;
+
+        if (((PlayerState) other).gameObject == this.gameObject)
+            return true;
+
+        return false;
     }
 }

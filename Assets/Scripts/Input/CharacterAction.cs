@@ -41,6 +41,7 @@ public class InteractableSet
         {
             if(!dirtyList.Contains(interactable))
             {
+                Logger.Log(interactable.name + "is interacted");
                 interactable.OnInteract(player);
                 return;
             }
@@ -63,8 +64,11 @@ public class InteractableSet
 
     public void SetDirty(Interactable interactable)
     {
-        if(interactables.Contains(interactable))
+        if (interactables.Contains(interactable))
+        {
             dirtyList.Add(interactable);
+            Clean();
+        }
     }
 
     public void Clean()
@@ -77,7 +81,13 @@ public class InteractableSet
             }
         }
         dirtyList.Clear();
-    }    
+    }
+
+    public override string ToString()
+    {
+        return "Interactable Count : " + interactables.Count + "\n" + 
+            "Dirty Count : " + dirtyList.Count;
+    }
 }
 public class CharacterAction : MonoBehaviour
 {
@@ -166,7 +176,7 @@ public class CharacterAction : MonoBehaviour
             {
                 //Logger.Log("Smash");
                 animatorSet(AnimationStateString.isSmash,false);
-                interactables.Clean();
+                //interactables.Clean();
                 interactables.Interact(pState);
             })
             .AddTo(this);
@@ -220,7 +230,11 @@ public class CharacterAction : MonoBehaviour
         if(movePointer != Vector3.zero){
             var lookAtVector = this.transform.position + movePointer;
             this.gameObject.transform.LookAt(lookAtVector);
-            this.gameObject.transform.position += this.gameObject.transform.forward * moveSpeed;
+
+            if (PlayerMoveLimitLogic.Instance.canMove(this.gameObject.transform.position +
+                                                      this.gameObject.transform.forward * moveSpeed))
+                this.gameObject.transform.position +=
+                    this.gameObject.transform.forward * moveSpeed * pState.speedMul;
         }
     }
 
@@ -236,6 +250,11 @@ public class CharacterAction : MonoBehaviour
     
     public void interaction()
     {
+        if (movePointer != Vector3.zero)
+            return;
+        
+        Logger.Log(interactables.ToString());
+        
         if (pState.hasItem())
         {
             if (interactables.Count > 0)

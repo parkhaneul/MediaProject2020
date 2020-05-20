@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Xml.Schema;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
@@ -111,7 +112,8 @@ public class TimeLogic : BasicLogic<TimeLogic>
 {
     private float _limitTime; //제한 시간
     private float _currentTime; //제한 시간 중 남은 시간
-
+    private float _tikTime;
+    
     private Text testText;
     private const float _zeroTime = 0f;
 
@@ -131,9 +133,15 @@ public class TimeLogic : BasicLogic<TimeLogic>
         _currentTime = time;
     }
 
+    public float getTikTime()
+    {
+        return _tikTime;
+    }
+
     public void countDownTik()
     {
-        _currentTime -= Time.deltaTime;
+        _tikTime = Time.deltaTime;
+        _currentTime -= _tikTime;
 
         testText.text = _currentTime.ToString();
         
@@ -252,8 +260,9 @@ public class MissionLogic : BasicLogic<MissionLogic>
     }
 }
 
-public class PlayerConnectionLogic : BasicLogic<PlayerConnectionLogic>
+public class PlayerControlLogic : BasicLogic<PlayerControlLogic>
 {
+    private Dictionary<int,PlayerState> PlayerDics;
     private int _currentPlayerNumber;
     public int currentPlayerNumber
     {
@@ -265,20 +274,27 @@ public class PlayerConnectionLogic : BasicLogic<PlayerConnectionLogic>
     {
         get { return _maximumPlayerNumber; }
     }
-
-    private Dictionary<int, int> deviceAndUser;
-
-    public PlayerConnectionLogic()
+    public PlayerControlLogic()
     {
-        if(deviceAndUser == null)
-            deviceAndUser = new Dictionary<int, int>();
+        if(PlayerDics == null)
+            PlayerDics = new Dictionary<int, PlayerState>();
     }
-    
-    public bool addPlayer(int deviceID, int uid)
+
+    public bool canAddPlayer()
     {
         if (currentPlayerNumber < maximumPlayerNumber)
         {
-            deviceAndUser[deviceID] = uid;
+            return true;
+        }
+
+        return false;
+    }
+    
+    public bool addPlayer(int uid, PlayerState state)
+    {
+        if (currentPlayerNumber < maximumPlayerNumber)
+        {
+            PlayerDics[uid] = state;
             _currentPlayerNumber++;
             return true;
         }
@@ -286,12 +302,18 @@ public class PlayerConnectionLogic : BasicLogic<PlayerConnectionLogic>
             return false;
     }
 
-    public int getUid(int deviceID)
+    [CanBeNull]
+    public PlayerState getPlayerState(int uid)
     {
-        if (deviceAndUser.ContainsKey(deviceID))
-            return deviceAndUser[deviceID];
+        if (PlayerDics.ContainsKey(uid))
+            return PlayerDics[uid];
 
-        return -1;
+        return null;
+    }
+
+    public PlayerState[] getAllPlayerState()
+    {
+        return PlayerDics.Values.ToArray();
     }
 
     public void setMaximumNumber(int value)
@@ -301,5 +323,217 @@ public class PlayerConnectionLogic : BasicLogic<PlayerConnectionLogic>
     
     public override void mainLogic()
     {
+    }
+}
+
+public class BorderCube
+{
+    private float minX;
+    private float minY;
+    private float minZ;
+    private float maxX;
+    private float maxY;
+    private float maxZ;
+
+    public bool canMove;
+
+    public BorderCube setBorder(float minX, float minY, float minZ, float maxX, float maxY, float maxZ)
+    {
+        this.minX = minX;
+        this.minY = minY;
+        this.minZ = minZ;
+        this.maxX = maxX;
+        this.maxY = maxY;
+        this.maxZ = maxZ;
+
+        return this;
+    }
+
+    public BorderCube setMove(bool value)
+    {
+        canMove = value;
+        return this;
+    }
+    public bool isContain(Vector3 position)
+    {
+        if (!(position.x > minX && position.x < maxX))
+            return false;
+
+        if (!(position.y > minY && position.y < maxY))
+            return false;
+
+        if (!(position.z > minZ && position.z < maxZ))
+            return false;
+
+        return true;
+    }
+}
+
+public class PlayerMoveLimitLogic : BasicLogic<PlayerMoveLimitLogic>
+{
+    private List<BorderCube> borders;
+    
+    public PlayerMoveLimitLogic()
+    {
+        borders = new List<BorderCube>();
+    }
+    public override void mainLogic()
+    {
+    }
+
+    public void addBorder(BorderCube cube)
+    {
+        borders.Add(cube);
+    }
+
+    public bool canMove(Vector3 position)
+    {
+        if (borders == null || borders.Count == 0)
+            return true;
+
+        List<BorderCube> checkList = new List<BorderCube>();
+        
+        foreach (var cube in borders)
+        {
+            if(cube.isContain(position))
+                checkList.Add(cube);
+        }
+
+        if (checkList.Count == 0)
+            return false;
+
+        var returnValue = true;
+        
+        foreach (var cube in checkList)
+        {
+            returnValue |= cube.canMove;
+        }
+
+        return returnValue;
+    }
+}
+
+public enum BuffKind
+{
+    SpeedUp,
+    SpeedDown,
+    Stun
+}
+
+public class Buff
+{
+    public BuffKind kind;
+    public List<PlayerState> targets;
+    private float holdingTime;
+    private bool activeValue;
+    
+    public Action<List<PlayerState>> startFunc;
+    public Action<List<PlayerState>> endFunc;
+
+    public Buff(Action<List<PlayerState>> startFunc,Action<List<PlayerState>> endFunc, float time, params PlayerState[] targets)
+    {
+        if(this.targets == null)
+            this.targets = new List<PlayerState>();
+        
+        this.startFunc = startFunc;
+        this.endFunc = endFunc;
+        holdingTime = time;
+        
+        activeValue = true;
+
+        this.targets.AddRange(targets);
+        
+        this.startFunc(this.targets);
+    }
+    
+    public void addTime(float time)
+    {
+        holdingTime += time;
+        activeValue = true;
+    }
+    
+    public void active()
+    {
+        if (activeValue == false)
+            return;
+        
+        holdingTime -= TimeLogic.Instance.getTikTime();
+
+        if (holdingTime < 0)
+        {
+            holdingTime = 0;
+            activeValue = false;
+            endFunc(this.targets);
+            
+            BuffLogic.Instance.deleteBuff(this);
+        }
+    }
+}
+
+public class BuffLogic : BasicLogic<BuffLogic>
+{
+    private List<Buff> _buffList;
+    private List<Buff> _setDirty;
+    
+    public BuffLogic()
+    {
+        if(_buffList == null)
+            _buffList = new List<Buff>();
+        
+        if(_setDirty == null)
+            _setDirty = new List<Buff>();
+    }
+
+    public void deleteBuff(Buff buff)
+    {
+        _setDirty.Add(buff);
+    }
+
+    public void addBuff(BuffKind kind,Action<List<PlayerState>> startFunc,Action<List<PlayerState>> endFunc, float time, params PlayerState[] targets)
+    {
+        if(_buffList == null)
+            _buffList = new List<Buff>();
+        
+        var newBuff = new Buff(startFunc,endFunc,time);
+
+        foreach (var buff in _buffList)
+        {
+            if (buff.targets.Equals(newBuff.targets) && buff.kind == newBuff.kind)
+            {
+                newBuff.endFunc = mergeAction(buff.endFunc, newBuff.endFunc);
+                _buffList.Remove(buff);
+            }
+        }
+        
+        _buffList.Add(newBuff);
+    }
+
+    public Action<List<PlayerState>> mergeAction(Action<List<PlayerState>> a, Action<List<PlayerState>> b)
+    {
+        return (value) =>
+        {
+            a(value);
+            b(value);
+        };
+    }
+    
+    public override void mainLogic()
+    {
+        if (_buffList == null)
+            return;
+
+        foreach (var buff in _buffList)
+        {
+            buff.active();
+        }
+
+        foreach (var buff in _setDirty)
+        {
+            if(_buffList.Contains(buff))
+                _buffList.Remove(buff);
+        }
+        
+        if(_setDirty.Count > 0)
+            _setDirty.Clear();
     }
 }
