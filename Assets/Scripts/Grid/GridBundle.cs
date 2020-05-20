@@ -112,7 +112,7 @@ public class GridBundle
         float dot = Vector3.Dot((gridInDirection.gridCenter - origin.gridCenter).normalized, dir);
         foreach (var grid in origin.adjacentGrids)
         {
-            float newDot = Vector3.Dot((grid.gridCenter - grids[0].gridCenter).normalized, dir);
+            float newDot = Vector3.Dot((grid.gridCenter - origin.gridCenter).normalized, dir);
             if (newDot > dot)
             {
                 dot = newDot;
@@ -126,7 +126,7 @@ public class GridBundle
             return null;
         }
 
-        if(gridInDirection.isOccupied)
+        if(gridInDirection.isOccupied && gridInDirection.owner != this.owner)
         {
             return null;
         }

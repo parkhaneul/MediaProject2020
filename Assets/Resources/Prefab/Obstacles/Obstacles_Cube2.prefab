@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b403c6ee73e5c42e991808ea765d7d97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MeshOffset: {x: -1.5, y: 0, z: -0.5}
+  MeshOffset: {x: -1, y: 0, z: -0.5}
   PushThresholdTime: 0.5
   TimeToArriveAtDestination: 1
 --- !u!65 &8514326966911535102
