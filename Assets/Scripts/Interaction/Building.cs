@@ -39,6 +39,7 @@ public class Building : Interactable
     private void OnDamaged()
     {
         OnSpawnItem();
+        PlaySound();
         if(--durability <= 0)
         {
             OnDestroy();
@@ -46,5 +47,11 @@ public class Building : Interactable
         }
         effectManager.BlinkEffect(gameObject);
         effectManager.ShakeEffect(gameObject);
+    }
+
+    private void PlaySound()
+    {
+        if(kind == ToolKind.Pickax)
+            SoundManager.Instance.PlayPickAxeSound(this.gameObject);
     }
 }

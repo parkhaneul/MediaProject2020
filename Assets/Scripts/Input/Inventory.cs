@@ -28,6 +28,7 @@ public class Inventory : MonoBehaviour
     {
         if (_inventory.Count < inventoryMaximumSize)
         {
+            SoundManager.Instance.PlayPickItemSound(this.gameObject);
             _inventory.Add(item);
             Logger.Log(ToString());
         }

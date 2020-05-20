@@ -193,6 +193,7 @@ public class CharacterAction : MonoBehaviour
             {
                 //Logger.Log("stop");
                 animatorSet(AnimationStateString.isMove,false);
+                SoundManager.Instance.StopWalkSound(this.gameObject);
             })
             .AddTo(this);
 
@@ -210,6 +211,7 @@ public class CharacterAction : MonoBehaviour
             {
                 //Logger.Log("run");
                 animatorSet(AnimationStateString.isMove, true);
+                SoundManager.Instance.PlayWalkSound(this.gameObject);
                 //animator.SetBool(AnimationStateString.isMove,true);
             })
             .AddTo(this);

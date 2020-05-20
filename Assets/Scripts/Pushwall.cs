@@ -44,6 +44,7 @@ public class Pushwall : MonoBehaviour, Placable
             {
                 isMoving = false;
                 animationBundle = null;
+                SoundManager.Instance.StopDraggingSound(this.gameObject);
             }
         }
     }
@@ -90,7 +91,10 @@ public class Pushwall : MonoBehaviour, Placable
             timers.Remove(character);
         }
     }
-
+    private void PlaySound()
+    {
+        SoundManager.Instance.PlayDraggingSound(this.gameObject);
+    }
     private void MoveToNextGrid(Vector3 characterPos)
     {
         Vector3 dir = MoveDirection(characterPos);
@@ -101,6 +105,7 @@ public class Pushwall : MonoBehaviour, Placable
             gridManager.Move(this, neighborGrid);
             isMoving = true;
             animationBundle = new MovingAnimationBundle(Time.time, gameObject.transform.position, neighborGrid.gridCenter + MeshOffset);
+            PlaySound();
         }
     }
 
@@ -117,6 +122,7 @@ public class Pushwall : MonoBehaviour, Placable
 
             isMoving = true;
             animationBundle = new MovingAnimationBundle(Time.time, gameObject.transform.position, gridCenter + MeshOffset);
+            PlaySound();
         }
     }
 
