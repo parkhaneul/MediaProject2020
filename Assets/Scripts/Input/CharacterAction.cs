@@ -319,7 +319,7 @@ public class CharacterAction : MonoBehaviour
         if(equipment != null)
         {
             equipment.transform.SetParent(null);
-            equipment.transform.position = gameObject.transform.position;
+            equipment.transform.position = new Vector3(gameObject.transform.position.x, 0.0f, gameObject.transform.position.z);
             equipment.transform.rotation = Quaternion.identity;
             equipment.transform.localScale = Vector3.one;
             equipment.GroundMode();
