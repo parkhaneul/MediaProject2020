@@ -166,6 +166,28 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
         }
     }
 
+    public void UnoccupyPlacable(Placable placable)
+    {
+        GridBundle target = null;
+        foreach (var bundle in bundles)
+        {
+            if (bundle.owner == placable)
+            {
+                target = bundle;
+                bundle.owner = null;
+                foreach(var grid in bundle.grids)
+                {
+                    grid.Unoccupy();
+                }
+                break;
+            }
+        }
+        if(target != null)
+        {
+            bundles.Remove(target);
+        }
+    }
+
     private void Clear()
     {
         tileWidth = -1.0f;

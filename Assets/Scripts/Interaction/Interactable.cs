@@ -19,7 +19,8 @@ abstract public class Interactable : MonoBehaviour, Placable
     public abstract void OnInteract(PlayerState state);
     protected virtual void OnDestroy() 
     {
-        foreach(var character in characters)
+        gridManager.UnoccupyPlacable(this);
+        foreach (var character in characters)
         {
             character.interactables.SetDirty(this);
         }
