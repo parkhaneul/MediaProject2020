@@ -42,7 +42,7 @@ public class GameSystem : MonoBehaviour
         ml.setList(missionItemList);
         ml.setInterval(Interval);
         pcl.setMaximumNumber(maximumUserNumber);
-        pmll.addBorder(new BorderCube().setBorder(-6,-2,-5,8,2,5).setMove(true));
+        pmll.addBorder(new BorderCube().setBorder(-14,-2,-5,16,2,5).setMove(true));
         
         bl.addBuff(BuffKind.SpeedUp,(_) =>
         {
