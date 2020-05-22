@@ -5,8 +5,9 @@ using UnityEngine;
 using UniRx;
 using UnityEngine.TestTools;
 
-public class LoadingBarObject : MonoBehaviour
+public class LoadingBarObject : MonoBehaviour, Placable
 {
+    static private GridManager gridManager;
     private MissionLogic mLogic;
     private float percent;
 
@@ -17,8 +18,12 @@ public class LoadingBarObject : MonoBehaviour
     private Vector3 initPosition;
     //(-10,0,0)
     public float interval = 0.1f;
+
     public void Start()
     {
+        gridManager = GridManager.Instance;
+        //TODO : Register this to gridmanager (Assign Grid and GridBundle to this object)
+        
         initPosition = this.transform.position - pivot/2;
         
         if (mLogic == null)
@@ -36,5 +41,10 @@ public class LoadingBarObject : MonoBehaviour
     public Vector3 mulitple(Vector3 a, Vector3 b)
     {
         return new Vector3(a.x * b.x, a.y * b.y, a.z * b.z);
+    }
+
+    public void AdjustPosition(Grid grid)
+    {
+        return;
     }
 }
