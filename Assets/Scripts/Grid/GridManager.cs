@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -164,6 +165,11 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
                 bundle.MoveToNewGrids(grids);
             }
         }
+    }
+
+    public void OccupyPlacable(Placable placable, Grid[] grids)
+    {
+        throw new NotImplementedException();
     }
 
     public void UnoccupyPlacable(Placable placable)
