@@ -8,6 +8,7 @@ using UnityEngine.TestTools;
 public class LoadingBarObject : MonoBehaviour, Placable
 {
     static private GridManager gridManager;
+    static private ToolSpawnerManager toolSpawnerManager;
     private MissionLogic mLogic;
     private float percent;
 
@@ -22,20 +23,22 @@ public class LoadingBarObject : MonoBehaviour, Placable
     public void Start()
     {
         gridManager = GridManager.Instance;
-        //TODO : Register this to gridmanager (Assign Grid and GridBundle to this object)
-        
+        toolSpawnerManager = ToolSpawnerManager.Instance;
+
         initPosition = this.transform.position - pivot/2;
         
         if (mLogic == null)
             mLogic = MissionLogic.Instance;
 
         this.ObserveEveryValueChanged(_ => _.mLogic.getPercent())
-            .Subscribe(_ =>
+            .Subscribe(percent =>
             {
-                this.gameObject.transform.localScale = Vector3.one + Vector3.right * _ * interval;
+                this.gameObject.transform.localScale = Vector3.one + Vector3.right * percent * interval + new Vector3(0.0f, 0.0f, 0.2f);
                 this.gameObject.transform.position = initPosition + mulitple(Vector3.right/2,gameObject.transform.localScale - Vector3.one);
             })
             .AddTo(this);
+        
+        mLogic.OnAnimationDone += OccupyGrid;
     }
 
     public Vector3 mulitple(Vector3 a, Vector3 b)
@@ -47,4 +50,43 @@ public class LoadingBarObject : MonoBehaviour, Placable
     {
         return;
     }
+
+    private void OccupyGrid()
+    {
+        Collider collider = GetComponent<Collider>();
+        if(collider != null)
+        {
+            Grid[] grids = gridManager.GetAllGridsInBound(collider.bounds);
+            gridManager.OccupyPlacable(this, grids);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.GetComponent<Placable>() != null)
+        {
+            Building building = other.GetComponent<Building>();
+            if(building != null)
+            {
+                building.OnDestroy();
+                return;
+            }
+
+            Tool tool = other.GetComponent<Tool>();
+            if(tool != null)
+            {
+                toolSpawnerManager.SpawnTool(tool.kind);
+                tool.OnDestroy();
+                return;
+            }
+
+            Pushwall pushwall = other.GetComponent<Pushwall>();
+            if(pushwall != null)
+            {
+                pushwall.OnDestroy();
+                return;
+            }
+        }
+    }
+
 }

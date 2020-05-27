@@ -167,9 +167,31 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
         }
     }
 
+    public Grid[] GetAllGridsInBound(Bounds bounds)
+    {
+        List<Grid> grids = new List<Grid>();
+        Vector3 offsetY = new Vector3(0.0f, 0.5f, 0.0f);
+        for (int i = 0; i < widthCount; i++)
+        {
+            for (int j = 0; j < heightCount; j++)
+            {                
+                if(gridArray != null && bounds.Contains(gridArray[i,j].gridCenter + offsetY))
+                {
+                    grids.Add(gridArray[i,j]);
+                }
+            }
+        }
+
+        return grids.ToArray();
+    }
+
     public void OccupyPlacable(Placable placable, Grid[] grids)
     {
-        throw new NotImplementedException();
+        foreach(var g in grids)
+        {
+            g.Occupy(placable);
+        }
+        GridBundle bundle = new GridBundle(grids, placable);
     }
 
     public void UnoccupyPlacable(Placable placable)

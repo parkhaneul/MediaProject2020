@@ -6,7 +6,12 @@ public class GridBundle
 {
     public Placable owner;
     public List<Grid> grids;
-
+    public GridBundle(Grid[] sources, Placable owner)
+    {
+        this.owner = owner;
+        grids = new List<Grid>();
+        grids.AddRange(sources);
+    }
     public GridBundle(Grid source, Placable owner, List<Grid> searchTargets)
     {
         HashSet<Grid> touchingGrids = new HashSet<Grid>();

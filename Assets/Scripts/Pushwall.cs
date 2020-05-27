@@ -23,6 +23,12 @@ public class Pushwall : MonoBehaviour, Placable
         throw new System.NotImplementedException();
     }
 
+    public void OnDestroy() 
+    {
+        gridManager.UnoccupyPlacable(this);
+        Destroy(gameObject);
+    }
+
     /*
      * TODO :: 1. 여러명이 동시에 밀 경우 고려안함, 고려해야함
      *         2. Grid를 2개 이상 점유하고 있는 Cube 고려안함. 

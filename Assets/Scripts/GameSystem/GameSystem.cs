@@ -26,6 +26,7 @@ public class GameSystem : MonoBehaviour
 
     public List<GameLogic> logics = new List<GameLogic>();
 
+    private MissionLogic MissionLogic;
     public void Awake()
     {
         var tl = TimeLogic.Instance;
@@ -35,6 +36,8 @@ public class GameSystem : MonoBehaviour
         var pmll = PlayerMoveLimitLogic.Instance;
         var bl = BuffLogic.Instance;
         
+        MissionLogic = ml;
+
         missionItemList = loadStage1Misson();
 
         tl.setTime(LimitTime);
@@ -107,6 +110,11 @@ public class GameSystem : MonoBehaviour
             Logger.Log("TrashCan is Blank.");
         else
             go.transform.position = Vector3.up;
+    }
+
+    public void setPercent(float percent)
+    {
+        MissionLogic.setPercent(percent);
     }
 
     private RequiredItems loadStage1Misson()

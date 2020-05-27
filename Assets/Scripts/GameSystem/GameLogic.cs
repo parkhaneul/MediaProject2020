@@ -173,6 +173,9 @@ public class MissionLogic : BasicLogic<MissionLogic>
     
     private RequiredItems missionItemList = new RequiredItems();
     private RequiredItems possessingItems = new RequiredItems();
+
+    public event Action OnAnimationDone;
+    
     public MissionLogic()
     {
         Logger.LogWarning("Mission Logic Running");
@@ -208,6 +211,10 @@ public class MissionLogic : BasicLogic<MissionLogic>
         if (animationPurposePercent < missionPercent)
         {
             animationPurposePercent += _interval;
+            if(animationPurposePercent >= missionPercent)
+            {
+                OnAnimationDone.Invoke();
+            }
         }
     }
     public void putItem(Item item)
@@ -257,6 +264,11 @@ public class MissionLogic : BasicLogic<MissionLogic>
     public float getPercent()
     {
         return animationPurposePercent;
+    }
+    //For Debug Purpose Only
+    public void setPercent(float percent)
+    {
+        missionPercent = percent;
     }
 }
 
