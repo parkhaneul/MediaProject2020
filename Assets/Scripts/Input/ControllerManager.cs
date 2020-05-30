@@ -62,9 +62,7 @@ public class ControllerManager : MonoBehaviour
 
     private void Start()
     {
-        newController(1234);
-        
-        ReadInputManager.ReadAxes();
+        newController(1);
     }
 
     private void OnDisable()
@@ -113,10 +111,10 @@ public class ControllerManager : MonoBehaviour
             Logger.Log("Player is Full");
             return;
         }
-
+        
         var go = newTestUnit(uid);
         var playerState = go.GetComponent<PlayerState>();
-
+        
         PlayerControlLogic.Instance.addPlayer(uid, playerState);
         
         var index = PlayerControlLogic.Instance.currentPlayerNumber;
