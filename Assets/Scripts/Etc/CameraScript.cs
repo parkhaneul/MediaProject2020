@@ -11,9 +11,10 @@ public class CameraScript : MonoBehaviour
     
     public void Start()
     {
+        /*
         this.ObserveEveryValueChanged(_ => _.TraceObject.transform.position)
             .Subscribe(_ => trace())
-            .AddTo(this);
+            .AddTo(this);*/
     }
 
     public void trace()

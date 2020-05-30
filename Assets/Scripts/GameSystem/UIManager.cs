@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 public class UIManager : MonoBehaviour
 {
@@ -57,6 +58,17 @@ public class UIManager : MonoBehaviour
         var angle = AngleTo(new Vector2(uiPosition_x, uiPosition_y),new Vector2(Screen.width / 2, Screen.height / 2));
         
         model.transform.eulerAngles = new Vector3(0,0,270 + angle);
+        
+        model.transform.GetChild(0).transform.localEulerAngles = new Vector3(0, 0, - model.transform.eulerAngles.z);
+    }
+
+    public void setUI(int uid, RenderTexture rt)
+    {
+        if (_borderModels[uid] == null)
+            return;
+
+        var ri = _borderModels[uid].GetComponentInChildren<RawImage>();
+        ri.texture = rt;
     }
 
     public void setActive(int uid, bool value)
@@ -79,12 +91,4 @@ public class UIManager : MonoBehaviour
     {
         return new Vector3(a.x * b.x, a.y * b.y, a.z * b.z);
     }
-
-    /*
-    public void setBorderPosition(int index, int degree)
-    {
-        var model = _borderModels[index];
-
-        model.transform.position = new Vector3(0,0,0);
-    }*/
 }

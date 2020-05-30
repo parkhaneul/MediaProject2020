@@ -82,7 +82,12 @@ public class ControllerManager : MonoBehaviour
         var go = GameObject.Instantiate(randomGo);
         go.gameObject.transform.localScale *= playerModelScale;
         go.SetActive(true);
+
+        var rt = new RenderTexture(256, 256, 1);
+        go.GetComponentInChildren<Camera>().targetTexture = rt;
+        
         UIManager.Instance.addUser(uid);
+        UIManager.Instance.setUI(uid,rt);
 
         this.UpdateAsObservable()
             .Select(_ => _camera.WorldToViewportPoint(go.transform.position))
@@ -134,7 +139,8 @@ public class ControllerManager : MonoBehaviour
         //Arrows
         ic.addNewEvent(0,25, new []{useAxes[0],useAxes[1]},true,false, _ =>
         {
-            onMoveEvent(uid,new Point(_[0],0,_[1]));
+            if(playerState.isJoined)
+                onMoveEvent(uid,new Point(_[0],0,_[1]));
         });
         
         //unJoined click -> Jonined
@@ -150,7 +156,8 @@ public class ControllerManager : MonoBehaviour
         //Put
         ic.addNewEvent(0,500,new []{useAxes[3]},false,false, _ =>
         {
-            onUnmountEvent(uid,_[0] > 0);
+            if(playerState.isJoined)
+                onUnmountEvent(uid,_[0] > 0);
         });
         
         //Menu
