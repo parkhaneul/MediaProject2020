@@ -14,13 +14,9 @@
             <e p="ToonComplete.shader" t="Include" />
           </e>
         </e>
-        <e p="CharPoll.cs" t="Include" />
-        <e p="CharSelectionPanel.cs" t="Include" />
-        <e p="CharSystem.cs" t="Include" />
         <e p="CraftSystem.cs" t="Include" />
         <e p="CraftTable.cs" t="Include" />
         <e p="MapAutoGenerator.cs" t="Include" />
-        <e p="newControllerManager.cs" t="Include" />
         <e p="ObjectMovementSystem.cs" t="Include" />
         <e p="Plugins" t="Include">
           <e p="UniRx" t="Include">
@@ -360,11 +356,12 @@
           </e>
           <e p="Pushwall.cs" t="Include" />
           <e p="SoundManager.cs" t="Include" />
+          <e p="ToolSpawner.cs" t="Include" />
+          <e p="ToolSpawnerManager.cs" t="Include" />
           <e p="UI" t="Include">
             <e p="CraftBillboard.cs" t="Include" />
           </e>
         </e>
-        <e p="SwapPanel.cs" t="Include" />
         <e p="TitleScene.cs" t="Include" />
         <e p="UITranslate.cs" t="Include" />
       </e>

@@ -41,7 +41,7 @@ public class ReadInputManager
 
 public class ControllerManager : MonoBehaviour
 {
-    public GameObject testUnit;
+    public List<GameObject> testUnitList;
     public Dictionary<int, GameObject> unitList;
 
     private Camera _camera;
@@ -50,6 +50,9 @@ public class ControllerManager : MonoBehaviour
     
     void Awake()
     {
+        if(testUnitList == null)
+            testUnitList = new List<GameObject>();
+        
         if(controllers == null)
             controllers = new List<InputObservableController>();
 
@@ -73,7 +76,10 @@ public class ControllerManager : MonoBehaviour
 
     GameObject newTestUnit(int uid)
     {
-        var go = GameObject.Instantiate(testUnit);
+        var randomGo = testUnitList[UnityEngine.Random.Range(0, testUnitList.Count)];
+        testUnitList.Remove(randomGo);
+        
+        var go = GameObject.Instantiate(randomGo);
         go.gameObject.transform.localScale *= playerModelScale;
         go.SetActive(true);
         UIManager.Instance.addUser(uid);
@@ -114,6 +120,7 @@ public class ControllerManager : MonoBehaviour
         
         var go = newTestUnit(uid);
         var playerState = go.GetComponent<PlayerState>();
+        playerState.connect(false);
         
         PlayerControlLogic.Instance.addPlayer(uid, playerState);
         
@@ -130,10 +137,14 @@ public class ControllerManager : MonoBehaviour
             onMoveEvent(uid,new Point(_[0],0,_[1]));
         });
         
+        //unJoined click -> Jonined
         //Interaction
         ic.addNewEvent(0,1000,new []{useAxes[2]},false,false, _ =>
         {
-            onInteractionEvent(uid,_[0] > 0);
+            if(playerState.isJoined)
+                onInteractionEvent(uid,_[0] > 0);
+            else
+                playerState.connect(true);
         });
         
         //Put

@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlayerState : MonoBehaviour
 {
     public float speedMul = 1;
+
+    public bool isJoined = false;
     
     private CharacterAction _action;
     public Inventory Inventory;
@@ -17,6 +19,12 @@ public class PlayerState : MonoBehaviour
 
         if (_action == null)
             _action = gameObject.GetComponent<CharacterAction>();
+    }
+
+    public void connect(bool value)
+    {
+        isJoined = value;
+        this.gameObject.SetActive(value);
     }
 
     public void addItem(Item item)
