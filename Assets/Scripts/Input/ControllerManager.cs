@@ -95,8 +95,11 @@ public class ControllerManager : MonoBehaviour
             .DistinctUntilChanged(_ => _)
             .Subscribe(_ =>
             {
-                UIManager.Instance.setActive(uid,true);
-                UIManager.Instance.test(uid,_);
+                if (go.GetComponent<PlayerState>().isJoined)
+                {
+                    UIManager.Instance.setActive(uid, true);
+                    UIManager.Instance.test(uid, _);
+                }
             })
             .AddTo(go);
         

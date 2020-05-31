@@ -123,10 +123,10 @@
         <option value="$PROJECT_DIR$/Assets/SwapPanel.cs" />
         <option value="$PROJECT_DIR$/Assets/CharSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/TitleScene.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Input/PlayerState.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Etc/CameraScript.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Input/ControllerManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/UIManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Input/PlayerState.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Input/ControllerManager.cs" />
       </list>
     </option>
   </component>
@@ -206,7 +206,7 @@
       <workItem from="1590305897997" duration="2457000" />
       <workItem from="1590308522187" duration="5279000" />
       <workItem from="1590393605267" duration="4157000" />
-      <workItem from="1590826205921" duration="3405000" />
+      <workItem from="1590826205921" duration="4744000" />
     </task>
     <servers />
   </component>
