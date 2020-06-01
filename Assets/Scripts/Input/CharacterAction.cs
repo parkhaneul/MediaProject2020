@@ -312,7 +312,7 @@ public class CharacterAction : MonoBehaviour
                 ObjectMovementSystem.Instance.turn(go, true);
                 go.transform.localScale = Vector3.one;
                 go.transform.eulerAngles = Vector3.one;
-            });
+            }, item);
     }
 
     public void action()

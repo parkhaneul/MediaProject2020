@@ -34,7 +34,7 @@ public class Building : Interactable
             Debug.LogError("In dropItems All Gameobject should have Item Component");
         }
         item.AdjustPosition(grid);
-        grid.Occupy(item);
+        gridManager.OccupyPlacable(item, grid);
     }
     private void OnDamaged()
     {

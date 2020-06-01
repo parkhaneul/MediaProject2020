@@ -10,8 +10,11 @@ public class Item : MonoBehaviour, Placable
     public Vector3 positionOffset = new Vector3(0.0f, 0.4f, 0.0f);
     private BoxCollider collider;
 
+    private static GridManager gridManager;
+
     public void Start()
     {
+        gridManager = GridManager.Instance;
         if (collider == null)
             collider = this.gameObject.GetComponent<BoxCollider>();
     }
@@ -33,6 +36,7 @@ public class Item : MonoBehaviour, Placable
             {
                 if (player.hasTool() == false && !player.isInventoryFull())
                 {
+                    gridManager.UnoccupyPlacable(this);
                     player.addItem(this);
                     //OnItemGet();
                 }

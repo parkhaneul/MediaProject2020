@@ -9,7 +9,7 @@ public class ObjectMovementSystem : MonoBehaviour
     public static ObjectMovementSystem Instance
     {
         get
-        {;
+        {
             return _instance;
         }
     }
@@ -21,30 +21,36 @@ public class ObjectMovementSystem : MonoBehaviour
     private float tz;
     private float v;
     private float elapsed_time;
-    private float max_height;
     private float t;
     private Vector3 start_pos;
     private Vector3 end_pos;
 
     private float dat;
+    private static GridManager gridManager;
 
-    public ObjectMovementSystem()
+    public ObjectMovementSystem() //? Why Mono has its ctor?
     {
         if (_instance == null)
             _instance = this;
     }
-    
-    public void shoot(GameObject target, Vector3 direction,float power, float max_height, System.Action onComplete)
+
+    void Start()
+    {
+        gridManager = GridManager.Instance;
+    }
+
+    public void shoot(GameObject target, Vector3 direction,float power, float max_height, System.Action onComplete, Item item = null)
     {
         turn(target,false);
         
         start_pos = target.transform.position;
         end_pos = start_pos + direction * power;
 
-        this.max_height = max_height;
+        Grid grid = gridManager.GetCloestGrid(end_pos);
+        end_pos = grid.gridCenter;
 
         var dh = end_pos.y - start_pos.y;
-        var mh = this.max_height - start_pos.y;
+        var mh = max_height - start_pos.y;
         ty = Mathf.Sqrt(2 * g * mh);
 
         float a = g;
@@ -58,6 +64,10 @@ public class ObjectMovementSystem : MonoBehaviour
 
         this.elapsed_time = 0;
 
+        if(item != null)
+        {
+            onComplete += () => gridManager.OccupyPlacable(item, grid);
+        }
         StartCoroutine(this.ShootImpl(target, onComplete));
     }
 
