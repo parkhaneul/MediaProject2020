@@ -236,17 +236,12 @@ public class CharacterAction : MonoBehaviour
             if (PlayerMoveLimitLogic.Instance.canMove(this.gameObject.transform.position +
                                                       this.gameObject.transform.forward * moveSpeed))
                 this.gameObject.transform.position +=
-                    this.gameObject.transform.forward * moveSpeed * pState.speedMul;
+                    this.gameObject.transform.forward * moveSpeed * pState.speedMul + Vector3.up * 0.04f;
         }
     }
 
     public void animatorSet(string str, bool value)
     {
-        /*Logger.Log(animator.GetCurrentAnimatorClipInfo(0)[0].clip.name + "\n" +
-            "IsCarry : " + animator.GetBool(AnimationStateString.isCarry) + "\n" +
-                   "IsMove : " + animator.GetBool(AnimationStateString.isMove) + "\n" +
-                   "IsSmash : " + animator.GetBool(AnimationStateString.isSmash));
-        */
         animator.SetBool(str,value);
     }
     

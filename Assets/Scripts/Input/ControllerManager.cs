@@ -66,6 +66,9 @@ public class ControllerManager : MonoBehaviour
     private void Start()
     {
         newController(1);
+        newController(2);
+        newController(3);
+        newController(4);
     }
 
     private void OnDisable()
@@ -73,7 +76,6 @@ public class ControllerManager : MonoBehaviour
         Destroy(gameObject);
         controllers = null;
     }
-
     GameObject newTestUnit(int uid)
     {
         var randomGo = testUnitList[UnityEngine.Random.Range(0, testUnitList.Count)];
@@ -136,6 +138,12 @@ public class ControllerManager : MonoBehaviour
         var axes = ReadInputManager.ReadAxes();
         var AxisNumber = 5;
         var useAxes = new ArraySegment<string>(axes, (index - 1) * AxisNumber, AxisNumber).ToArray();
+        
+        Logger.Log(useAxes[0]);
+        Logger.Log(useAxes[1]);
+        Logger.Log(useAxes[2]);
+        Logger.Log(useAxes[3]);
+        Logger.Log(useAxes[4]);
         
         var ic = new InputObservableController(uid,gameObject);
 
