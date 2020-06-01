@@ -23,8 +23,11 @@ public class PlayerState : MonoBehaviour
 
     public void connect(bool value)
     {
+        var rb = this.GetComponent<Rigidbody>();
         if (!value)
+        {
             this.transform.position += Vector3.up * 10;
+        }
 
         isJoined = value;
         this.gameObject.SetActive(value);

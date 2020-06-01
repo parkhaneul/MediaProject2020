@@ -73,9 +73,9 @@ public class CraftSystem : MonoBehaviour
         {
             recipes.Sort(delegate(Recipe a, Recipe b)
             {
-                if (a.materialCodes.Count > b.materialCodes.Count)
+                if (a.materialCodes.Count < b.materialCodes.Count)
                     return -1;
-                else if (a.materialCodes.Count < b.materialCodes.Count)
+                else if (a.materialCodes.Count > b.materialCodes.Count)
                     return 1;
                 else
                     return 0;
