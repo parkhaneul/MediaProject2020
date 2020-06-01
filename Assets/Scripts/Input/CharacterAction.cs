@@ -35,7 +35,15 @@ public class InteractableSet
         interactables = new HashSet<Interactable>();
         dirtyList = new HashSet<Interactable>();
     }
-    public void Interact(PlayerState player)
+    public void InteractWithHighestPriority(PlayerState player)
+    {
+        Interactable interactable = GetNearestOne(player.transform.position);
+        if(interactable != null)
+        {
+            interactable.OnInteract(player);
+        }
+    }
+    public void InteractWithFirstOne(PlayerState player)
     {
         foreach(var interactable in interactables)
         {
@@ -87,6 +95,22 @@ public class InteractableSet
     {
         return "Interactable Count : " + interactables.Count + "\n" + 
             "Dirty Count : " + dirtyList.Count;
+    }
+
+    private Interactable GetNearestOne(Vector3 pos)
+    {
+        float dist = float.MaxValue;
+        Interactable target = null;
+        foreach(var i in interactables)
+        {
+            if(Vector3.SqrMagnitude(i.gameObject.transform.position - pos) < dist)
+            {
+                dist = Vector3.SqrMagnitude(i.gameObject.transform.position - pos);
+                target = i;
+            }
+        }
+
+        return target;
     }
 }
 public class CharacterAction : MonoBehaviour
@@ -177,7 +201,7 @@ public class CharacterAction : MonoBehaviour
                 //Logger.Log("Smash");
                 animatorSet(AnimationStateString.isSmash,false);
                 //interactables.Clean();
-                interactables.Interact(pState);
+                interactables.InteractWithHighestPriority(pState);
             })
             .AddTo(this);
 
