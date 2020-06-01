@@ -7,11 +7,11 @@ using UnityEngine;
 ///</summary>
 public class CraftResultBox : Interactable
 {
-    public CraftBox craftBox;
+    public CraftTable craftTable;
 
     public override void OnInteract(PlayerState state)
     {
-        if(craftBox == null)
+        if(craftTable == null)
         {
             Debug.LogError("Craft Result Box should have a reference of CraftBox");
             return;
@@ -22,9 +22,14 @@ public class CraftResultBox : Interactable
             return;
         }
 
-        Item result = craftBox.Craft();
-        state.Inventory.addItem(result);
-        result.OnItemGet();
+        GameObject craftedItem = craftTable.Craft();
+        if(craftedItem == null)
+            return;
+        
+        Item item = craftedItem.GetComponent<Item>();
+        
+        state.addItem(item);
+        item.OnItemGet();
     }
 
     

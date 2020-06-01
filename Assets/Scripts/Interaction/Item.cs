@@ -21,7 +21,7 @@ public class Item : MonoBehaviour, Placable
 
     public virtual void OnItemGet()
     {
-        ObjectRecyclingLogic.Instance.chunk(name,gameObject);
+        // ObjectRecyclingLogic.Instance.chunk(name,gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

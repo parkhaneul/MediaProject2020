@@ -13,12 +13,16 @@ using UnityEngine.UI;
 
 public class CraftSystem : MonoBehaviour
 {
+    ///<summary>
+    ///GameObjects which have Item.cs as a component.
+    ///</summary>
+    public List<GameObject> items;
     public List<ItemData> materials;
-
     public Image[] slots;
-    public Image result;
+    public Image resultImage;
     public Text recipeCount;
-    
+    private Recipe resultRecipe;
+
     private static CraftSystem _instance;
     public static CraftSystem Instance
     {
@@ -42,6 +46,37 @@ public class CraftSystem : MonoBehaviour
         
         materials = new List<ItemData>();
     }
+    public GameObject craft()
+    {
+        if(!resultRecipe.isCratable(materials))
+        {
+            return null;
+        }
+
+        foreach(int materialCode in resultRecipe.materialCodes)
+        {
+            for(int i = 0 ; i < materials.Count; i++)
+            {
+                if(materials[i].itemCode == materialCode)
+                {
+                    materials.RemoveAt(i);
+                    for(int j = i; j < slots.Count() - 1; j++)
+                    {
+                        slots[j].sprite = slots[j+1].sprite;
+                    }
+                    slots[slots.Count()-1].sprite = null;
+                    break;
+                }
+            }
+        }
+
+        GameObject template = getItemGameObject(resultRecipe.resultCode);
+        GameObject itemObject = GameObject.Instantiate(template);
+        itemObject.SetActive(true);
+
+        showResult();
+        return itemObject;
+    }
 
     public void addItems(params ItemData[] _materials)
     {
@@ -61,28 +96,33 @@ public class CraftSystem : MonoBehaviour
         
         Logger.Log(recipes.Count);
         
-        if (recipes == null)
+        if (recipes == null || materials.Count == 0)
         {
-            result.sprite = null;
+            resultImage.sprite = null;
+            resultRecipe = null;
             return;
         }else if(recipes.Count == 0)
         {
-            result.sprite = null;
+            resultImage.sprite = null;
+            resultRecipe = null;
         }
         else
         {
             recipes.Sort(delegate(Recipe a, Recipe b)
             {
-                if (a.materialCodes.Count > b.materialCodes.Count)
+                if (a.materialCodes.Count < b.materialCodes.Count)
                     return -1;
-                else if (a.materialCodes.Count < b.materialCodes.Count)
+                else if (a.materialCodes.Count > b.materialCodes.Count)
                     return 1;
                 else
                     return 0;
             });
             
-            var _spritePath = ItemPalette.Instance.searchItem(recipes[0].resultCode).imageFilePath;
-            result.sprite = SpriteManager.Instance.getAsset(_spritePath);
+            var itemData = ItemPalette.Instance.searchItem(recipes[0].resultCode);
+            var _spritePath = itemData.imageFilePath;
+            
+            resultImage.sprite = SpriteManager.Instance.getAsset(_spritePath);
+            resultRecipe = recipes[0];
 
             if (recipes.Count <= 1)
                 recipeCount.text = "";
@@ -102,6 +142,17 @@ public class CraftSystem : MonoBehaviour
         foreach(var recipeData in recipeDatas){
             RecipeBook.Instance.addRecipe(recipeData.toRecipe());
         }
+    }
+
+    private GameObject getItemGameObject(int itemCode)
+    {
+        foreach(var i in items)
+        {
+            var item_script = i.GetComponent<Item>();
+            if(item_script.ItemCode == itemCode)
+                return i;
+        }
+        return null;
     }
 }
 
@@ -176,6 +227,23 @@ public class Recipe
         }
 
         return returnValue;
+    }
+
+    public bool isCratable(List<ItemData> materials)
+    {
+        if(materials.Count() != materialCodes.Count)
+            return false;
+        
+        var result = true;
+        foreach (var material in materials)
+        {
+            result &= materialCodes.Contains(material.itemCode);
+
+            if (result == false)
+                return false;
+        }
+
+        return result;
     }
 }
 
