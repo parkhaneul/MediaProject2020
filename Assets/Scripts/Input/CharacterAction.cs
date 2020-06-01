@@ -135,6 +135,8 @@ public class CharacterAction : MonoBehaviour
     
     private Vector3 movePointer = Vector3.zero;
 
+    private static GridManager gridManager;
+
     private void initTransform()
     {
         Transform[] ts = gameObject.transform.GetComponentsInChildren<Transform>();
@@ -158,6 +160,8 @@ public class CharacterAction : MonoBehaviour
 
     public void Start()
     {
+        gridManager = GridManager.Instance;
+
         if (pState == null)
             pState = this.gameObject.GetComponent<PlayerState>();
 
@@ -328,6 +332,7 @@ public class CharacterAction : MonoBehaviour
         tool.transform.localScale = Vector3.one;
 
         equipment = tool;
+        gridManager.UnoccupyPlacable(equipment);
     }
 
     public void getItem(Item item)
@@ -342,12 +347,15 @@ public class CharacterAction : MonoBehaviour
     {
         if(equipment != null)
         {
+            Grid grid = gridManager.GetCloestGrid(gameObject.transform.position);
+
             equipment.transform.SetParent(null);
-            equipment.transform.position = new Vector3(gameObject.transform.position.x, 0.0f, gameObject.transform.position.z);
+            equipment.transform.position = new Vector3(grid.gridCenter.x, 0.0f, grid.gridCenter.z);
             equipment.transform.rotation = Quaternion.identity;
             equipment.transform.localScale = Vector3.one;
             equipment.GroundMode();
 
+            gridManager.OccupyPlacable(equipment, grid);
             equipment = null;
         }
     }
