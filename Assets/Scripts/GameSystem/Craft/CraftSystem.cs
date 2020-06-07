@@ -3,11 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Etc;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,6 +47,7 @@ public class CraftSystem : MonoBehaviour
         {
             var count = materials.Count;
             materials.Add(material);
+            slots[count].color = new Color(1,1,1,1);
             slots[count].sprite = SpriteManager.Instance.getAsset(material.imageFilePath);
         }
         
@@ -84,10 +83,38 @@ public class CraftSystem : MonoBehaviour
             var _spritePath = ItemPalette.Instance.searchItem(recipes[0].resultCode).imageFilePath;
             result.sprite = SpriteManager.Instance.getAsset(_spritePath);
 
+            showRequiredItems(recipes[0]);
+            
             if (recipes.Count <= 1)
                 recipeCount.text = "";
             else
                 recipeCount.text = "+" + (recipes.Count-1);
+        }
+    }
+
+    public void showRequiredItems(Recipe recipe)
+    {
+        var codeList = materials.Select(_ => _.itemCode).ToList();
+        var mList = recipe.materialCodes;
+        
+        foreach (var code in codeList)
+        {
+            var value = mList.Contains(code);
+
+            if (value)
+            {
+                mList.Remove(code);
+            }
+        }
+
+        var count = materials.Count;
+        
+        foreach (var m in mList)
+        {
+            var spritePath = ItemPalette.Instance.searchItem(m).imageFilePath;
+            slots[count].color = new Color(1,1,1,0.5f);
+            slots[count].sprite = SpriteManager.Instance.getAsset(spritePath);
+            count++;
         }
     }
     

@@ -14,10 +14,6 @@
             <e p="ToonComplete.shader" t="Include" />
           </e>
         </e>
-        <e p="CraftSystem.cs" t="Include" />
-        <e p="CraftTable.cs" t="Include" />
-        <e p="MapAutoGenerator.cs" t="Include" />
-        <e p="ObjectMovementSystem.cs" t="Include" />
         <e p="Plugins" t="Include">
           <e p="UniRx" t="Include">
             <e p="Examples" t="Include">
@@ -301,7 +297,6 @@
         <e p="Resources" t="Include">
           <e p="ItemData.txt" t="Include" />
         </e>
-        <e p="SceneChanger.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="Effect" t="Include">
             <e p="EffectManager.cs" t="Include" />
@@ -310,13 +305,21 @@
             <e p="CameraScript.cs" t="Include" />
             <e p="ItemDataEditor.cs" t="Include" />
             <e p="Logger.cs" t="Include" />
+            <e p="MapAutoGenerator.cs" t="Include" />
             <e p="ResourceManager.cs" t="Include" />
+            <e p="SceneChanger.cs" t="Include" />
+            <e p="TitleScene.cs" t="Include" />
           </e>
           <e p="GameSystem" t="Include">
+            <e p="Craft" t="Include">
+              <e p="CraftSystem.cs" t="Include" />
+              <e p="CraftTable.cs" t="Include" />
+            </e>
             <e p="GameGUIManager.cs" t="Include" />
             <e p="GameLogic.cs" t="Include" />
             <e p="GameSystem.cs" t="Include" />
             <e p="LoadingBarObject.cs" t="Include" />
+            <e p="ObjectMovementSystem.cs" t="Include" />
             <e p="QuestObject.cs" t="Include" />
             <e p="StageModels" t="Include">
               <e p="Stage1.cs" t="Include" />
@@ -360,10 +363,9 @@
           <e p="ToolSpawnerManager.cs" t="Include" />
           <e p="UI" t="Include">
             <e p="CraftBillboard.cs" t="Include" />
+            <e p="UITranslate.cs" t="Include" />
           </e>
         </e>
-        <e p="TitleScene.cs" t="Include" />
-        <e p="UITranslate.cs" t="Include" />
       </e>
       <e p="MediaProjectVR2020.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />
