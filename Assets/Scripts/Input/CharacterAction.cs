@@ -146,7 +146,6 @@ public class CharacterAction : MonoBehaviour
             .Repeat()
             .DistinctUntilChanged()
             .Subscribe(_ => { 
-                //Logger.Log("Carry");
                 animatorSet(AnimationStateString.isCarry, true);
             })
             .AddTo(this);
@@ -159,7 +158,6 @@ public class CharacterAction : MonoBehaviour
             .DistinctUntilChanged()
             .Subscribe(_ =>
             {
-                //Logger.Log("UnCarry");
                 animatorSet(AnimationStateString.isCarry, false);
             })
             .AddTo(this);
@@ -174,9 +172,7 @@ public class CharacterAction : MonoBehaviour
             .Throttle(TimeSpan.FromMilliseconds(400))
             .Subscribe(_ =>
             {
-                //Logger.Log("Smash");
                 animatorSet(AnimationStateString.isSmash,false);
-                //interactables.Clean();
                 interactables.Interact(pState);
             })
             .AddTo(this);
@@ -191,7 +187,6 @@ public class CharacterAction : MonoBehaviour
             .Where(x => x == Vector3.zero)
             .Subscribe(_ =>
             {
-                //Logger.Log("stop");
                 animatorSet(AnimationStateString.isMove,false);
                 SoundManager.Instance.StopWalkSound(this.gameObject);
             })
@@ -200,8 +195,6 @@ public class CharacterAction : MonoBehaviour
         //running animation enter
         Observable.EveryUpdate()
             .SkipUntil(_playerStateMachineObservables.OnStateEnterObservable)
-            //.Where(_ => animator.GetBool(PlayerStateString.isMove) == false)
-            //.TakeUntil(_playerStateMachineObservables.OnStateExitObservable)
             .TakeWhile(_ => animator.GetBool(AnimationStateString.isMove) == false)
             .Repeat()
             .DistinctUntilChanged()
@@ -209,10 +202,8 @@ public class CharacterAction : MonoBehaviour
             .Where(x => x != Vector3.zero)
             .Subscribe(_ =>
             {
-                //Logger.Log("run");
                 animatorSet(AnimationStateString.isMove, true);
                 SoundManager.Instance.PlayWalkSound(this.gameObject);
-                //animator.SetBool(AnimationStateString.isMove,true);
             })
             .AddTo(this);
 

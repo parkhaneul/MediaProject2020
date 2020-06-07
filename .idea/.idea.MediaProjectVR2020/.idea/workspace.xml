@@ -109,7 +109,6 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Etc/ResourceManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Etc/ItemDataEditor.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Etc/Logger.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/UITranslate.cs" />
         <option value="$PROJECT_DIR$/Assets/SceneChanger.cs" />
         <option value="$PROJECT_DIR$/Assets/newControllerManager.cs" />
@@ -124,9 +123,10 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameLogic.cs" />
         <option value="$PROJECT_DIR$/Assets/CraftSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/PlayerState.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Grid/GridManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/ControllerManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameSystem.cs" />
       </list>
     </option>
   </component>
@@ -208,7 +208,8 @@
       <workItem from="1590393605267" duration="4157000" />
       <workItem from="1590826205921" duration="4744000" />
       <workItem from="1590930270930" duration="98000" />
-      <workItem from="1590933841349" duration="7767000" />
+      <workItem from="1590933841349" duration="13041000" />
+      <workItem from="1591155923676" duration="429000" />
     </task>
     <servers />
   </component>
