@@ -365,7 +365,7 @@ public class ItemPalette
     }
 }
 
-public class PItemData
+public class ItemData
 {
     public string itemName;
     public int itemCode;
