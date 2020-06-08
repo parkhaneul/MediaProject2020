@@ -357,6 +357,10 @@
             </e>
             <e p="Tool.cs" t="Include" />
           </e>
+          <e p="jyTest" t="Include">
+            <e p="EffectTest.cs" t="Include" />
+            <e p="EffectTrigger.cs" t="Include" />
+          </e>
           <e p="Pushwall.cs" t="Include" />
           <e p="SoundManager.cs" t="Include" />
           <e p="ToolSpawner.cs" t="Include" />

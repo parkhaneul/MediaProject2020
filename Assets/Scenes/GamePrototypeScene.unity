@@ -1689,7 +1689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19215688, g: 0.36862746, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -4757,9 +4757,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testUnitList:
   - {fileID: 5586435874040110506, guid: ca46ea23a15bf5f4181dc87b7075a696, type: 3}
-  - {fileID: 5586435874040110506, guid: ca46ea23a15bf5f4181dc87b7075a696, type: 3}
-  - {fileID: 5586435874040110506, guid: ca46ea23a15bf5f4181dc87b7075a696, type: 3}
-  - {fileID: 5586435874040110506, guid: ca46ea23a15bf5f4181dc87b7075a696, type: 3}
+  - {fileID: 3952409711613263824, guid: c29e98452d8ba1a4883914bb9e331469, type: 3}
+  - {fileID: 4045878848485954613, guid: 1b4e574a3a5416a4fb1724198fb33144, type: 3}
   playerModelScale: 1.5
 --- !u!4 &2039948389
 Transform:
