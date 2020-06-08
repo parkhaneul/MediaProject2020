@@ -13220,7 +13220,7 @@ MonoBehaviour:
   heightCount: 10
   debugMode: 0
   isPlane: 0
-  gridGround: {fileID: 0}
+  gridGround: {fileID: 771110948}
 --- !u!114 &2039948387
 MonoBehaviour:
   m_ObjectHideFlags: 0
