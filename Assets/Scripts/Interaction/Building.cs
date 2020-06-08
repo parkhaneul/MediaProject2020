@@ -38,10 +38,10 @@ public class Building : Interactable
     }
     private void OnDamaged()
     {
-        OnSpawnItem();
         PlaySound();
         if(--durability <= 0)
         {
+            OnSpawnItem();
             OnDestroy();
             return;
         }
