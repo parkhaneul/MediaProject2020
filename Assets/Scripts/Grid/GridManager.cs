@@ -167,6 +167,25 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
         }
     }
 
+    public Grid GetCloestGrid(Vector3 pos)
+    {
+        float dist = float.MaxValue;
+        Grid target = null;
+        for (int i = 0; i < widthCount; i++)
+        {
+            for (int j = 0; j < heightCount; j++)
+            {   
+                //TODO : Optimize Below. We can apply binary search cause gridArray is sorted.
+                if(Vector3.SqrMagnitude(gridArray[i,j].gridCenter - pos) < dist)
+                {
+                    dist = Vector3.SqrMagnitude(gridArray[i,j].gridCenter - pos);
+                    target = gridArray[i,j];
+                }
+            }
+        }
+        return target;
+    }
+
     public Grid[] GetAllGridsInBound(Bounds bounds)
     {
         List<Grid> grids = new List<Grid>();
@@ -185,13 +204,14 @@ public class GridManager : MonoBehaviour //TODO : Make This SingleTon
         return grids.ToArray();
     }
 
-    public void OccupyPlacable(Placable placable, Grid[] grids)
+    public void OccupyPlacable(Placable placable, params Grid[] grids)
     {
         foreach(var g in grids)
         {
             g.Occupy(placable);
         }
         GridBundle bundle = new GridBundle(grids, placable);
+        bundles.Add(bundle);
     }
 
     public void UnoccupyPlacable(Placable placable)

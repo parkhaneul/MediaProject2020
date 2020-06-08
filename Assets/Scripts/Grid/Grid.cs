@@ -36,6 +36,9 @@ public class Grid
         adjacentGrids = new List<Grid>();
     }
 
+    ///<summary>
+    ///Don't call Occupy or Unoccupy outside of GridManager, Grid, GridBundle
+    ///</summary>
     public void Occupy(Placable owner)
     {
         if(owner != null)

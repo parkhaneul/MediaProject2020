@@ -7,8 +7,20 @@ using UnityEngine;
 public class CraftTable : Interactable
 {
     public const int craftBoxMaximumSize = 6;
+    private static CraftSystem craftSystem;
 
-    Item[] GetItemsFromInventory(Inventory inventory)
+    protected override void Start()
+    {
+        base.Start();
+        craftSystem = CraftSystem.Instance;
+    }
+
+    public GameObject Craft()
+    {
+        return CraftSystem.Instance.craft();
+    }
+
+    private Item[] GetItemsFromInventory(Inventory inventory)
     {
         if(craftBoxMaximumSize - CraftSystem.Instance.materials.Count >= inventory.getItemsCount())
         {
@@ -23,20 +35,15 @@ public class CraftTable : Interactable
         
         return itemsFromInventory;
     }
-
-    public void Start()
-    {
-        base.Start();
-    }
-
     private void insertItem(params Item[] items)
     {
         CraftSystem.Instance.addItems(items.Select(_ => _.getData()).ToArray());
     }
 
-    public override void OnInteract(PlayerState state)
+    public override bool OnInteract(PlayerState state)
     {
         Item[] item = GetItemsFromInventory(state.Inventory);
         insertItem(item);
+        return true;
     }
 }

@@ -24,6 +24,9 @@ public class Inventory : MonoBehaviour
         return !(_inventory.Count < inventoryMaximumSize);
     }
 
+    ///<summary>
+    ///Don't call this function outside of CharacterAction.cs 
+    ///</summary>
     public void addItem(Item item)
     {
         if (_inventory.Count < inventoryMaximumSize)
@@ -102,7 +105,7 @@ public class Inventory : MonoBehaviour
             return null;
 
         Item item = _inventory[index];
-        item.gameObject.SetActive(false);
+        Destroy(item.gameObject);
         _inventory.RemoveAt(index);
         return item;
     }
@@ -118,7 +121,7 @@ public class Inventory : MonoBehaviour
 
         Item[] items = _inventory.ToArray();
         foreach(var item in items)
-            item.gameObject.SetActive(false);
+            Destroy(item.gameObject);
         _inventory.Clear();
         return items;
     }

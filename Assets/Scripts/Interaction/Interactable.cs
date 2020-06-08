@@ -16,7 +16,7 @@ abstract public class Interactable : MonoBehaviour, Placable
         characters = new HashSet<CharacterAction>();
     }
 
-    public abstract void OnInteract(PlayerState state);
+    public abstract bool OnInteract(PlayerState state);
     public virtual void OnDestroy() 
     {
         gridManager.UnoccupyPlacable(this);

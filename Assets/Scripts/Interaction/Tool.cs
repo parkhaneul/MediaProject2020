@@ -30,13 +30,14 @@ public class Tool : Interactable
         collider.enabled = true;
     }
     
-    public override void OnInteract(PlayerState state)
+    public override bool OnInteract(PlayerState state)
     {
         state.setTool(this);
         owner = state;
         EquipmentMode();  
 
         owner.getInteractables().SetDirty(this);
+        return true;
     }
 
     protected override void OnTriggerEnter(Collider other)

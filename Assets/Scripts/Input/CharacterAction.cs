@@ -35,7 +35,20 @@ public class InteractableSet
         interactables = new HashSet<Interactable>();
         dirtyList = new HashSet<Interactable>();
     }
-    public void Interact(PlayerState player)
+    public void InteractWithHighestPriority(PlayerState player)
+    {
+        List<Interactable> interactables = new List<Interactable>(this.interactables);
+        Interactable interactable = GetNearestOne(interactables, player.transform.position);
+        if(interactable != null)
+        {
+            while(!interactable.OnInteract(player))
+            {
+                interactables.Remove(interactable);
+                interactable = GetNearestOne(interactables, player.transform.position);
+            }
+        }
+    }
+    public void InteractWithFirstOne(PlayerState player)
     {
         foreach(var interactable in interactables)
         {
@@ -88,6 +101,22 @@ public class InteractableSet
         return "Interactable Count : " + interactables.Count + "\n" + 
             "Dirty Count : " + dirtyList.Count;
     }
+
+    private Interactable GetNearestOne(List<Interactable> interactables, Vector3 pos)
+    {
+        float dist = float.MaxValue;
+        Interactable target = null;
+        foreach(var i in interactables)
+        {
+            if(Vector3.SqrMagnitude(i.gameObject.transform.position - pos) < dist)
+            {
+                dist = Vector3.SqrMagnitude(i.gameObject.transform.position - pos);
+                target = i;
+            }
+        }
+
+        return target;
+    }
 }
 public class CharacterAction : MonoBehaviour
 {
@@ -110,6 +139,8 @@ public class CharacterAction : MonoBehaviour
     private const string itemSocketName = "ItemSocket";
     
     private Vector3 movePointer = Vector3.zero;
+
+    private static GridManager gridManager;
 
     private void initTransform()
     {
@@ -134,6 +165,8 @@ public class CharacterAction : MonoBehaviour
 
     public void Start()
     {
+        gridManager = GridManager.Instance;
+
         if (pState == null)
             pState = this.gameObject.GetComponent<PlayerState>();
 
@@ -173,7 +206,8 @@ public class CharacterAction : MonoBehaviour
             .Subscribe(_ =>
             {
                 animatorSet(AnimationStateString.isSmash,false);
-                interactables.Interact(pState);
+                //interactables.Clean();
+                interactables.InteractWithHighestPriority(pState);
             })
             .AddTo(this);
 
@@ -270,7 +304,7 @@ public class CharacterAction : MonoBehaviour
                 ObjectMovementSystem.Instance.turn(go, true);
                 go.transform.localScale = Vector3.one;
                 go.transform.eulerAngles = Vector3.one;
-            });
+            }, item);
     }
 
     public void action()
@@ -290,6 +324,7 @@ public class CharacterAction : MonoBehaviour
         tool.transform.localScale = Vector3.one;
 
         equipment = tool;
+        gridManager.UnoccupyPlacable(equipment);
     }
 
     public void getItem(Item item)
@@ -304,12 +339,15 @@ public class CharacterAction : MonoBehaviour
     {
         if(equipment != null)
         {
+            Grid grid = gridManager.GetCloestGrid(gameObject.transform.position);
+
             equipment.transform.SetParent(null);
-            equipment.transform.position = new Vector3(gameObject.transform.position.x, 0.0f, gameObject.transform.position.z);
+            equipment.transform.position = new Vector3(grid.gridCenter.x, 0.0f, grid.gridCenter.z);
             equipment.transform.rotation = Quaternion.identity;
             equipment.transform.localScale = Vector3.one;
             equipment.GroundMode();
 
+            gridManager.OccupyPlacable(equipment, grid);
             equipment = null;
         }
     }
