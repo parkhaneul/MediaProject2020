@@ -11,14 +11,18 @@ public class Building : Interactable
     public ToolKind kind;
     private GameObject mParticle;
     
-    public override void OnInteract(PlayerState state)
+    public override bool OnInteract(PlayerState state)
     {
         ToolKind? kind = state.getToolKind();
         if(kind.HasValue)
         {
             if(kind.Value == this.kind)
+            {
                 OnDamaged();
+                return true;
+            }
         }
+        return false;
     }
 
     private GameObject GetRandomItemToSpawn()

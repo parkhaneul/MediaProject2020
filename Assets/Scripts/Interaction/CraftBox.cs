@@ -114,10 +114,11 @@ public class CraftBox : Interactable
         items = new List<Item>();
     }
 
-    public override void OnInteract(PlayerState state)
+    public override bool OnInteract(PlayerState state)
     {
         Item[] items = GetItemsFromInventory(state.Inventory);
         InsertItem(items);
+        return true;
     }
 
     protected override void OnTriggerEnter(Collider other)

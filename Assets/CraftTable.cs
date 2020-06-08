@@ -40,9 +40,10 @@ public class CraftTable : Interactable
         CraftSystem.Instance.addItems(items.Select(_ => _.getData()).ToArray());
     }
 
-    public override void OnInteract(PlayerState state)
+    public override bool OnInteract(PlayerState state)
     {
         Item[] item = GetItemsFromInventory(state.Inventory);
         insertItem(item);
+        return true;
     }
 }

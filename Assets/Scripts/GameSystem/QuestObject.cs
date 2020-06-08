@@ -13,7 +13,7 @@ public class QuestObject : Interactable
             ml = MissionLogic.Instance;
     }
     
-    public override void OnInteract(PlayerState state)
+    public override bool OnInteract(PlayerState state)
     {
         Inventory inven = state.Inventory;
         List<int> removeItemIndices = new List<int>();
@@ -33,5 +33,7 @@ public class QuestObject : Interactable
             Item item = inven.popItem(i);
             ml.putItem(item);
         }
+
+        return true;
     }
 }

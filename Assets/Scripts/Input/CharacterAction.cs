@@ -37,10 +37,15 @@ public class InteractableSet
     }
     public void InteractWithHighestPriority(PlayerState player)
     {
-        Interactable interactable = GetNearestOne(player.transform.position);
+        List<Interactable> interactables = new List<Interactable>(this.interactables);
+        Interactable interactable = GetNearestOne(interactables, player.transform.position);
         if(interactable != null)
         {
-            interactable.OnInteract(player);
+            while(!interactable.OnInteract(player))
+            {
+                interactables.Remove(interactable);
+                interactable = GetNearestOne(interactables, player.transform.position);
+            }
         }
     }
     public void InteractWithFirstOne(PlayerState player)
@@ -97,7 +102,7 @@ public class InteractableSet
             "Dirty Count : " + dirtyList.Count;
     }
 
-    private Interactable GetNearestOne(Vector3 pos)
+    private Interactable GetNearestOne(List<Interactable> interactables, Vector3 pos)
     {
         float dist = float.MaxValue;
         Interactable target = null;

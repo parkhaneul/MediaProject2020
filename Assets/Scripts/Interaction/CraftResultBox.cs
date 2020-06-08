@@ -9,27 +9,29 @@ public class CraftResultBox : Interactable
 {
     public CraftTable craftTable;
 
-    public override void OnInteract(PlayerState state)
+    public override bool OnInteract(PlayerState state)
     {
         if(craftTable == null)
         {
             Debug.LogError("Craft Result Box should have a reference of CraftBox");
-            return;
+            return false;
         }
 
         if(state.Inventory.isFull())
         {
-            return;
+            return false;
         }
 
         GameObject craftedItem = craftTable.Craft();
         if(craftedItem == null)
-            return;
+            return false;
         
         Item item = craftedItem.GetComponent<Item>();
         
         state.addItem(item);
         item.OnItemGet();
+
+        return true;
     }
 
     
