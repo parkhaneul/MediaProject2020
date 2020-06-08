@@ -195,14 +195,16 @@ public class MissionLogic : BasicLogic<MissionLogic>
     
     public bool isItemRequired(ItemKind itemName)
     {
-        bool isTarget = missionItemList.requiredItems.Any( i => i.Key == itemName) ;
+        bool isTarget = missionItemList.requiredItems.Any( i => i.Key == itemName);
         bool isNeededMore = false;
         int required = 0, possess = 0;
+        
         if(missionItemList.requiredItems.TryGetValue(itemName, out required))
         {
             possessingItems.requiredItems.TryGetValue(itemName, out possess);
             isNeededMore = required > possess;
         }
+        
         return isTarget && isNeededMore;
     }
 
@@ -244,8 +246,33 @@ public class MissionLogic : BasicLogic<MissionLogic>
             Debug.LogError("You can't put item to misson logic that is not required.");
             return;
         }
+        
+        UIManager.Instance.setText();
         updatePercent();
     }
+
+    public Dictionary<ItemKind,int> requiredItems()
+    {
+        var mil = missionItemList.requiredItems;
+        var pil = possessingItems.requiredItems;
+
+        Dictionary<ItemKind, int> tempList = new Dictionary<ItemKind, int>();
+
+        foreach (var item in mil)
+        {
+            if (pil.ContainsKey(item.Key))
+            {
+                tempList.Add(item.Key,mil[item.Key] - pil[item.Key]);
+            }
+            else
+            {
+                tempList.Add(item.Key,mil[item.Key]);
+            }
+        }
+
+        return tempList;
+    }
+    
     private void updatePercent()
     {
         int total = 0, current = 0;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,12 +16,18 @@ public class UIManager : MonoBehaviour
     }
 
     public GameObject UIBorderModel;
+    public Text MissionUI;
     private Dictionary<int,GameObject> _borderModels = new Dictionary<int,GameObject>(); 
     
     void Awake()
     {
         if (_instance == null)
             _instance = this;
+    }
+
+    public void Start()
+    {
+        setText();
     }
 
     public void addUser(int index)
@@ -78,6 +85,40 @@ public class UIManager : MonoBehaviour
         
         if(_borderModels[uid].active != value)
             _borderModels[uid].SetActive(value);
+    }
+
+    public void setText()
+    {
+        string UIText = "";
+        
+        var dics = MissionLogic.Instance.requiredItems();
+
+        foreach (var item in dics)
+        {
+            switch (item.Key)
+            {
+                case ItemKind.Branch :
+                    UIText += " [나뭇가지 아이템]이 ";
+                    break;
+                case ItemKind.Mountain :
+                    UIText += " [산 아이템]이 ";
+                    break;
+                case ItemKind.Rock :
+                    UIText += " [바위 아이템]이 ";
+                    break;
+                case ItemKind.Stone :
+                    UIText += " [돌 아이템]이 ";
+                    break;
+                case ItemKind.Tree :
+                    UIText += " [나무 아이템]이 ";
+                    break;
+            }
+            UIText += item.Value + "개,";
+        }
+
+        UIText = UIText.Substring(0, UIText.Length - 1);
+        UIText += " 필요합니다.";
+        MissionUI.text = UIText;
     }
 
     private float AngleTo(Vector2 pos, Vector2 target)
