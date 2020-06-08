@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class Building : Interactable
 {
+    public GameObject particleSocket;
+    public GameObject particle;
     public int durability;
     public List<GameObject> dropItems;
     public ToolKind kind;
+    private GameObject mParticle;
     
     public override void OnInteract(PlayerState state)
     {
         ToolKind? kind = state.getToolKind();
         if(kind.HasValue)
         {
-            if(kind.Value == kind)
+            if(kind.Value == this.kind)
                 OnDamaged();
         }
     }
@@ -24,6 +27,7 @@ public class Building : Interactable
             return dropItems[Random.Range(0, dropItems.Count)];
         return null;
     }
+
     private void OnSpawnItem()
     {
         Grid grid = gridManager.GetRandomItemSpawnPosition(this);
@@ -36,9 +40,11 @@ public class Building : Interactable
         item.AdjustPosition(grid);
         gridManager.OccupyPlacable(item, grid);
     }
+
     private void OnDamaged()
     {
         PlaySound();
+        PlayParticle();
         if(--durability <= 0)
         {
             OnSpawnItem();
@@ -53,5 +59,26 @@ public class Building : Interactable
     {
         if(kind == ToolKind.Pickax)
             SoundManager.Instance.PlayPickAxeSound(this.gameObject);
+    }
+
+    private void PlayParticle()
+    {
+        if(particle == null)
+        {
+            return;
+        }
+
+        if(mParticle != null)
+        {
+            ParticleSystem particleSystem = mParticle.GetComponent<ParticleSystem>();
+            particleSystem.time = 0.0f;
+            particleSystem.Play();
+        }
+        else
+        {
+            mParticle = Instantiate(particle, particleSocket.transform.position, Quaternion.identity);
+            ParticleSystem particleSystem = mParticle.GetComponent<ParticleSystem>();
+            particleSystem.Play();
+        }
     }
 }
