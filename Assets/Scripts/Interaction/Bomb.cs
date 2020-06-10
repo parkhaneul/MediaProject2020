@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour, Placable
 {
+    public float radius = 5.0f;
+    public float knockOutTime = 5.0f;
     public GameObject particle;
     private float particleDuration = 4.0f;
     private MeshRenderer meshRenderer;
@@ -39,14 +41,32 @@ public class Bomb : MonoBehaviour, Placable
         collider.enabled = false;
 
         GameObject go_particle = Instantiate(particle, transform.position + Vector3.up * 1.0f, Quaternion.identity);
-        // 1. 반지름 5 안의 캐릭터들을 가져온다.
-        // 2. 캐릭터들을 n초간 기절시킨다.
-        // 3. 
         
+        //TODO : Don't call 'Find' methods during run time. 
+        CharacterAction[] characters = FindObjectsOfType<CharacterAction>();
+        foreach(var ch in characters)
+        {
+            if(Vector3.SqrMagnitude(ch.transform.position - transform.position) < radius * radius)
+            {
+                KnockOut(ch);
+            }
+        }
+    }
+
+    private void KnockOut(CharacterAction character)
+    {
+        character.isKnockOuted = true;
+        StartCoroutine("KnockOutTimer",character);
     }
 
     public void AdjustPosition(Grid grid)
     {
         throw new System.NotImplementedException();
+    }
+
+    IEnumerator KnockOutTimer(CharacterAction character)
+    {
+        yield return new WaitForSeconds(knockOutTime);
+        character.isKnockOuted = false;
     }
 }
