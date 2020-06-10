@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 6682299305823662496}
   - component: {fileID: 7951300891471828231}
   - component: {fileID: 7330213194865581364}
-  m_Layer: 0
+  - component: {fileID: 5546932389971480538}
+  - component: {fileID: 7823476393220398221}
+  m_Layer: 8
   m_Name: Obstacles_RandomBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,3 +82,30 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5546932389971480538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7703145515791385523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 257ddce981a3e43e799b5d0b2545e0b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropItems:
+  - {fileID: 6455669923196703369, guid: 3d75d17412c084e19aa82e5d4b04f531, type: 3}
+--- !u!65 &7823476393220398221
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7703145515791385523}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5999999, y: 1.5999999, z: 1.5999999}
+  m_Center: {x: 0.79999995, y: 0.79999995, z: 0.79999995}

@@ -6,7 +6,7 @@ public enum ToolKind
 {
     Axe,
     Pickax,
-    Sword
+    Sword,
 }
 
 public class Tool : Interactable

@@ -61,7 +61,7 @@ public class Bomb : MonoBehaviour, Placable
 
     public void AdjustPosition(Grid grid)
     {
-        throw new System.NotImplementedException();
+        transform.position = grid.gridCenter + new Vector3(0.0f, 0.00001f, 0.0f);
     }
 
     IEnumerator KnockOutTimer(CharacterAction character)
