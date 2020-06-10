@@ -24,6 +24,8 @@ public class SoundManager : MonoBehaviour
         }
         if(audio.isPlaying && audio.clip == audios[1])
         {
+            audio.time = 0.0f;
+            audio.Play();
             return;
         }
         audio.clip = audios[1];
@@ -134,6 +136,35 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PlayFallingSound(GameObject obj)
+    {
+        AudioSource audio = obj.GetComponent<AudioSource>();
+        if(audio == null)
+        {
+            audio = obj.AddComponent<AudioSource>();
+        }
+        if(audio.isPlaying && audio.clip == audios[4])
+        {
+            return;
+        }
+        audio.clip = audios[4];
+        audio.loop = true;
+        audio.Play();
+    }
+
+    public void StopFallingSound(GameObject obj)
+    {
+        AudioSource audio = obj.GetComponent<AudioSource>();
+        if(audio == null)
+        {
+            return;
+        }
+
+        if (audio.clip == audios[4])
+        {
+            audio.Stop();
+        }
+    }
     void Awake() 
     {
         if(instance == null)
