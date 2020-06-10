@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 892092520364366936}
   - component: {fileID: 4779019365072254339}
   - component: {fileID: 107054550180499348}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Pickax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,6 +140,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tools_PickAxe
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 43b009796041c7e4a847d08ea17816e4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2534866581884222612, guid: 43b009796041c7e4a847d08ea17816e4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43b009796041c7e4a847d08ea17816e4, type: 3}
