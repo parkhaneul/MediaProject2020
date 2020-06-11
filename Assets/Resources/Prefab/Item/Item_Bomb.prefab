@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2817748586572796272
+--- !u!1 &6455669923196703369
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2964331524396914118}
-  - component: {fileID: 2550070222219329813}
-  - component: {fileID: 6503489861246397925}
-  - component: {fileID: 2817748586572796274}
-  - component: {fileID: 2817748586572796275}
-  m_Layer: 0
-  m_Name: Object_Branch
+  - component: {fileID: 6318243713885427263}
+  - component: {fileID: 6768393079938908908}
+  - component: {fileID: 2651647577084522012}
+  - component: {fileID: 6455669923196703606}
+  - component: {fileID: 6455669923196703607}
+  m_Layer: 8
+  m_Name: Item_Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2964331524396914118
+--- !u!4 &6318243713885427263
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2817748586572796272}
+  m_GameObject: {fileID: 6455669923196703369}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,21 +34,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2550070222219329813
+--- !u!33 &6768393079938908908
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2817748586572796272}
-  m_Mesh: {fileID: -2432090755550338912, guid: 07db6371943998a4e9d2eb35bc6bcebd, type: 3}
---- !u!23 &6503489861246397925
+  m_GameObject: {fileID: 6455669923196703369}
+  m_Mesh: {fileID: -2432090755550338912, guid: f572346b503c1a84a9a75e1854fb084d, type: 3}
+--- !u!23 &2651647577084522012
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2817748586572796272}
+  m_GameObject: {fileID: 6455669923196703369}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8469494145858465668, guid: 07db6371943998a4e9d2eb35bc6bcebd, type: 3}
+  - {fileID: -8469494145858465668, guid: f572346b503c1a84a9a75e1854fb084d, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -81,31 +81,32 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &2817748586572796274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2817748586572796272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 024cc45d1ab72411699f2d6e85964a70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ItemCode: 1
-  kind: 2
-  positionOffset: {x: 0, y: 0, z: 0}
---- !u!65 &2817748586572796275
+--- !u!65 &6455669923196703606
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2817748586572796272}
+  m_GameObject: {fileID: 6455669923196703369}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6, y: 0.5, z: 1.4}
-  m_Center: {x: 0, y: 0.25, z: 0.15}
+  m_Size: {x: 1, y: 1.2, z: 1}
+  m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!114 &6455669923196703607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6455669923196703369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0b4d99d28afa4c41b92046ebd437587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 5
+  knockOutTime: 5
+  particle: {fileID: 4495722232988556189, guid: 3641c5ed6a025458ab86171bd94da89d,
+    type: 3}

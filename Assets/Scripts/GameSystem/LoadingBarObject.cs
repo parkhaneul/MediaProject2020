@@ -33,7 +33,7 @@ public class LoadingBarObject : MonoBehaviour, Placable
         this.ObserveEveryValueChanged(_ => _.mLogic.getPercent())
             .Subscribe(percent =>
             {
-                this.gameObject.transform.localScale = Vector3.one + Vector3.right * percent * interval + new Vector3(0.0f, 0.0f, 0.2f);
+                this.gameObject.transform.localScale = new Vector3(1, 1, 2) + Vector3.right * percent * interval + new Vector3(0.0f, 0.0f, 0.2f);
                 this.gameObject.transform.position = initPosition + mulitple(Vector3.right/2,gameObject.transform.localScale - Vector3.one);
             })
             .AddTo(this);
