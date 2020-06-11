@@ -139,6 +139,7 @@ public class CharacterAction : MonoBehaviour
     private PlayerStateMachineObservables _playerStateMachineObservables;
     public PlayerState pState;
     private AnimationStateEnum _aState;
+
     public Tool equipment { get; private set; }
     private Transform toolSocket;
     private const string toolSocketName = "ToolSocket";
@@ -147,6 +148,8 @@ public class CharacterAction : MonoBehaviour
     private const string itemSocketName = "ItemSocket";
     
     private Vector3 movePointer = Vector3.zero;
+
+    public bool isKnockOuted = false;
 
     private static GridManager gridManager;
 
@@ -259,6 +262,12 @@ public class CharacterAction : MonoBehaviour
 
     public void move(Point point)
     {
+        //TODO : Below is temp code. Please consider use 'buff system' instead of this.
+        if(isKnockOuted)
+        {
+            return;
+        }
+        
         hasMovedThisFrame = Mathf.Abs(point.x) > 0 || Mathf.Abs(point.y) > 0 || Mathf.Abs(point.z) > 0 ? true : false;
         movePointer = new Vector3(point.x,point.y,point.z);
         

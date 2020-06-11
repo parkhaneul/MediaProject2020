@@ -6,7 +6,7 @@ public enum ToolKind
 {
     Axe,
     Pickax,
-    Sword
+    Sword,
 }
 
 public class Tool : Interactable
@@ -32,6 +32,10 @@ public class Tool : Interactable
     
     public override bool OnInteract(PlayerState state)
     {
+        if(state.hasItem())
+        {
+            return false; //Can't hold tool while character have item.
+        }
         state.setTool(this);
         owner = state;
         EquipmentMode();  
