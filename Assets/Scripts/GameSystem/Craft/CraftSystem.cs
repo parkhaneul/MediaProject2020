@@ -46,10 +46,23 @@ public class CraftSystem : MonoBehaviour
     }
     public GameObject craft()
     {
+        Logger.Log("CraftSystem 1");
+
+        if (resultRecipe == null)
+        {
+            Logger.Log("Recipe is Null");
+            return null;
+        }
+
         if(!resultRecipe.isCratable(materials))
         {
             return null;
         }
+        
+        Logger.Log("CraftSystem 2");
+        
+        /*
+        Logger.Log("CraftSystem do Craft.");
 
         foreach(int materialCode in resultRecipe.materialCodes)
         {
@@ -63,17 +76,30 @@ public class CraftSystem : MonoBehaviour
                         slots[j].sprite = slots[j+1].sprite;
                     }
                     slots[slots.Count()-1].sprite = null;
+                    slots[slots.Count()-1].color = Color.white;
                     break;
                 }
             }
-        }
+        }*/
 
+        materials.Clear();
+        clear();
         GameObject template = getItemGameObject(resultRecipe.resultCode);
         GameObject itemObject = GameObject.Instantiate(template);
         itemObject.SetActive(true);
 
         showResult();
+        
         return itemObject;
+    }
+
+    public void clear()
+    {
+        foreach (var slot in slots)
+        {
+            slot.sprite = null;
+            slot.color = Color.white;
+        }
     }
 
     public void addItems(params ItemData[] _materials)
@@ -92,8 +118,6 @@ public class CraftSystem : MonoBehaviour
     public void showResult()
     {
         var recipes = RecipeBook.Instance.searchMaterials(materials.Select(_ => _.itemCode).ToArray());
-        
-        Logger.Log(recipes.Count);
         
         if (recipes == null || materials.Count == 0)
         {
@@ -122,6 +146,8 @@ public class CraftSystem : MonoBehaviour
             
             resultImage.sprite = SpriteManager.Instance.getAsset(_spritePath);
             resultRecipe = recipes[0];
+            
+            Debug.Log("Recipes Count : " + recipes[0].materialCodes.Count);
 
             showRequiredItems(recipes[0]);
             
@@ -135,7 +161,7 @@ public class CraftSystem : MonoBehaviour
     public void showRequiredItems(Recipe recipe)
     {
         var codeList = materials.Select(_ => _.itemCode).ToList();
-        var mList = recipe.materialCodes;
+        var mList = new List<int>(recipe.materialCodes);
         
         foreach (var code in codeList)
         {
@@ -258,8 +284,14 @@ public class Recipe
 
     public bool isCratable(List<ItemData> materials)
     {
+        Logger.Log("Recipe 1");
+        
+        Logger.Log(materialCodes.Count);
+        
         if(materials.Count() != materialCodes.Count)
             return false;
+        
+        Logger.Log("Recipe 2");
         
         var result = true;
         foreach (var material in materials)
@@ -270,6 +302,8 @@ public class Recipe
                 return false;
         }
 
+        Logger.Log("Recipe 3");
+        
         return result;
     }
 }

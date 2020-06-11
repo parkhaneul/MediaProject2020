@@ -358,6 +358,7 @@
               <e p="Model_Stone.cs" t="Include" />
               <e p="Model_Tree.cs" t="Include" />
             </e>
+            <e p="OutlineTest.cs" t="Include" />
             <e p="Tool.cs" t="Include" />
           </e>
           <e p="jyTest" t="Include">

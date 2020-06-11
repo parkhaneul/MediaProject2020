@@ -33,7 +33,6 @@ public class Inventory : MonoBehaviour
         {
             SoundManager.Instance.PlayPickItemSound(this.gameObject);
             _inventory.Add(item);
-            Logger.Log(ToString());
         }
         else
         {

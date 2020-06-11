@@ -76,20 +76,21 @@ public class ControllerManager : MonoBehaviour
         Destroy(gameObject);
         controllers = null;
     }
+
     GameObject newTestUnit(int uid)
     {
         var randomGo = testUnitList[UnityEngine.Random.Range(0, testUnitList.Count)];
         testUnitList.Remove(randomGo);
-        
+
         var go = GameObject.Instantiate(randomGo);
         go.gameObject.transform.localScale *= playerModelScale;
         go.SetActive(true);
 
         var rt = new RenderTexture(256, 256, 1);
         go.GetComponentInChildren<Camera>().targetTexture = rt;
-        
+
         UIManager.Instance.addUser(uid);
-        UIManager.Instance.setUI(uid,rt);
+        UIManager.Instance.setUI(uid, rt);
 
         this.UpdateAsObservable()
             .Select(_ => _camera.WorldToViewportPoint(go.transform.position))
@@ -104,18 +105,24 @@ public class ControllerManager : MonoBehaviour
                 }
             })
             .AddTo(go);
-        
+
         this.UpdateAsObservable()
             .Select(_ => _camera.WorldToViewportPoint(go.transform.position))
             .Where(_ => (_.x < 1 && _.x > 0 && _.y < 1 && _.y > 0))
             .DistinctUntilChanged(_ => _)
+            .Subscribe(_ => { UIManager.Instance.setActive(uid, false); })
+            .AddTo(go);
+
+        this.UpdateAsObservable()
+            .Where(_ => go.transform.position.y < -50)
             .Subscribe(_ =>
             {
-                UIManager.Instance.setActive(uid,false);
+                go.GetComponent<PlayerState>().connect(false);
+                go.GetComponent<PlayerState>().connect(true);
             })
             .AddTo(go);
-        
-        unitList.Add(uid,go);
+
+    unitList.Add(uid,go);
 
         return go;
     }

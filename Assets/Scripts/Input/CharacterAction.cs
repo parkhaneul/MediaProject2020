@@ -45,6 +45,12 @@ public class InteractableSet
             {
                 interactables.Remove(interactable);
                 interactable = GetNearestOne(interactables, player.transform.position);
+
+                if (interactable == null)
+                {
+                    Logger.Log("Interactable is null.");
+                    break;
+                }
             }
         }
     }
@@ -114,6 +120,8 @@ public class InteractableSet
                 target = i;
             }
         }
+        
+        Logger.LogWarning(target);
 
         return target;
     }
@@ -329,6 +337,7 @@ public class CharacterAction : MonoBehaviour
 
     public void getItem(Item item)
     {
+        Logger.Log("Player get Item " + item);
         item.transform.SetParent(itemSocket);
         item.transform.localPosition = new Vector3(0,0,0);
         item.transform.localRotation = Quaternion.identity;

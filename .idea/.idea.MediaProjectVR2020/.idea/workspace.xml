@@ -38,8 +38,10 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interaction/Building.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Input/InputController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Art/Tile.shader" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7C074160-DD1A-4D91-9B45-B6E4C27A3BAC/74/61e8b47e/KeyValuePair`2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Plugins/UniRx/Scripts/Operators/Concat.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameSystem/GameGUIManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Resources/Shaders/OutlineShader.shader" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Input/Inventory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameSystem/QuestObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7C074160-DD1A-4D91-9B45-B6E4C27A3BAC/a5/76c18145/List`1.cs" root0="SKIP_HIGHLIGHTING" />
@@ -60,19 +62,19 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interaction/CraftBox.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interaction/Item.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2DB13BA0-D523-4322-8AA9-892C408FB49A/46/4eb0feea/Input.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/D815B7EF-AC42-4EEB-8E05-3965CCCB1F98/37/d60d9be4/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Etc/ItemDataEditor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interaction/CraftResultBox.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Effect/EffectManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interaction/ItemModels/ItemModel.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Grid/Grid.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interaction/Tool.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Interaction/ItemModels/Model_Branch.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameSystem/Craft/CraftTable.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerStateMachineObservables.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/CharacterAction.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/ControllerManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/InputController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameLogic.cs" />
@@ -96,7 +98,6 @@
         <option value="$PROJECT_DIR$/Assets/ObjectMovementSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/MapAutoGenerator.cs" />
         <option value="$PROJECT_DIR$/Assets/CraftUI.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Input/Inventory.cs" />
         <option value="$PROJECT_DIR$/Assets/CraftTable.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/Item.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Etc/ResourceManager.cs" />
@@ -113,13 +114,17 @@
         <option value="$PROJECT_DIR$/Assets/TitleScene.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Etc/CameraScript.cs" />
         <option value="$PROJECT_DIR$/Assets/CraftSystem.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Input/PlayerState.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Grid/GridManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Input/ControllerManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameLogic.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/UIManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Input/PlayerState.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Input/ControllerManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Input/Inventory.cs" />
+        <option value="$PROJECT_DIR$/Assets/Resources/ItemData.txt" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/Craft/CraftTable.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/CraftResultBox.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/Craft/CraftSystem.cs" />
       </list>
     </option>
@@ -130,6 +135,7 @@
     <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
     <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -208,6 +214,8 @@
       <workItem from="1591608307924" duration="609000" />
       <workItem from="1591611709849" duration="2272000" />
       <workItem from="1591630248780" duration="71000" />
+      <workItem from="1591852115172" duration="605000" />
+      <workItem from="1591865290043" duration="5686000" />
     </task>
     <servers />
   </component>

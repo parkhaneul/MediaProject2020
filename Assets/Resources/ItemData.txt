@@ -81,34 +81,5 @@
       "itemCode": 5,
       "imageFilePath": "Assets/Resources/2D_Objects/Object_Mountain.png"
     }
-  },
-  {
-    "materials": [
-      {
-        "itemName": "stone",
-        "itemCode": 2,
-        "imageFilePath": "Assets/Resources/2D_Objects/Object_Stone.png"
-      },
-      {
-        "itemName": "stone",
-        "itemCode": 2,
-        "imageFilePath": "Assets/Resources/2D_Objects/Object_Stone.png"
-      },
-      {
-        "itemName": "stone",
-        "itemCode": 2,
-        "imageFilePath": "Assets/Resources/2D_Objects/Object_Stone.png"
-      },
-      {
-        "itemName": "stone",
-        "itemCode": 2,
-        "imageFilePath": "Assets/Resources/2D_Objects/Object_Stone.png"
-      }
-    ],
-    "result": {
-      "itemName": "moreStone",
-      "itemCode": 6,
-      "imageFilePath": "Assets/Resources/2D_Objects/Object_Stone.png"
-    }
   }
 ]

@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/SelectCharScene.unity
     guid: e6c92cba8871ce443ba8b3da8be1b3ee
   - enabled: 1
-    path: Assets/Scenes/GamePrototypeScene_Merge.unity
+    path: Assets/Scenes/GamePrototypeScene.unity
     guid: 8bf565cf6c6be0f4696d0fc2cbbc5b03
   m_configObjects: {}
