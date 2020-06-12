@@ -131,6 +131,7 @@ public class CharacterAction : MonoBehaviour
     public const string CONST_InteractionHitBox  = "InteractionHitBox";
     public const string CONST_CharacterBound = "CharacterBound";
     public InteractableSet interactables;
+    public GameObject charGO;
     
     public Animator animator;
     public float moveSpeed;
@@ -275,10 +276,21 @@ public class CharacterAction : MonoBehaviour
             var lookAtVector = this.transform.position + movePointer;
             this.gameObject.transform.LookAt(lookAtVector);
 
-            if (PlayerMoveLimitLogic.Instance.canMove(this.gameObject.transform.position +
-                                                      this.gameObject.transform.forward * moveSpeed))
-                this.gameObject.transform.position +=
-                    this.gameObject.transform.forward * moveSpeed * pState.speedMul + Vector3.up * 0.04f;
+            if (PlayerMoveLimitLogic.Instance.canMove(this.gameObject.transform.position + this.gameObject.transform.forward * moveSpeed))
+            {
+                this.gameObject.transform.position += this.gameObject.transform.forward * moveSpeed * pState.speedMul;
+                StartCoroutine(charMoveCor());
+            }
+        }
+    }
+
+    IEnumerator charMoveCor()
+    {
+        charGO.transform.position += Vector3.up * 0.1f;
+        while (charGO.transform.position.y > 0)
+        {
+            charGO.transform.position -= Vector3.up * 0.01f;
+            yield return new WaitForSeconds(0.01f);
         }
     }
 

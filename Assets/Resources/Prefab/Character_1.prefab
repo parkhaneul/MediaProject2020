@@ -134,9 +134,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13788a6c88dee3941947bc9c8427a29b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  charGO: {fileID: 7062859349762665782}
   animator: {fileID: 8480174878841239126}
   moveSpeed: 0.07
   pState: {fileID: 0}
+  isKnockOuted: 0
 --- !u!54 &5321378795947350947
 Rigidbody:
   m_ObjectHideFlags: 0

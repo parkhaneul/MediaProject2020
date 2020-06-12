@@ -45,6 +45,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Input/Inventory.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameSystem/QuestObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/7C074160-DD1A-4D91-9B45-B6E4C27A3BAC/a5/76c18145/List`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameSystem/LoadingBarObject.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Unity/Hub/Editor/2019.3.7f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/EventSystem/InputModules/BaseInput.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Pushwall.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameSystem/UIManager.cs" root0="FORCE_HIGHLIGHTING" />
@@ -123,9 +124,9 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/Inventory.cs" />
         <option value="$PROJECT_DIR$/Assets/Resources/ItemData.txt" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/Craft/CraftTable.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/CraftResultBox.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/Craft/CraftSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
       </list>
     </option>
   </component>
@@ -216,6 +217,7 @@
       <workItem from="1591630248780" duration="71000" />
       <workItem from="1591852115172" duration="605000" />
       <workItem from="1591865290043" duration="5686000" />
+      <workItem from="1591943211346" duration="498000" />
     </task>
     <servers />
   </component>
