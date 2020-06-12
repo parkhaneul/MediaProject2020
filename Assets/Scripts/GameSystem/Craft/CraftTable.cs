@@ -43,7 +43,17 @@ public class CraftTable : Interactable
     public override bool OnInteract(PlayerState state)
     {
         Item[] item = GetItemsFromInventory(state.Inventory);
-        insertItem(item);
+        
+        if(item.Length > 0)
+            insertItem(item);
+        else
+        {
+            var pickUpItem = CraftSystem.Instance.pickUp();
+            Item pitem = pickUpItem.GetComponent<Item>();
+        
+            state.addItem(pitem);
+            Logger.Log("pickup Item");
+        }
         return true;
     }
 }

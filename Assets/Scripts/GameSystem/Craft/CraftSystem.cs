@@ -44,6 +44,28 @@ public class CraftSystem : MonoBehaviour
         
         materials = new List<ItemData>();
     }
+
+    public GameObject pickUp()
+    {
+        if (materials.Count == 0)
+        {
+            Logger.Log("Count is 0");
+            return null;
+        }
+
+        var itemCode = materials.Last().itemCode;
+        
+        GameObject template = getItemGameObject(itemCode);
+        GameObject itemObject = GameObject.Instantiate(template);
+        itemObject.SetActive(true);
+        
+        materials.RemoveAt(materials.Count-1);
+
+        reDraw();
+        
+        return itemObject;
+    }
+    
     public GameObject craft()
     {
         Logger.Log("CraftSystem 1");
@@ -100,6 +122,20 @@ public class CraftSystem : MonoBehaviour
             slot.sprite = null;
             slot.color = Color.white;
         }
+    }
+
+    public void reDraw()
+    {
+        clear();
+        
+        foreach (var material in materials)
+        {
+            var count = materials.Count;
+            materials.Add(material);
+            slots[count].color = new Color(1,1,1,1);
+            slots[count].sprite = SpriteManager.Instance.getAsset(material.imageFilePath);
+        }
+        showResult();
     }
 
     public void addItems(params ItemData[] _materials)

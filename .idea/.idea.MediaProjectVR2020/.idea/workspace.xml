@@ -123,10 +123,10 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/ControllerManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/Inventory.cs" />
         <option value="$PROJECT_DIR$/Assets/Resources/ItemData.txt" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/Craft/CraftTable.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Interaction/CraftResultBox.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/Craft/CraftSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Input/CharacterAction.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/Craft/CraftSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/Craft/CraftTable.cs" />
       </list>
     </option>
   </component>
@@ -217,7 +217,7 @@
       <workItem from="1591630248780" duration="71000" />
       <workItem from="1591852115172" duration="605000" />
       <workItem from="1591865290043" duration="5686000" />
-      <workItem from="1591943211346" duration="498000" />
+      <workItem from="1591943211346" duration="1955000" />
     </task>
     <servers />
   </component>
