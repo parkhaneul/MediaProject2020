@@ -151,6 +151,9 @@ public class ControllerManager : MonoBehaviour
         //Arrows
         ic.addNewEvent(0,25, new []{useAxes[0],useAxes[1]},true,false, _ =>
         {
+            if (GameSystem.Instance.endGame || GameSystem.Instance.stopGame)
+                return;
+            
             if(playerState.isJoined)
                 onMoveEvent(uid,new Point(_[0],0,_[1]));
         });
@@ -159,6 +162,9 @@ public class ControllerManager : MonoBehaviour
         //Interaction
         ic.addNewEvent(0,1000,new []{useAxes[2]},false,false, _ =>
         {
+            if (GameSystem.Instance.endGame || GameSystem.Instance.stopGame)
+                return;
+            
             if(playerState.isJoined)
                 onInteractionEvent(uid,_[0] > 0);
             else
@@ -168,6 +174,9 @@ public class ControllerManager : MonoBehaviour
         //Put
         ic.addNewEvent(0,500,new []{useAxes[3]},false,false, _ =>
         {
+            if (GameSystem.Instance.endGame || GameSystem.Instance.stopGame)
+                return;
+            
             if(playerState.isJoined)
                 onUnmountEvent(uid,_[0] > 0);
         });
@@ -175,6 +184,9 @@ public class ControllerManager : MonoBehaviour
         //Menu
         ic.addNewEvent(0,500,new []{useAxes[4]},false,false, _ =>
         {
+            if (GameSystem.Instance.endGame || GameSystem.Instance.stopGame)
+                return;
+            
             Logger.Log("onMenuEvent");
         });
         

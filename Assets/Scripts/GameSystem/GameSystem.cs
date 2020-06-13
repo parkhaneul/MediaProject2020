@@ -12,14 +12,17 @@ public class GameSystem : MonoBehaviour
     public RequiredItems missionItemList = new RequiredItems();
     public float Interval;
     public Text text;
+
+    public bool stopGame;
+    public bool endGame;
     
-    private GameSystem _instance;
-    public GameSystem Instance
+    private static GameSystem _instance;
+    public static GameSystem Instance
     {
         get
         {
             if (_instance == null)
-                _instance = this;
+                _instance = new GameSystem();
             return _instance;
         }
     }
@@ -59,6 +62,9 @@ public class GameSystem : MonoBehaviour
 
     public void Update()
     {
+        if (stopGame || endGame)
+            return;
+
         runAll();
     }
 

@@ -375,6 +375,7 @@
           <e p="UI" t="Include">
             <e p="CraftBillboard.cs" t="Include" />
             <e p="GameOverManager.cs" t="Include" />
+            <e p="GameTimeManager.cs" t="Include" />
             <e p="UITranslate.cs" t="Include" />
           </e>
         </e>

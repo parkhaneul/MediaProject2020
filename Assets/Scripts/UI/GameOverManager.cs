@@ -10,7 +10,6 @@ public class GameOverManager : MonoBehaviour
     public RectTransform GameOverPanel;
     public Text OverText;
 
-
     private void Awake()
     {
         Instance = this;
