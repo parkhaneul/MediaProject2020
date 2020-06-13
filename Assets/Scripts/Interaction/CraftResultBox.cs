@@ -21,7 +21,7 @@ public class CraftResultBox : Interactable
         
         Logger.Log("ResultBox 2");
 
-        if(state.Inventory.isFull())
+        if(state.Inventory.isFull() || state.hasTool())
         {
             return false;
         }
