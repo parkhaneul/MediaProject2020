@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charGO: {fileID: 7062859349762665782}
   animator: {fileID: 8480174878841239126}
-  moveSpeed: 0.07
+  moveSpeed: 0.1
   pState: {fileID: 0}
   isKnockOuted: 0
 --- !u!54 &5321378795947350947
