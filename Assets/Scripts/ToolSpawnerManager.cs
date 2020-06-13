@@ -35,8 +35,8 @@ public class ToolSpawnerManager : MonoBehaviour
             spawners.Add(scripts[i].kindOfTool, scripts[i]);
         }
     }
-    public void SpawnTool(ToolKind kind)
+    public void SpawnTool(GameObject tool, ToolKind kind)
     {
-        spawners[kind].InstantiateTool();
+        spawners[kind].InstantiateTool(tool);
     }
 }

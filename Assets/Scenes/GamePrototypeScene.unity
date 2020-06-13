@@ -1493,7 +1493,6 @@ Transform:
   m_Children:
   - {fileID: 1576744464}
   - {fileID: 1328616580}
-  - {fileID: 1188648103}
   m_Father: {fileID: 627650182}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8704,53 +8703,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1150076556}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1188648101
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1188648103}
-  - component: {fileID: 1188648102}
-  m_Layer: 0
-  m_Name: SwordSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1188648102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1188648101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 683fc0a0aad1148249a4db62493da451, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toolObject: {fileID: 4195666773133962827, guid: 17f7e1aef32294428a0ee4adf59ef26f,
-    type: 3}
-  offset: {x: 0, y: 0, z: 0}
-  kindOfTool: 2
---- !u!4 &1188648103
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1188648101}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.5, y: 0.01, z: 2.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 189690116}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1195186032
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9775,7 +9727,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328616578}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.5, y: 0.01, z: 2.5}
+  m_LocalPosition: {x: -2, y: 0.01, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 189690116}
@@ -10793,7 +10745,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1576744462}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.5, y: 0.01, z: 2.5}
+  m_LocalPosition: {x: -2, y: 0.01, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 189690116}
@@ -14013,6 +13965,7 @@ GameObject:
   - component: {fileID: 2039948392}
   - component: {fileID: 2039948393}
   - component: {fileID: 2039948394}
+  - component: {fileID: 2039948395}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -14317,6 +14270,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameOverPanel: {fileID: 181542993}
   OverText: {fileID: 80806710}
+--- !u!114 &2039948395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039948382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd8beaa100fd49e8ba8aa8fe95a9ca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2059854868
 PrefabInstance:
   m_ObjectHideFlags: 0

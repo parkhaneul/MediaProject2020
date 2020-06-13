@@ -8,8 +8,9 @@ public class ToolSpawner : MonoBehaviour
     public Vector3 offset;
     public ToolKind kindOfTool;
 
-    public void InstantiateTool()
+    public void InstantiateTool(GameObject tool)
     {
-        Instantiate(toolObject, transform.position + offset, Quaternion.identity);
+        tool.transform.position = transform.position + offset;
+        tool.transform.rotation = Quaternion.identity;
     }
 }

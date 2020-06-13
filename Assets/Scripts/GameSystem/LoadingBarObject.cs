@@ -75,8 +75,7 @@ public class LoadingBarObject : MonoBehaviour, Placable
             Tool tool = other.GetComponent<Tool>();
             if(tool != null)
             {
-                toolSpawnerManager.SpawnTool(tool.kind);
-                tool.OnDestroy();
+                toolSpawnerManager.SpawnTool(tool.gameObject, tool.kind);
                 return;
             }
 
