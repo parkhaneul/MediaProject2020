@@ -13820,7 +13820,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   widthCount: 40
   heightCount: 10
-  debugMode: 1
+  debugMode: 0
   isPlane: 0
   gridGround: {fileID: 771110948}
 --- !u!114 &2039948387
