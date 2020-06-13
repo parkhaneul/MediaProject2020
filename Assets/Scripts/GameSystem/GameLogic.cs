@@ -288,7 +288,7 @@ public class MissionLogic : BasicLogic<MissionLogic>
             current += item.Value;
         }
 
-        missionPercent = (float)total / current;
+        missionPercent = (float)current / total * 100.0f;
     }
 
     public float getPercent()
