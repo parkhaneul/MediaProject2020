@@ -2,24 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameOverManager : MonoBehaviour
 {
-    public RectTransform GameOver_GoalPanel;
-    public RectTransform GameOver_FailPanel;
-    void Start()
+    public static GameOverManager Instance;
+    public RectTransform GameOverPanel;
+    public Text OverText;
+
+
+    private void Awake()
     {
-        
+        Instance = this;
     }
 
     public void Goal()
     {
-        GameOver_GoalPanel.gameObject.SetActive(true);
+        OverText.text = "Complete Load";
+        GameOverPanel.gameObject.SetActive(true);
     }
 
     public void Fail()
     {
-        GameOver_FailPanel.gameObject.SetActive(true);
+        OverText.text = "Complete Load";
+        GameOverPanel.gameObject.SetActive(true);
     }
 
     public void OnClickRestartButton()

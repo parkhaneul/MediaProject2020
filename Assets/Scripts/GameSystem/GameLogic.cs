@@ -143,11 +143,12 @@ public class TimeLogic : BasicLogic<TimeLogic>
         _tikTime = Time.deltaTime;
         _currentTime -= _tikTime;
 
-        testText.text = _currentTime.ToString();
+        GameTimeManager.Instance.SetTimeText(_currentTime);
         
         if (_currentTime < _zeroTime)
         {
-            Logger.LogError("TimeOver");
+            //Logger.LogError("TimeOver");
+            GameOverManager.Instance.Fail();
             stop();
         }
     }
@@ -230,9 +231,11 @@ public class MissionLogic : BasicLogic<MissionLogic>
                 {
                     possessingItems.requiredItems[item.kind] = possessingItems.requiredItems[item.kind] + 1;   
                 }
-                else
+                
+                if(possessingItems.requiredItems[item.kind] >= missionItemList.requiredItems[item.kind])
                 {
-                    Debug.LogError("You can't put item more than requied amount.");
+                    GameOverManager.Instance.Goal();
+                    //Debug.LogError("You can't put item more than requied amount.");
                     return;
                 }
             }
