@@ -7,6 +7,7 @@ public class Bomb : MonoBehaviour, Placable
     public float radius = 5.0f;
     public float knockOutTime = 5.0f;
     public GameObject particle;
+    public GameObject stunnedParticle;
     private float particleDuration = 4.0f;
     private MeshRenderer meshRenderer;
     private BoxCollider collider;
@@ -56,6 +57,10 @@ public class Bomb : MonoBehaviour, Placable
     private void KnockOut(CharacterAction character)
     {
         character.isKnockOuted = true;
+        GameObject stunFx = Instantiate(stunnedParticle);
+        stunFx.transform.parent = character.gameObject.transform;
+        stunFx.transform.localPosition = Vector3.zero + Vector3.up;
+        
         StartCoroutine("KnockOutTimer",character);
     }
 

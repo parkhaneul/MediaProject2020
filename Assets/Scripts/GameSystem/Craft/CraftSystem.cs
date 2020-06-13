@@ -127,11 +127,13 @@ public class CraftSystem : MonoBehaviour
     public void reDraw()
     {
         clear();
+
+        if (materials == null)
+            return;
         
         foreach (var material in materials)
         {
             var count = materials.Count;
-            materials.Add(material);
             slots[count].color = new Color(1,1,1,1);
             slots[count].sprite = SpriteManager.Instance.getAsset(material.imageFilePath);
         }

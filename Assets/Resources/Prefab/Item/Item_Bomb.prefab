@@ -110,3 +110,5 @@ MonoBehaviour:
   knockOutTime: 5
   particle: {fileID: 4495722232988556189, guid: 3641c5ed6a025458ab86171bd94da89d,
     type: 3}
+  stunnedParticle: {fileID: 6659956906513564284, guid: b39c99223ffc2496394eaca2bf8ab71f,
+    type: 3}
