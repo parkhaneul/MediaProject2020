@@ -536,7 +536,7 @@ public class BuffLogic : BasicLogic<BuffLogic>
         if(_buffList == null)
             _buffList = new List<Buff>();
         
-        var newBuff = new Buff(startFunc,endFunc,time);
+        var newBuff = new Buff(startFunc,endFunc,time,targets);
 
         foreach (var buff in _buffList)
         {

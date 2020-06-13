@@ -14,6 +14,7 @@
             <e p="ToonComplete.shader" t="Include" />
           </e>
         </e>
+        <e p="BuffItem.cs" t="Include" />
         <e p="Plugins" t="Include">
           <e p="UniRx" t="Include">
             <e p="Examples" t="Include">

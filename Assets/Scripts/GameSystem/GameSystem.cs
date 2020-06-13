@@ -46,23 +46,7 @@ public class GameSystem : MonoBehaviour
         ml.setInterval(Interval);
         pcl.setMaximumNumber(maximumUserNumber);
         pmll.addBorder(new BorderCube().setBorder(-14,-2,-5,16,2,5).setMove(true));
-        
-        bl.addBuff(BuffKind.SpeedUp,(_) =>
-        {
-            Logger.Log("Buff Start");
-            foreach (var state in _)
-            {
-                state.speedMul = 1;
-            }   
-        }, (_) =>
-        {
-            Logger.Log("Buff End");
-            foreach (var state in _)
-            {
-                state.speedMul = 2;
-            }
-        },5,PlayerControlLogic.Instance.getAllPlayerState());
-        
+
         logics.Add(tl);
         logics.Add(ml);
         logics.Add(pcl);

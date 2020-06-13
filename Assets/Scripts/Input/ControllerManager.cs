@@ -146,12 +146,6 @@ public class ControllerManager : MonoBehaviour
         var AxisNumber = 5;
         var useAxes = new ArraySegment<string>(axes, (index - 1) * AxisNumber, AxisNumber).ToArray();
         
-        Logger.Log(useAxes[0]);
-        Logger.Log(useAxes[1]);
-        Logger.Log(useAxes[2]);
-        Logger.Log(useAxes[3]);
-        Logger.Log(useAxes[4]);
-        
         var ic = new InputObservableController(uid,gameObject);
 
         //Arrows
