@@ -54,7 +54,7 @@ abstract public class Interactable : MonoBehaviour, Placable
         }
     }
 
-    public void AdjustPosition(Grid grid)
+    public void AdjustTransform(Grid grid)
     {
         throw new System.NotImplementedException();
     }

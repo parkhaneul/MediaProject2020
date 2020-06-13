@@ -67,6 +67,7 @@ public class ObjectMovementSystem : MonoBehaviour
         if(item != null)
         {
             onComplete += () => gridManager.OccupyPlacable(item, grid);
+            onComplete += () => item.AdjustTransform(grid);
         }
         StartCoroutine(this.ShootImpl(target, onComplete));
     }
@@ -80,7 +81,7 @@ public class ObjectMovementSystem : MonoBehaviour
     public void turn(GameObject target, bool value)
     {
         var scripts = target.GetComponents<MonoBehaviour>();
-
+        
         foreach (var script in scripts)
         {
             script.enabled = value;

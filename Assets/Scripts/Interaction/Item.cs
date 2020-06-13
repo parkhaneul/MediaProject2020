@@ -8,6 +8,8 @@ public class Item : MonoBehaviour, Placable
     public int ItemCode;
     public ItemKind kind;
     public Vector3 positionOffset = new Vector3(0.0f, 0.4f, 0.0f);
+    public Vector3 scaleOffset = new Vector3(1.0f, 1.0f, 1.0f);
+    public Vector3 rotationOffset = new Vector3(0.0f, 0.0f, 0.0f);
     private BoxCollider collider;
 
     private static GridManager gridManager;
@@ -18,7 +20,7 @@ public class Item : MonoBehaviour, Placable
         if (collider == null)
             collider = this.gameObject.GetComponent<BoxCollider>();
     }
-
+    
     public virtual void OnItemGet()
     {
         // ObjectRecyclingLogic.Instance.chunk(name,gameObject);
@@ -51,9 +53,12 @@ public class Item : MonoBehaviour, Placable
         return gameObject.name;
     }
 
-    public void AdjustPosition(Grid grid)
+    public void AdjustTransform(Grid grid)
     {
+        //Adjust Transform when Item is assigned to grid.
         transform.position = grid.gridCenter + positionOffset;
+        transform.localScale = scaleOffset;
+        transform.rotation = Quaternion.Euler(rotationOffset);
     }
 
     public ItemData getData()

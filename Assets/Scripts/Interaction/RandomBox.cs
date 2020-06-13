@@ -43,7 +43,7 @@ public class RandomBox : Interactable
             Debug.LogError("Error : Random Box");
         }
 
-        item.AdjustPosition(grid);
+        item.AdjustTransform(grid);
         gridManager.UnoccupyPlacable(this);
         gridManager.OccupyPlacable(item, grid);
     }

@@ -27,9 +27,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2817748586572796272}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -95,7 +95,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemCode: 1
   kind: 2
-  positionOffset: {x: 0, y: 0, z: 0}
+  positionOffset: {x: 0, y: 0.5, z: 0}
+  scaleOffset: {x: 0.7, y: 0.7, z: 0.7}
+  rotationOffset: {x: 0, y: 0, z: 0}
 --- !u!65 &2817748586572796275
 BoxCollider:
   m_ObjectHideFlags: 0

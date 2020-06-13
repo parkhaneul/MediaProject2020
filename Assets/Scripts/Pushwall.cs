@@ -18,7 +18,7 @@ public class Pushwall : MonoBehaviour, Placable
     private bool isMoving;
     private MovingAnimationBundle animationBundle;
 
-    public void AdjustPosition(Grid grid)
+    public void AdjustTransform(Grid grid)
     {
         throw new System.NotImplementedException();
     }

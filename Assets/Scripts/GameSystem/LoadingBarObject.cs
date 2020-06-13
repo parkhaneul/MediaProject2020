@@ -46,7 +46,7 @@ public class LoadingBarObject : MonoBehaviour, Placable
         return new Vector3(a.x * b.x, a.y * b.y, a.z * b.z);
     }
 
-    public void AdjustPosition(Grid grid)
+    public void AdjustTransform(Grid grid)
     {
         return;
     }

@@ -59,7 +59,7 @@ public class Bomb : MonoBehaviour, Placable
         StartCoroutine("KnockOutTimer",character);
     }
 
-    public void AdjustPosition(Grid grid)
+    public void AdjustTransform(Grid grid)
     {
         transform.position = grid.gridCenter + new Vector3(0.0f, 0.00001f, 0.0f);
     }
