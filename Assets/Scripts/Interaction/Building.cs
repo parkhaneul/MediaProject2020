@@ -81,6 +81,7 @@ public class Building : Interactable
         else
         {
             mParticle = Instantiate(particle, particleSocket.transform.position, Quaternion.identity);
+            mParticle.transform.SetParent(gameObject.transform);
             ParticleSystem particleSystem = mParticle.GetComponent<ParticleSystem>();
             particleSystem.Play();
         }
