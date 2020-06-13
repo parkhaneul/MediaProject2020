@@ -29,6 +29,7 @@ public class GameOverManager : MonoBehaviour
 
     public void OnClickRestartButton()
     {
+        Logger.Log("test 1234");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
