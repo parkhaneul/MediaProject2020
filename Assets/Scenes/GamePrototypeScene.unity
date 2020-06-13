@@ -2084,7 +2084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pivot: {x: 0, y: 0, z: 0}
-  interval: 0.1
+  interval: 0.25
 --- !u!65 &301977783
 BoxCollider:
   m_ObjectHideFlags: 0

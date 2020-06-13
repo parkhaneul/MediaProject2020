@@ -307,6 +307,7 @@
           </e>
           <e p="Etc" t="Include">
             <e p="CameraScript.cs" t="Include" />
+            <e p="Fx_Stunned.cs" t="Include" />
             <e p="ItemDataEditor.cs" t="Include" />
             <e p="Logger.cs" t="Include" />
             <e p="MapAutoGenerator.cs" t="Include" />

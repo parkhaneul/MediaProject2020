@@ -41,6 +41,9 @@ public class ObjectMovementSystem : MonoBehaviour
 
     public void shoot(GameObject target, Vector3 direction,float power, float max_height, System.Action onComplete, Item item = null)
     {
+        if (target == null)
+            return;
+        
         turn(target,false);
         
         start_pos = target.transform.position;
