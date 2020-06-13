@@ -38,6 +38,7 @@ public class RandomBox : Interactable
         GameObject g = Instantiate(GetRandomItemToSpawn());
 
         Placable item = g.GetComponent<Placable>();
+        
         if(item == null)
         {
             Debug.LogError("Error : Random Box");
