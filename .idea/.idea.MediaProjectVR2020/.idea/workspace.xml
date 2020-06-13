@@ -82,7 +82,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/CharacterScript.cs" />
         <option value="$PROJECT_DIR$/Assets/LoadingBarHeader.cs" />
         <option value="$PROJECT_DIR$/Assets/PivotTransform.cs" />
         <option value="$PROJECT_DIR$/Assets/LoadingBarObject.cs" />
@@ -133,6 +132,7 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/GameSystem.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/UI/GameOverManager.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/Craft/CraftSystem.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameSystem/ObjectMovementSystem.cs" />
       </list>
     </option>
   </component>
@@ -224,7 +224,7 @@
       <workItem from="1591852115172" duration="605000" />
       <workItem from="1591865290043" duration="5686000" />
       <workItem from="1591943211346" duration="2150000" />
-      <workItem from="1592053449741" duration="6003000" />
+      <workItem from="1592053449741" duration="6267000" />
     </task>
     <servers />
   </component>
