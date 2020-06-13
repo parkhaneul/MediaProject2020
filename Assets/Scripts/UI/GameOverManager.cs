@@ -17,13 +17,13 @@ public class GameOverManager : MonoBehaviour
 
     public void Goal()
     {
-        OverText.text = "Complete Load";
+        OverText.text = "Complete Loading";
         GameOverPanel.gameObject.SetActive(true);
     }
 
     public void Fail()
     {
-        OverText.text = "Complete Load";
+        OverText.text = "Fail to Load";
         GameOverPanel.gameObject.SetActive(true);
     }
 
