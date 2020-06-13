@@ -32,7 +32,7 @@ public class Tool : Interactable
     
     public override bool OnInteract(PlayerState state)
     {
-        if(state.hasItem())
+        if(state.hasItem() || state.hasTool())
         {
             return false; //Can't hold tool while character have item.
         }
