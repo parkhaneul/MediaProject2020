@@ -7,10 +7,12 @@ public class Item : MonoBehaviour, Placable
 {
     public int ItemCode;
     public ItemKind kind;
+    public float AnimationSpeed = 5.0f;
     public Vector3 positionOffset = new Vector3(0.0f, 0.4f, 0.0f);
     public Vector3 scaleOffset = new Vector3(1.0f, 1.0f, 1.0f);
     public Vector3 rotationOffset = new Vector3(0.0f, 0.0f, 0.0f);
     private BoxCollider collider;
+    private Material material;
 
     private static GridManager gridManager;
 
@@ -19,8 +21,16 @@ public class Item : MonoBehaviour, Placable
         gridManager = GridManager.Instance;
         if (collider == null)
             collider = this.gameObject.GetComponent<BoxCollider>();
+
+        material = gameObject.GetComponent<MeshRenderer>().material;
     }
-    
+
+    void Update()
+    {  
+        float sin = (Mathf.Sin(Time.time * AnimationSpeed) + 1) * 0.25f + 0.5f;
+        material.SetColor("_Color", new Color(sin, sin, sin, 1.0f));
+    }
+
     public virtual void OnItemGet()
     {
         // ObjectRecyclingLogic.Instance.chunk(name,gameObject);
